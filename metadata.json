@@ -1,0 +1,6 @@
+{
+  "name": "WasteWise - Municipal Waste & Campaign Management",
+  "description": "Autonomous municipal waste route optimization, bin density analytics, traffic rerouting, and hyper-local civic recycling campaigns.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,6409 @@
+{
+  "bins": [
+    {
+      "id": "BIN-001",
+      "binId": "BIN-001",
+      "locationName": "Gandhipuram Sector 1",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0145,
+      "lng": 76.9483,
+      "fillLevel": 34,
+      "wasteType": "mixed",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.34,
+      "lastUpdated": "2026-07-29T08:37:37.211Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.960Z",
+          "fillLevel": 11
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.960Z",
+          "fillLevel": 21
+        }
+      ]
+    },
+    {
+      "id": "BIN-002",
+      "binId": "BIN-002",
+      "locationName": "Gandhipuram Sector 2",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0143,
+      "lng": 76.957,
+      "fillLevel": 54,
+      "wasteType": "organic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.54,
+      "lastUpdated": "2026-07-29T08:25:28.227Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.960Z",
+          "fillLevel": 14
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.960Z",
+          "fillLevel": 34
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.960Z",
+          "fillLevel": 43
+        }
+      ]
+    },
+    {
+      "id": "BIN-003",
+      "binId": "BIN-003",
+      "locationName": "Gandhipuram Sector 3",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0159,
+      "lng": 76.959,
+      "fillLevel": 36,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.36,
+      "lastUpdated": "2026-07-29T08:42:04.598Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.960Z",
+          "fillLevel": 26
+        }
+      ]
+    },
+    {
+      "id": "BIN-004",
+      "binId": "BIN-004",
+      "locationName": "Gandhipuram Sector 4",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0227,
+      "lng": 76.9609,
+      "fillLevel": 33,
+      "wasteType": "paper",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.33,
+      "lastUpdated": "2026-07-29T07:57:26.271Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.960Z",
+          "fillLevel": 22
+        }
+      ]
+    },
+    {
+      "id": "BIN-005",
+      "binId": "BIN-005",
+      "locationName": "Gandhipuram Sector 5",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0236,
+      "lng": 76.961,
+      "fillLevel": 98,
+      "wasteType": "glass",
+      "status": "CRITICAL",
+      "priority": "URGENT",
+      "estimatedOverflowRisk": 0.98,
+      "lastUpdated": "2026-07-29T08:46:24.473Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 22
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 37
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 45
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.960Z",
+          "fillLevel": 54
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.960Z",
+          "fillLevel": 68
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.960Z",
+          "fillLevel": 84
+        }
+      ]
+    },
+    {
+      "id": "BIN-006",
+      "binId": "BIN-006",
+      "locationName": "Gandhipuram Sector 6",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0245,
+      "lng": 76.9565,
+      "fillLevel": 41,
+      "wasteType": "mixed",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.41,
+      "lastUpdated": "2026-07-29T08:23:04.219Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.960Z",
+          "fillLevel": 12
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.960Z",
+          "fillLevel": 32
+        }
+      ]
+    },
+    {
+      "id": "BIN-007",
+      "binId": "BIN-007",
+      "locationName": "Gandhipuram Sector 7",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0191,
+      "lng": 76.9589,
+      "fillLevel": 45,
+      "wasteType": "organic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.45,
+      "lastUpdated": "2026-07-29T08:29:15.214Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.960Z",
+          "fillLevel": 18
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.960Z",
+          "fillLevel": 28
+        }
+      ]
+    },
+    {
+      "id": "BIN-008",
+      "binId": "BIN-008",
+      "locationName": "Gandhipuram Sector 8",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0244,
+      "lng": 76.9631,
+      "fillLevel": 51,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.51,
+      "lastUpdated": "2026-07-29T08:15:40.360Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.960Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 30
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 40
+        }
+      ]
+    },
+    {
+      "id": "BIN-009",
+      "binId": "BIN-009",
+      "locationName": "Gandhipuram Sector 9",
+      "neighborhood": "Gandhipuram",
+      "lat": 11.0203,
+      "lng": 76.955,
+      "fillLevel": 66,
+      "wasteType": "paper",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.66,
+      "lastUpdated": "2026-07-29T08:00:55.634Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 21
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 25
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 41
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 54
+        }
+      ]
+    },
+    {
+      "id": "BIN-010",
+      "binId": "BIN-010",
+      "locationName": "RS Puram Sector 1",
+      "neighborhood": "RS Puram",
+      "lat": 11.0003,
+      "lng": 76.9386,
+      "fillLevel": 32,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.32,
+      "lastUpdated": "2026-07-29T08:00:19.366Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 19
+        }
+      ]
+    },
+    {
+      "id": "BIN-011",
+      "binId": "BIN-011",
+      "locationName": "RS Puram Sector 2",
+      "neighborhood": "RS Puram",
+      "lat": 11.0127,
+      "lng": 76.9531,
+      "fillLevel": 80,
+      "wasteType": "organic",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.8,
+      "lastUpdated": "2026-07-29T08:31:39.086Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 20
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 33
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 39
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 54
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 65
+        }
+      ]
+    },
+    {
+      "id": "BIN-012",
+      "binId": "BIN-012",
+      "locationName": "RS Puram Sector 3",
+      "neighborhood": "RS Puram",
+      "lat": 11.0006,
+      "lng": 76.9486,
+      "fillLevel": 85,
+      "wasteType": "plastic",
+      "status": "HIGH",
+      "priority": "HIGH",
+      "estimatedOverflowRisk": 0.98,
+      "lastUpdated": "2026-07-29T08:45:16.378Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 25
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 40
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 48
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 60
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 68
+        }
+      ]
+    },
+    {
+      "id": "BIN-013",
+      "binId": "BIN-013",
+      "locationName": "RS Puram Sector 4",
+      "neighborhood": "RS Puram",
+      "lat": 11.0017,
+      "lng": 76.9478,
+      "fillLevel": 23,
+      "wasteType": "paper",
+      "status": "EMPTY",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.23,
+      "lastUpdated": "2026-07-29T07:53:12.461Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 12
+        }
+      ]
+    },
+    {
+      "id": "BIN-014",
+      "binId": "BIN-014",
+      "locationName": "RS Puram Sector 5",
+      "neighborhood": "RS Puram",
+      "lat": 11.01,
+      "lng": 76.9422,
+      "fillLevel": 30,
+      "wasteType": "plastic",
+      "status": "EMPTY",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.3,
+      "lastUpdated": "2026-07-29T08:35:36.895Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 15
+        }
+      ]
+    },
+    {
+      "id": "BIN-015",
+      "binId": "BIN-015",
+      "locationName": "RS Puram Sector 6",
+      "neighborhood": "RS Puram",
+      "lat": 11.0038,
+      "lng": 76.9534,
+      "fillLevel": 60,
+      "wasteType": "mixed",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.6,
+      "lastUpdated": "2026-07-29T07:59:16.233Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 15
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 23
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 32
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 50
+        }
+      ]
+    },
+    {
+      "id": "BIN-016",
+      "binId": "BIN-016",
+      "locationName": "RS Puram Sector 7",
+      "neighborhood": "RS Puram",
+      "lat": 11.0164,
+      "lng": 76.9468,
+      "fillLevel": 48,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.48,
+      "lastUpdated": "2026-07-29T08:27:04.601Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 15
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 19
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 34
+        }
+      ]
+    },
+    {
+      "id": "BIN-017",
+      "binId": "BIN-017",
+      "locationName": "RS Puram Sector 8",
+      "neighborhood": "RS Puram",
+      "lat": 11.0061,
+      "lng": 76.95,
+      "fillLevel": 47,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.47,
+      "lastUpdated": "2026-07-29T08:18:38.360Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 22
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 33
+        }
+      ]
+    },
+    {
+      "id": "BIN-018",
+      "binId": "BIN-018",
+      "locationName": "RS Puram Sector 9",
+      "neighborhood": "RS Puram",
+      "lat": 11.0053,
+      "lng": 76.956,
+      "fillLevel": 97,
+      "wasteType": "plastic",
+      "status": "CRITICAL",
+      "priority": "URGENT",
+      "estimatedOverflowRisk": 1,
+      "lastUpdated": "2026-07-29T08:40:36.241Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 29
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 34
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 49
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 56
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 72
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 86
+        }
+      ]
+    },
+    {
+      "id": "BIN-019",
+      "binId": "BIN-019",
+      "locationName": "Peelamedu Sector 1",
+      "neighborhood": "Peelamedu",
+      "lat": 11.0282,
+      "lng": 77.0038,
+      "fillLevel": 33,
+      "wasteType": "paper",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.33,
+      "lastUpdated": "2026-07-29T08:39:29.222Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 23
+        }
+      ]
+    },
+    {
+      "id": "BIN-020",
+      "binId": "BIN-020",
+      "locationName": "Peelamedu Sector 2",
+      "neighborhood": "Peelamedu",
+      "lat": 11.035,
+      "lng": 76.9935,
+      "fillLevel": 72,
+      "wasteType": "organic",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.72,
+      "lastUpdated": "2026-07-29T08:30:00.573Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 19
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 31
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 44
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 61
+        }
+      ]
+    },
+    {
+      "id": "BIN-021",
+      "binId": "BIN-021",
+      "locationName": "Peelamedu Sector 3",
+      "neighborhood": "Peelamedu",
+      "lat": 11.0308,
+      "lng": 76.9995,
+      "fillLevel": 32,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.32,
+      "lastUpdated": "2026-07-29T08:05:20.370Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 17
+        }
+      ]
+    },
+    {
+      "id": "BIN-022",
+      "binId": "BIN-022",
+      "locationName": "Peelamedu Sector 4",
+      "neighborhood": "Peelamedu",
+      "lat": 11.0249,
+      "lng": 76.9992,
+      "fillLevel": 56,
+      "wasteType": "paper",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.56,
+      "lastUpdated": "2026-07-29T08:08:47.270Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 16
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 29
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 40
+        }
+      ]
+    },
+    {
+      "id": "BIN-023",
+      "binId": "BIN-023",
+      "locationName": "Peelamedu Sector 5",
+      "neighborhood": "Peelamedu",
+      "lat": 11.0349,
+      "lng": 77.0017,
+      "fillLevel": 48,
+      "wasteType": "glass",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.48,
+      "lastUpdated": "2026-07-29T08:25:05.658Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 13
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 24
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 38
+        }
+      ]
+    },
+    {
+      "id": "BIN-024",
+      "binId": "BIN-024",
+      "locationName": "Peelamedu Sector 6",
+      "neighborhood": "Peelamedu",
+      "lat": 11.0212,
+      "lng": 76.9903,
+      "fillLevel": 45,
+      "wasteType": "mixed",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.45,
+      "lastUpdated": "2026-07-29T08:22:52.095Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 25
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 31
+        }
+      ]
+    },
+    {
+      "id": "BIN-025",
+      "binId": "BIN-025",
+      "locationName": "Peelamedu Sector 7",
+      "neighborhood": "Peelamedu",
+      "lat": 11.0295,
+      "lng": 76.9899,
+      "fillLevel": 69,
+      "wasteType": "paper",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.69,
+      "lastUpdated": "2026-07-29T08:31:11.001Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 24
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 32
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 42
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 58
+        }
+      ]
+    },
+    {
+      "id": "BIN-026",
+      "binId": "BIN-026",
+      "locationName": "Peelamedu Sector 8",
+      "neighborhood": "Peelamedu",
+      "lat": 11.0232,
+      "lng": 77.0013,
+      "fillLevel": 44,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.44,
+      "lastUpdated": "2026-07-29T08:05:51.956Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 18
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 32
+        }
+      ]
+    },
+    {
+      "id": "BIN-027",
+      "binId": "BIN-027",
+      "locationName": "Saibaba Colony Sector 1",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0237,
+      "lng": 76.9508,
+      "fillLevel": 87,
+      "wasteType": "organic",
+      "status": "HIGH",
+      "priority": "HIGH",
+      "estimatedOverflowRisk": 1,
+      "lastUpdated": "2026-07-29T08:36:23.603Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 11
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 27
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 37
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 51
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 60
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 78
+        }
+      ]
+    },
+    {
+      "id": "BIN-028",
+      "binId": "BIN-028",
+      "locationName": "Saibaba Colony Sector 2",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0272,
+      "lng": 76.9357,
+      "fillLevel": 33,
+      "wasteType": "organic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.33,
+      "lastUpdated": "2026-07-29T08:27:56.359Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 11
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 23
+        }
+      ]
+    },
+    {
+      "id": "BIN-029",
+      "binId": "BIN-029",
+      "locationName": "Saibaba Colony Sector 3",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0334,
+      "lng": 76.9407,
+      "fillLevel": 62,
+      "wasteType": "organic",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.62,
+      "lastUpdated": "2026-07-29T08:45:25.132Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 13
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 30
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 38
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 48
+        }
+      ]
+    },
+    {
+      "id": "BIN-030",
+      "binId": "BIN-030",
+      "locationName": "Saibaba Colony Sector 4",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0307,
+      "lng": 76.9506,
+      "fillLevel": 30,
+      "wasteType": "paper",
+      "status": "EMPTY",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.3,
+      "lastUpdated": "2026-07-29T08:21:22.640Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 22
+        }
+      ]
+    },
+    {
+      "id": "BIN-031",
+      "binId": "BIN-031",
+      "locationName": "Saibaba Colony Sector 5",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0368,
+      "lng": 76.934,
+      "fillLevel": 40,
+      "wasteType": "organic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.4,
+      "lastUpdated": "2026-07-29T08:06:13.119Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 14
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 23
+        }
+      ]
+    },
+    {
+      "id": "BIN-032",
+      "binId": "BIN-032",
+      "locationName": "Saibaba Colony Sector 6",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0336,
+      "lng": 76.9403,
+      "fillLevel": 79,
+      "wasteType": "mixed",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.79,
+      "lastUpdated": "2026-07-29T07:56:30.627Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 14
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 26
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 43
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 52
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 70
+        }
+      ]
+    },
+    {
+      "id": "BIN-033",
+      "binId": "BIN-033",
+      "locationName": "Saibaba Colony Sector 7",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0273,
+      "lng": 76.9417,
+      "fillLevel": 75,
+      "wasteType": "organic",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.75,
+      "lastUpdated": "2026-07-29T08:37:37.580Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 17
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 23
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 41
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 55
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 60
+        }
+      ]
+    },
+    {
+      "id": "BIN-034",
+      "binId": "BIN-034",
+      "locationName": "Saibaba Colony Sector 8",
+      "neighborhood": "Saibaba Colony",
+      "lat": 11.0356,
+      "lng": 76.9458,
+      "fillLevel": 95,
+      "wasteType": "plastic",
+      "status": "HIGH",
+      "priority": "HIGH",
+      "estimatedOverflowRisk": 1,
+      "lastUpdated": "2026-07-29T08:40:02.872Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 26
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 31
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 42
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 57
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 68
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 82
+        }
+      ]
+    },
+    {
+      "id": "BIN-035",
+      "binId": "BIN-035",
+      "locationName": "Singanallur Sector 1",
+      "neighborhood": "Singanallur",
+      "lat": 10.9946,
+      "lng": 77.0284,
+      "fillLevel": 35,
+      "wasteType": "mixed",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.35,
+      "lastUpdated": "2026-07-29T08:02:42.788Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 15
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 21
+        }
+      ]
+    },
+    {
+      "id": "BIN-036",
+      "binId": "BIN-036",
+      "locationName": "Singanallur Sector 2",
+      "neighborhood": "Singanallur",
+      "lat": 11.0003,
+      "lng": 77.0169,
+      "fillLevel": 35,
+      "wasteType": "organic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.35,
+      "lastUpdated": "2026-07-29T08:44:09.579Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 11
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 27
+        }
+      ]
+    },
+    {
+      "id": "BIN-037",
+      "binId": "BIN-037",
+      "locationName": "Singanallur Sector 3",
+      "neighborhood": "Singanallur",
+      "lat": 10.9967,
+      "lng": 77.0271,
+      "fillLevel": 57,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.57,
+      "lastUpdated": "2026-07-29T08:32:21.516Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 18
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 31
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 45
+        }
+      ]
+    },
+    {
+      "id": "BIN-038",
+      "binId": "BIN-038",
+      "locationName": "Singanallur Sector 4",
+      "neighborhood": "Singanallur",
+      "lat": 11.0012,
+      "lng": 77.0193,
+      "fillLevel": 44,
+      "wasteType": "paper",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.44,
+      "lastUpdated": "2026-07-29T08:40:12.616Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 11
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 23
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 29
+        }
+      ]
+    },
+    {
+      "id": "BIN-039",
+      "binId": "BIN-039",
+      "locationName": "Singanallur Sector 5",
+      "neighborhood": "Singanallur",
+      "lat": 11.0004,
+      "lng": 77.0183,
+      "fillLevel": 80,
+      "wasteType": "glass",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.8,
+      "lastUpdated": "2026-07-29T07:59:49.238Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 24
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 27
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 47
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 56
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 66
+        }
+      ]
+    },
+    {
+      "id": "BIN-040",
+      "binId": "BIN-040",
+      "locationName": "Singanallur Sector 6",
+      "neighborhood": "Singanallur",
+      "lat": 10.9956,
+      "lng": 77.0182,
+      "fillLevel": 46,
+      "wasteType": "mixed",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.46,
+      "lastUpdated": "2026-07-29T08:24:57.996Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 22
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 29
+        }
+      ]
+    },
+    {
+      "id": "BIN-041",
+      "binId": "BIN-041",
+      "locationName": "Singanallur Sector 7",
+      "neighborhood": "Singanallur",
+      "lat": 11.0045,
+      "lng": 77.0146,
+      "fillLevel": 59,
+      "wasteType": "organic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.59,
+      "lastUpdated": "2026-07-29T07:51:40.287Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 23
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 32
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 43
+        }
+      ]
+    },
+    {
+      "id": "BIN-042",
+      "binId": "BIN-042",
+      "locationName": "Singanallur Sector 8",
+      "neighborhood": "Singanallur",
+      "lat": 10.9928,
+      "lng": 77.0163,
+      "fillLevel": 88,
+      "wasteType": "plastic",
+      "status": "HIGH",
+      "priority": "HIGH",
+      "estimatedOverflowRisk": 1,
+      "lastUpdated": "2026-07-29T07:48:07.303Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 16
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 28
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 42
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 47
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 63
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 73
+        }
+      ]
+    },
+    {
+      "id": "BIN-043",
+      "binId": "BIN-043",
+      "locationName": "Ukkadam Sector 1",
+      "neighborhood": "Ukkadam",
+      "lat": 11.0009,
+      "lng": 76.964,
+      "fillLevel": 66,
+      "wasteType": "mixed",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.66,
+      "lastUpdated": "2026-07-29T08:18:23.982Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 21
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 27
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 41
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 56
+        }
+      ]
+    },
+    {
+      "id": "BIN-044",
+      "binId": "BIN-044",
+      "locationName": "Ukkadam Sector 2",
+      "neighborhood": "Ukkadam",
+      "lat": 10.9993,
+      "lng": 76.9594,
+      "fillLevel": 79,
+      "wasteType": "organic",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.79,
+      "lastUpdated": "2026-07-29T07:59:11.006Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 11
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 23
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 32
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 38
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 50
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 67
+        }
+      ]
+    },
+    {
+      "id": "BIN-045",
+      "binId": "BIN-045",
+      "locationName": "Ukkadam Sector 3",
+      "neighborhood": "Ukkadam",
+      "lat": 10.995,
+      "lng": 76.967,
+      "fillLevel": 41,
+      "wasteType": "plastic",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.41,
+      "lastUpdated": "2026-07-29T07:46:42.487Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 21
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 31
+        }
+      ]
+    },
+    {
+      "id": "BIN-046",
+      "binId": "BIN-046",
+      "locationName": "Ukkadam Sector 4",
+      "neighborhood": "Ukkadam",
+      "lat": 10.9965,
+      "lng": 76.9631,
+      "fillLevel": 83,
+      "wasteType": "paper",
+      "status": "HIGH",
+      "priority": "HIGH",
+      "estimatedOverflowRisk": 0.95,
+      "lastUpdated": "2026-07-29T07:47:14.977Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 24
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 32
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 45
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 57
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 68
+        }
+      ]
+    },
+    {
+      "id": "BIN-047",
+      "binId": "BIN-047",
+      "locationName": "Ukkadam Sector 5",
+      "neighborhood": "Ukkadam",
+      "lat": 11,
+      "lng": 76.9545,
+      "fillLevel": 62,
+      "wasteType": "glass",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.62,
+      "lastUpdated": "2026-07-29T07:47:14.315Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 18
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 23
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 33
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 45
+        }
+      ]
+    },
+    {
+      "id": "BIN-048",
+      "binId": "BIN-048",
+      "locationName": "Ukkadam Sector 6",
+      "neighborhood": "Ukkadam",
+      "lat": 11.0012,
+      "lng": 76.9514,
+      "fillLevel": 40,
+      "wasteType": "mixed",
+      "status": "NORMAL",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.4,
+      "lastUpdated": "2026-07-29T08:29:49.312Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 16
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 29
+        }
+      ]
+    },
+    {
+      "id": "BIN-049",
+      "binId": "BIN-049",
+      "locationName": "Ukkadam Sector 7",
+      "neighborhood": "Ukkadam",
+      "lat": 10.9965,
+      "lng": 76.9671,
+      "fillLevel": 21,
+      "wasteType": "organic",
+      "status": "EMPTY",
+      "priority": "LOW",
+      "estimatedOverflowRisk": 0.21,
+      "lastUpdated": "2026-07-29T08:09:12.451Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 10
+        }
+      ]
+    },
+    {
+      "id": "BIN-050",
+      "binId": "BIN-050",
+      "locationName": "Ukkadam Sector 8",
+      "neighborhood": "Ukkadam",
+      "lat": 10.9989,
+      "lng": 76.9529,
+      "fillLevel": 73,
+      "wasteType": "plastic",
+      "status": "MEDIUM",
+      "priority": "NORMAL",
+      "estimatedOverflowRisk": 0.73,
+      "lastUpdated": "2026-07-29T08:01:50.331Z",
+      "historicalReadings": [
+        {
+          "timestamp": "2026-07-28T08:45:57.961Z",
+          "fillLevel": 10
+        },
+        {
+          "timestamp": "2026-07-28T12:45:57.961Z",
+          "fillLevel": 14
+        },
+        {
+          "timestamp": "2026-07-28T16:45:57.961Z",
+          "fillLevel": 21
+        },
+        {
+          "timestamp": "2026-07-28T20:45:57.961Z",
+          "fillLevel": 35
+        },
+        {
+          "timestamp": "2026-07-29T00:45:57.961Z",
+          "fillLevel": 47
+        },
+        {
+          "timestamp": "2026-07-29T04:45:57.961Z",
+          "fillLevel": 57
+        }
+      ]
+    }
+  ],
+  "trucks": [
+    {
+      "id": "TRK-01",
+      "truckId": "TRK-01",
+      "driverName": "Karthik Raja",
+      "capacityKg": 5000,
+      "currentLoadKg": 1200,
+      "fuelLevel": 94,
+      "currentLat": 11.018870173465778,
+      "currentLng": 76.95225406965069,
+      "status": "IDLE",
+      "assignedRouteId": "RTE-4701-TRK-01"
+    },
+    {
+      "id": "TRK-02",
+      "truckId": "TRK-02",
+      "driverName": "M. Arumugam",
+      "capacityKg": 3500,
+      "currentLoadKg": 646,
+      "fuelLevel": 78,
+      "currentLat": 11.007293336602027,
+      "currentLng": 76.94702375767875,
+      "status": "IDLE",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-03",
+      "truckId": "TRK-03",
+      "driverName": "Senthil Kumar",
+      "capacityKg": 5000,
+      "currentLoadKg": 939,
+      "fuelLevel": 93,
+      "currentLat": 11.028882954778638,
+      "currentLng": 76.99936510102896,
+      "status": "COLLECTING",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-04",
+      "truckId": "TRK-04",
+      "driverName": "R. Dhanapal",
+      "capacityKg": 3500,
+      "currentLoadKg": 3100,
+      "fuelLevel": 85,
+      "currentLat": 11.02985883695079,
+      "currentLng": 76.94341984186747,
+      "status": "IDLE",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-05",
+      "truckId": "TRK-05",
+      "driverName": "P. Murugan",
+      "capacityKg": 5000,
+      "currentLoadKg": 2399,
+      "fuelLevel": 84,
+      "currentLat": 11.0004704972911,
+      "currentLng": 77.02190780888016,
+      "status": "IDLE",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-06",
+      "truckId": "TRK-06",
+      "driverName": "V. Sundaram",
+      "capacityKg": 3500,
+      "currentLoadKg": 647,
+      "fuelLevel": 97,
+      "currentLat": 10.991559128770962,
+      "currentLng": 76.96037009759839,
+      "status": "IDLE",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-07",
+      "truckId": "TRK-07",
+      "driverName": "S. Natarajan",
+      "capacityKg": 5000,
+      "currentLoadKg": 651,
+      "fuelLevel": 81,
+      "currentLat": 11.014843892513486,
+      "currentLng": 76.9521025214236,
+      "status": "IDLE",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-08",
+      "truckId": "TRK-08",
+      "driverName": "G. Balaji",
+      "capacityKg": 3500,
+      "currentLoadKg": 1341,
+      "fuelLevel": 78,
+      "currentLat": 11.004567472044501,
+      "currentLng": 76.94415194130872,
+      "status": "IDLE",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-09",
+      "truckId": "TRK-09",
+      "driverName": "K. Elango",
+      "capacityKg": 5000,
+      "currentLoadKg": 1769,
+      "fuelLevel": 84,
+      "currentLat": 11.026683587873604,
+      "currentLng": 76.9983425536137,
+      "status": "IDLE",
+      "assignedRouteId": null
+    },
+    {
+      "id": "TRK-10",
+      "truckId": "TRK-10",
+      "driverName": "M. Saravanan",
+      "capacityKg": 3500,
+      "currentLoadKg": 431,
+      "fuelLevel": 88,
+      "currentLat": 11.033586450152125,
+      "currentLng": 76.94706604420098,
+      "status": "IDLE",
+      "assignedRouteId": null
+    }
+  ],
+  "routes": [
+    {
+      "id": "RTE-4701-TRK-01",
+      "routeId": "RTE-4701-TRK-01",
+      "truckId": "TRK-01",
+      "truckName": "TRK-01 (Karthik Raja)",
+      "assignedBinIds": [
+        "BIN-027",
+        "BIN-005",
+        "BIN-034",
+        "BIN-018",
+        "BIN-046",
+        "BIN-012",
+        "BIN-042"
+      ],
+      "orderedBins": [
+        {
+          "binId": "BIN-027",
+          "locationName": "Saibaba Colony Sector 1",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0237,
+          "lng": 76.9508,
+          "fillLevel": 87,
+          "wasteType": "organic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-005",
+          "locationName": "Gandhipuram Sector 5",
+          "neighborhood": "Gandhipuram",
+          "lat": 11.0236,
+          "lng": 76.961,
+          "fillLevel": 98,
+          "wasteType": "glass",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-034",
+          "locationName": "Saibaba Colony Sector 8",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0356,
+          "lng": 76.9458,
+          "fillLevel": 95,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-018",
+          "locationName": "RS Puram Sector 9",
+          "neighborhood": "RS Puram",
+          "lat": 11.0053,
+          "lng": 76.956,
+          "fillLevel": 97,
+          "wasteType": "plastic",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-046",
+          "locationName": "Ukkadam Sector 4",
+          "neighborhood": "Ukkadam",
+          "lat": 10.9965,
+          "lng": 76.9631,
+          "fillLevel": 83,
+          "wasteType": "paper",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-012",
+          "locationName": "RS Puram Sector 3",
+          "neighborhood": "RS Puram",
+          "lat": 11.0006,
+          "lng": 76.9486,
+          "fillLevel": 85,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-042",
+          "locationName": "Singanallur Sector 8",
+          "neighborhood": "Singanallur",
+          "lat": 10.9928,
+          "lng": 77.0163,
+          "fillLevel": 88,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        }
+      ],
+      "totalDistanceKm": 17.7,
+      "estimatedTimeMin": 49,
+      "capacityUsagePct": 75,
+      "trafficImpact": "LIGHT",
+      "reason": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "approvalStatus": "PENDING_APPROVAL",
+      "modifiedByHuman": false,
+      "createdAt": "2026-07-29T10:04:44.701Z",
+      "updatedAt": "2026-07-29T10:04:44.701Z"
+    },
+    {
+      "id": "RTE-4780-TRK-01",
+      "routeId": "RTE-4780-TRK-01",
+      "truckId": "TRK-01",
+      "truckName": "TRK-01 (Karthik Raja)",
+      "assignedBinIds": [
+        "BIN-027",
+        "BIN-005",
+        "BIN-034",
+        "BIN-018",
+        "BIN-046",
+        "BIN-012",
+        "BIN-042"
+      ],
+      "orderedBins": [
+        {
+          "binId": "BIN-027",
+          "locationName": "Saibaba Colony Sector 1",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0237,
+          "lng": 76.9508,
+          "fillLevel": 87,
+          "wasteType": "organic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-005",
+          "locationName": "Gandhipuram Sector 5",
+          "neighborhood": "Gandhipuram",
+          "lat": 11.0236,
+          "lng": 76.961,
+          "fillLevel": 98,
+          "wasteType": "glass",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-034",
+          "locationName": "Saibaba Colony Sector 8",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0356,
+          "lng": 76.9458,
+          "fillLevel": 95,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-018",
+          "locationName": "RS Puram Sector 9",
+          "neighborhood": "RS Puram",
+          "lat": 11.0053,
+          "lng": 76.956,
+          "fillLevel": 97,
+          "wasteType": "plastic",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-046",
+          "locationName": "Ukkadam Sector 4",
+          "neighborhood": "Ukkadam",
+          "lat": 10.9965,
+          "lng": 76.9631,
+          "fillLevel": 83,
+          "wasteType": "paper",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-012",
+          "locationName": "RS Puram Sector 3",
+          "neighborhood": "RS Puram",
+          "lat": 11.0006,
+          "lng": 76.9486,
+          "fillLevel": 85,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-042",
+          "locationName": "Singanallur Sector 8",
+          "neighborhood": "Singanallur",
+          "lat": 10.9928,
+          "lng": 77.0163,
+          "fillLevel": 88,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        }
+      ],
+      "totalDistanceKm": 17.7,
+      "estimatedTimeMin": 49,
+      "capacityUsagePct": 75,
+      "trafficImpact": "LIGHT",
+      "reason": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "approvalStatus": "PENDING_APPROVAL",
+      "modifiedByHuman": false,
+      "createdAt": "2026-07-29T10:04:44.780Z",
+      "updatedAt": "2026-07-29T10:04:44.780Z"
+    },
+    {
+      "id": "RTE-4689-TRK-01",
+      "routeId": "RTE-4689-TRK-01",
+      "truckId": "TRK-01",
+      "truckName": "TRK-01 (Karthik Raja)",
+      "assignedBinIds": [
+        "BIN-027",
+        "BIN-005",
+        "BIN-034",
+        "BIN-018",
+        "BIN-046",
+        "BIN-012",
+        "BIN-042"
+      ],
+      "orderedBins": [
+        {
+          "binId": "BIN-027",
+          "locationName": "Saibaba Colony Sector 1",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0237,
+          "lng": 76.9508,
+          "fillLevel": 87,
+          "wasteType": "organic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-005",
+          "locationName": "Gandhipuram Sector 5",
+          "neighborhood": "Gandhipuram",
+          "lat": 11.0236,
+          "lng": 76.961,
+          "fillLevel": 98,
+          "wasteType": "glass",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-034",
+          "locationName": "Saibaba Colony Sector 8",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0356,
+          "lng": 76.9458,
+          "fillLevel": 95,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-018",
+          "locationName": "RS Puram Sector 9",
+          "neighborhood": "RS Puram",
+          "lat": 11.0053,
+          "lng": 76.956,
+          "fillLevel": 97,
+          "wasteType": "plastic",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-046",
+          "locationName": "Ukkadam Sector 4",
+          "neighborhood": "Ukkadam",
+          "lat": 10.9965,
+          "lng": 76.9631,
+          "fillLevel": 83,
+          "wasteType": "paper",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-012",
+          "locationName": "RS Puram Sector 3",
+          "neighborhood": "RS Puram",
+          "lat": 11.0006,
+          "lng": 76.9486,
+          "fillLevel": 85,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-042",
+          "locationName": "Singanallur Sector 8",
+          "neighborhood": "Singanallur",
+          "lat": 10.9928,
+          "lng": 77.0163,
+          "fillLevel": 88,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        }
+      ],
+      "totalDistanceKm": 17.7,
+      "estimatedTimeMin": 49,
+      "capacityUsagePct": 75,
+      "trafficImpact": "LIGHT",
+      "reason": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "approvalStatus": "PENDING_APPROVAL",
+      "modifiedByHuman": false,
+      "createdAt": "2026-07-29T10:04:44.689Z",
+      "updatedAt": "2026-07-29T10:04:44.689Z"
+    },
+    {
+      "id": "RTE-4651-TRK-01",
+      "routeId": "RTE-4651-TRK-01",
+      "truckId": "TRK-01",
+      "truckName": "TRK-01 (Karthik Raja)",
+      "assignedBinIds": [
+        "BIN-027",
+        "BIN-005",
+        "BIN-034",
+        "BIN-018",
+        "BIN-046",
+        "BIN-012",
+        "BIN-042"
+      ],
+      "orderedBins": [
+        {
+          "binId": "BIN-027",
+          "locationName": "Saibaba Colony Sector 1",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0237,
+          "lng": 76.9508,
+          "fillLevel": 87,
+          "wasteType": "organic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-005",
+          "locationName": "Gandhipuram Sector 5",
+          "neighborhood": "Gandhipuram",
+          "lat": 11.0236,
+          "lng": 76.961,
+          "fillLevel": 98,
+          "wasteType": "glass",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-034",
+          "locationName": "Saibaba Colony Sector 8",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0356,
+          "lng": 76.9458,
+          "fillLevel": 95,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-018",
+          "locationName": "RS Puram Sector 9",
+          "neighborhood": "RS Puram",
+          "lat": 11.0053,
+          "lng": 76.956,
+          "fillLevel": 97,
+          "wasteType": "plastic",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-046",
+          "locationName": "Ukkadam Sector 4",
+          "neighborhood": "Ukkadam",
+          "lat": 10.9965,
+          "lng": 76.9631,
+          "fillLevel": 83,
+          "wasteType": "paper",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-012",
+          "locationName": "RS Puram Sector 3",
+          "neighborhood": "RS Puram",
+          "lat": 11.0006,
+          "lng": 76.9486,
+          "fillLevel": 85,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-042",
+          "locationName": "Singanallur Sector 8",
+          "neighborhood": "Singanallur",
+          "lat": 10.9928,
+          "lng": 77.0163,
+          "fillLevel": 88,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        }
+      ],
+      "totalDistanceKm": 17.7,
+      "estimatedTimeMin": 49,
+      "capacityUsagePct": 75,
+      "trafficImpact": "LIGHT",
+      "reason": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "approvalStatus": "PENDING_APPROVAL",
+      "modifiedByHuman": false,
+      "createdAt": "2026-07-29T10:04:44.651Z",
+      "updatedAt": "2026-07-29T10:04:44.651Z"
+    },
+    {
+      "id": "RTE-4632-TRK-01",
+      "routeId": "RTE-4632-TRK-01",
+      "truckId": "TRK-01",
+      "truckName": "TRK-01 (Karthik Raja)",
+      "assignedBinIds": [
+        "BIN-027",
+        "BIN-005",
+        "BIN-034",
+        "BIN-018",
+        "BIN-046",
+        "BIN-012",
+        "BIN-042"
+      ],
+      "orderedBins": [
+        {
+          "binId": "BIN-027",
+          "locationName": "Saibaba Colony Sector 1",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0237,
+          "lng": 76.9508,
+          "fillLevel": 87,
+          "wasteType": "organic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-005",
+          "locationName": "Gandhipuram Sector 5",
+          "neighborhood": "Gandhipuram",
+          "lat": 11.0236,
+          "lng": 76.961,
+          "fillLevel": 98,
+          "wasteType": "glass",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-034",
+          "locationName": "Saibaba Colony Sector 8",
+          "neighborhood": "Saibaba Colony",
+          "lat": 11.0356,
+          "lng": 76.9458,
+          "fillLevel": 95,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-018",
+          "locationName": "RS Puram Sector 9",
+          "neighborhood": "RS Puram",
+          "lat": 11.0053,
+          "lng": 76.956,
+          "fillLevel": 97,
+          "wasteType": "plastic",
+          "priority": "URGENT"
+        },
+        {
+          "binId": "BIN-046",
+          "locationName": "Ukkadam Sector 4",
+          "neighborhood": "Ukkadam",
+          "lat": 10.9965,
+          "lng": 76.9631,
+          "fillLevel": 83,
+          "wasteType": "paper",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-012",
+          "locationName": "RS Puram Sector 3",
+          "neighborhood": "RS Puram",
+          "lat": 11.0006,
+          "lng": 76.9486,
+          "fillLevel": 85,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        },
+        {
+          "binId": "BIN-042",
+          "locationName": "Singanallur Sector 8",
+          "neighborhood": "Singanallur",
+          "lat": 10.9928,
+          "lng": 77.0163,
+          "fillLevel": 88,
+          "wasteType": "plastic",
+          "priority": "HIGH"
+        }
+      ],
+      "totalDistanceKm": 17.7,
+      "estimatedTimeMin": 49,
+      "capacityUsagePct": 75,
+      "trafficImpact": "LIGHT",
+      "reason": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "approvalStatus": "PENDING_APPROVAL",
+      "modifiedByHuman": false,
+      "createdAt": "2026-07-29T10:04:44.632Z",
+      "updatedAt": "2026-07-29T10:04:44.632Z"
+    }
+  ],
+  "wasteHistory": [
+    {
+      "id": "WH-1",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-06-29",
+      "totalVolumeTons": 16.7,
+      "recyclingRatePct": 56.1,
+      "separationRatePct": 68.7,
+      "landfillDiversionPct": 65.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-2",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-06-30",
+      "totalVolumeTons": 15.7,
+      "recyclingRatePct": 50.6,
+      "separationRatePct": 48.1,
+      "landfillDiversionPct": 54.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-3",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-01",
+      "totalVolumeTons": 13.2,
+      "recyclingRatePct": 56.9,
+      "separationRatePct": 55,
+      "landfillDiversionPct": 62,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-4",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-02",
+      "totalVolumeTons": 16.9,
+      "recyclingRatePct": 38.3,
+      "separationRatePct": 54.2,
+      "landfillDiversionPct": 46.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-5",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-03",
+      "totalVolumeTons": 12.2,
+      "recyclingRatePct": 54.8,
+      "separationRatePct": 53.7,
+      "landfillDiversionPct": 60,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-6",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-04",
+      "totalVolumeTons": 12.8,
+      "recyclingRatePct": 49,
+      "separationRatePct": 59.4,
+      "landfillDiversionPct": 57,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-7",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-05",
+      "totalVolumeTons": 18,
+      "recyclingRatePct": 49.3,
+      "separationRatePct": 63.4,
+      "landfillDiversionPct": 58.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-8",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-06",
+      "totalVolumeTons": 18.7,
+      "recyclingRatePct": 40,
+      "separationRatePct": 62.7,
+      "landfillDiversionPct": 50.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-9",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-07",
+      "totalVolumeTons": 14.6,
+      "recyclingRatePct": 37.7,
+      "separationRatePct": 56.4,
+      "landfillDiversionPct": 47.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-10",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-08",
+      "totalVolumeTons": 17.9,
+      "recyclingRatePct": 57.4,
+      "separationRatePct": 68.5,
+      "landfillDiversionPct": 66.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-11",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-09",
+      "totalVolumeTons": 18,
+      "recyclingRatePct": 45.2,
+      "separationRatePct": 67.8,
+      "landfillDiversionPct": 56.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-12",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-10",
+      "totalVolumeTons": 18,
+      "recyclingRatePct": 53.7,
+      "separationRatePct": 54.7,
+      "landfillDiversionPct": 59.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-13",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-11",
+      "totalVolumeTons": 19.4,
+      "recyclingRatePct": 44.1,
+      "separationRatePct": 58.2,
+      "landfillDiversionPct": 52.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-14",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-12",
+      "totalVolumeTons": 18.5,
+      "recyclingRatePct": 42.8,
+      "separationRatePct": 55.1,
+      "landfillDiversionPct": 50.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-15",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-13",
+      "totalVolumeTons": 18.2,
+      "recyclingRatePct": 43,
+      "separationRatePct": 61.5,
+      "landfillDiversionPct": 52.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-16",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-14",
+      "totalVolumeTons": 15.1,
+      "recyclingRatePct": 55.7,
+      "separationRatePct": 63.8,
+      "landfillDiversionPct": 63.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-17",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-15",
+      "totalVolumeTons": 12.5,
+      "recyclingRatePct": 56.1,
+      "separationRatePct": 49.5,
+      "landfillDiversionPct": 59.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-18",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-16",
+      "totalVolumeTons": 14.9,
+      "recyclingRatePct": 47.3,
+      "separationRatePct": 47.1,
+      "landfillDiversionPct": 52,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-19",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-17",
+      "totalVolumeTons": 18.7,
+      "recyclingRatePct": 43.1,
+      "separationRatePct": 49.1,
+      "landfillDiversionPct": 49.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-20",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-18",
+      "totalVolumeTons": 12.2,
+      "recyclingRatePct": 46.4,
+      "separationRatePct": 69,
+      "landfillDiversionPct": 57.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-21",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-19",
+      "totalVolumeTons": 15.1,
+      "recyclingRatePct": 47.3,
+      "separationRatePct": 47,
+      "landfillDiversionPct": 51.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-22",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-20",
+      "totalVolumeTons": 12.6,
+      "recyclingRatePct": 42.9,
+      "separationRatePct": 65.8,
+      "landfillDiversionPct": 54.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-23",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-21",
+      "totalVolumeTons": 19.6,
+      "recyclingRatePct": 50.4,
+      "separationRatePct": 56.3,
+      "landfillDiversionPct": 57.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-24",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-22",
+      "totalVolumeTons": 13.1,
+      "recyclingRatePct": 56.4,
+      "separationRatePct": 66,
+      "landfillDiversionPct": 64.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-25",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-23",
+      "totalVolumeTons": 13.5,
+      "recyclingRatePct": 51,
+      "separationRatePct": 58.3,
+      "landfillDiversionPct": 58.3,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-26",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-24",
+      "totalVolumeTons": 19,
+      "recyclingRatePct": 40.4,
+      "separationRatePct": 42.1,
+      "landfillDiversionPct": 45,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-27",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-25",
+      "totalVolumeTons": 12.1,
+      "recyclingRatePct": 40.7,
+      "separationRatePct": 52.3,
+      "landfillDiversionPct": 48.3,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-28",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-26",
+      "totalVolumeTons": 12.2,
+      "recyclingRatePct": 56.3,
+      "separationRatePct": 48.4,
+      "landfillDiversionPct": 59.6,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-29",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-27",
+      "totalVolumeTons": 13,
+      "recyclingRatePct": 48.6,
+      "separationRatePct": 67.5,
+      "landfillDiversionPct": 59.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-30",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-28",
+      "totalVolumeTons": 16.7,
+      "recyclingRatePct": 46.8,
+      "separationRatePct": 53.3,
+      "landfillDiversionPct": 53.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-31",
+      "neighborhood": "Gandhipuram",
+      "date": "2026-07-29",
+      "totalVolumeTons": 15.1,
+      "recyclingRatePct": 41.9,
+      "separationRatePct": 43.6,
+      "landfillDiversionPct": 46.6,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-32",
+      "neighborhood": "RS Puram",
+      "date": "2026-06-29",
+      "totalVolumeTons": 13,
+      "recyclingRatePct": 58.9,
+      "separationRatePct": 57,
+      "landfillDiversionPct": 64.2,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-33",
+      "neighborhood": "RS Puram",
+      "date": "2026-06-30",
+      "totalVolumeTons": 17.2,
+      "recyclingRatePct": 43.2,
+      "separationRatePct": 57.4,
+      "landfillDiversionPct": 51.8,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-34",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-01",
+      "totalVolumeTons": 18.5,
+      "recyclingRatePct": 58.5,
+      "separationRatePct": 58.6,
+      "landfillDiversionPct": 64.4,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-35",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-02",
+      "totalVolumeTons": 13.6,
+      "recyclingRatePct": 46.1,
+      "separationRatePct": 44.2,
+      "landfillDiversionPct": 50.1,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-36",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-03",
+      "totalVolumeTons": 16.9,
+      "recyclingRatePct": 57.4,
+      "separationRatePct": 60.8,
+      "landfillDiversionPct": 64.2,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-37",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-04",
+      "totalVolumeTons": 19.5,
+      "recyclingRatePct": 55.2,
+      "separationRatePct": 44.3,
+      "landfillDiversionPct": 57.5,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-38",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-05",
+      "totalVolumeTons": 19,
+      "recyclingRatePct": 53.1,
+      "separationRatePct": 65.6,
+      "landfillDiversionPct": 62.2,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-39",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-06",
+      "totalVolumeTons": 13.8,
+      "recyclingRatePct": 57.4,
+      "separationRatePct": 55,
+      "landfillDiversionPct": 62.4,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-40",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-07",
+      "totalVolumeTons": 18.8,
+      "recyclingRatePct": 58.7,
+      "separationRatePct": 43.4,
+      "landfillDiversionPct": 60,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-41",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-08",
+      "totalVolumeTons": 19.4,
+      "recyclingRatePct": 54.2,
+      "separationRatePct": 52,
+      "landfillDiversionPct": 59,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-42",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-09",
+      "totalVolumeTons": 14.5,
+      "recyclingRatePct": 35.8,
+      "separationRatePct": 53,
+      "landfillDiversionPct": 44.5,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-43",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-10",
+      "totalVolumeTons": 13.6,
+      "recyclingRatePct": 58.9,
+      "separationRatePct": 57.7,
+      "landfillDiversionPct": 64.4,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-44",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-11",
+      "totalVolumeTons": 16.9,
+      "recyclingRatePct": 56.6,
+      "separationRatePct": 42.3,
+      "landfillDiversionPct": 58,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-45",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-12",
+      "totalVolumeTons": 13.7,
+      "recyclingRatePct": 53.5,
+      "separationRatePct": 45.1,
+      "landfillDiversionPct": 56.3,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-46",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-13",
+      "totalVolumeTons": 13.3,
+      "recyclingRatePct": 37.2,
+      "separationRatePct": 61.4,
+      "landfillDiversionPct": 48.2,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-47",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-14",
+      "totalVolumeTons": 15.5,
+      "recyclingRatePct": 56,
+      "separationRatePct": 54.9,
+      "landfillDiversionPct": 61.3,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-48",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-15",
+      "totalVolumeTons": 17.5,
+      "recyclingRatePct": 38.3,
+      "separationRatePct": 41.6,
+      "landfillDiversionPct": 43.1,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-49",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-16",
+      "totalVolumeTons": 12.2,
+      "recyclingRatePct": 39.4,
+      "separationRatePct": 48.8,
+      "landfillDiversionPct": 46.2,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-50",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-17",
+      "totalVolumeTons": 15.9,
+      "recyclingRatePct": 46.7,
+      "separationRatePct": 62.8,
+      "landfillDiversionPct": 56.2,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-51",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-18",
+      "totalVolumeTons": 12.6,
+      "recyclingRatePct": 54.4,
+      "separationRatePct": 42.5,
+      "landfillDiversionPct": 56.3,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-52",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-19",
+      "totalVolumeTons": 12.8,
+      "recyclingRatePct": 37.9,
+      "separationRatePct": 44.1,
+      "landfillDiversionPct": 43.6,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-53",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-20",
+      "totalVolumeTons": 19.8,
+      "recyclingRatePct": 43.2,
+      "separationRatePct": 46.1,
+      "landfillDiversionPct": 48.4,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-54",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-21",
+      "totalVolumeTons": 18.8,
+      "recyclingRatePct": 55.7,
+      "separationRatePct": 54.6,
+      "landfillDiversionPct": 60.9,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-55",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-22",
+      "totalVolumeTons": 14.3,
+      "recyclingRatePct": 43.7,
+      "separationRatePct": 57.1,
+      "landfillDiversionPct": 52.1,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-56",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-23",
+      "totalVolumeTons": 16.5,
+      "recyclingRatePct": 51.2,
+      "separationRatePct": 45,
+      "landfillDiversionPct": 54.5,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-57",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-24",
+      "totalVolumeTons": 19.8,
+      "recyclingRatePct": 57.7,
+      "separationRatePct": 55.2,
+      "landfillDiversionPct": 62.7,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-58",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-25",
+      "totalVolumeTons": 18.3,
+      "recyclingRatePct": 41.5,
+      "separationRatePct": 51.8,
+      "landfillDiversionPct": 48.7,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-59",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-26",
+      "totalVolumeTons": 14.3,
+      "recyclingRatePct": 41.1,
+      "separationRatePct": 40.8,
+      "landfillDiversionPct": 45.1,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-60",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-27",
+      "totalVolumeTons": 18.3,
+      "recyclingRatePct": 40.8,
+      "separationRatePct": 66.6,
+      "landfillDiversionPct": 52.6,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-61",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-28",
+      "totalVolumeTons": 16.6,
+      "recyclingRatePct": 48.2,
+      "separationRatePct": 50,
+      "landfillDiversionPct": 53.6,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-62",
+      "neighborhood": "RS Puram",
+      "date": "2026-07-29",
+      "totalVolumeTons": 19.6,
+      "recyclingRatePct": 55.8,
+      "separationRatePct": 55.1,
+      "landfillDiversionPct": 61.2,
+      "breakdown": {
+        "plastic": 64,
+        "organic": 16,
+        "paper": 12,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-63",
+      "neighborhood": "Peelamedu",
+      "date": "2026-06-29",
+      "totalVolumeTons": 18.5,
+      "recyclingRatePct": 37.8,
+      "separationRatePct": 42,
+      "landfillDiversionPct": 42.8,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-64",
+      "neighborhood": "Peelamedu",
+      "date": "2026-06-30",
+      "totalVolumeTons": 17.7,
+      "recyclingRatePct": 42.2,
+      "separationRatePct": 49.1,
+      "landfillDiversionPct": 48.5,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-65",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-01",
+      "totalVolumeTons": 16,
+      "recyclingRatePct": 36.2,
+      "separationRatePct": 49.5,
+      "landfillDiversionPct": 43.8,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-66",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-02",
+      "totalVolumeTons": 16.1,
+      "recyclingRatePct": 50.2,
+      "separationRatePct": 51.7,
+      "landfillDiversionPct": 55.7,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-67",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-03",
+      "totalVolumeTons": 18.9,
+      "recyclingRatePct": 36,
+      "separationRatePct": 49.2,
+      "landfillDiversionPct": 43.6,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-68",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-04",
+      "totalVolumeTons": 14.7,
+      "recyclingRatePct": 37.9,
+      "separationRatePct": 63.9,
+      "landfillDiversionPct": 49.5,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-69",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-05",
+      "totalVolumeTons": 14.6,
+      "recyclingRatePct": 36.3,
+      "separationRatePct": 40.5,
+      "landfillDiversionPct": 41.2,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-70",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-06",
+      "totalVolumeTons": 15.6,
+      "recyclingRatePct": 55.5,
+      "separationRatePct": 48.9,
+      "landfillDiversionPct": 59.1,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-71",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-07",
+      "totalVolumeTons": 15.6,
+      "recyclingRatePct": 40.6,
+      "separationRatePct": 65.7,
+      "landfillDiversionPct": 52.2,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-72",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-08",
+      "totalVolumeTons": 17.7,
+      "recyclingRatePct": 43.6,
+      "separationRatePct": 62.4,
+      "landfillDiversionPct": 53.6,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-73",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-09",
+      "totalVolumeTons": 12.1,
+      "recyclingRatePct": 40.6,
+      "separationRatePct": 45.3,
+      "landfillDiversionPct": 46.1,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-74",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-10",
+      "totalVolumeTons": 13.3,
+      "recyclingRatePct": 39,
+      "separationRatePct": 60.2,
+      "landfillDiversionPct": 49.3,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-75",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-11",
+      "totalVolumeTons": 16.7,
+      "recyclingRatePct": 35.9,
+      "separationRatePct": 69.7,
+      "landfillDiversionPct": 49.6,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-76",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-12",
+      "totalVolumeTons": 16.1,
+      "recyclingRatePct": 39.1,
+      "separationRatePct": 64.3,
+      "landfillDiversionPct": 50.6,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-77",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-13",
+      "totalVolumeTons": 12.7,
+      "recyclingRatePct": 54.3,
+      "separationRatePct": 67.9,
+      "landfillDiversionPct": 63.8,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-78",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-14",
+      "totalVolumeTons": 14.1,
+      "recyclingRatePct": 51.4,
+      "separationRatePct": 57.2,
+      "landfillDiversionPct": 58.3,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-79",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-15",
+      "totalVolumeTons": 13,
+      "recyclingRatePct": 57.1,
+      "separationRatePct": 48.7,
+      "landfillDiversionPct": 60.3,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-80",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-16",
+      "totalVolumeTons": 15.4,
+      "recyclingRatePct": 51.8,
+      "separationRatePct": 63.1,
+      "landfillDiversionPct": 60.4,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-81",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-17",
+      "totalVolumeTons": 14.1,
+      "recyclingRatePct": 48.4,
+      "separationRatePct": 46,
+      "landfillDiversionPct": 52.5,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-82",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-18",
+      "totalVolumeTons": 17,
+      "recyclingRatePct": 39.5,
+      "separationRatePct": 65.4,
+      "landfillDiversionPct": 51.2,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-83",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-19",
+      "totalVolumeTons": 15.4,
+      "recyclingRatePct": 53.5,
+      "separationRatePct": 57.9,
+      "landfillDiversionPct": 60.2,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-84",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-20",
+      "totalVolumeTons": 13.8,
+      "recyclingRatePct": 39.5,
+      "separationRatePct": 46.8,
+      "landfillDiversionPct": 45.6,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-85",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-21",
+      "totalVolumeTons": 14.1,
+      "recyclingRatePct": 39.4,
+      "separationRatePct": 48.2,
+      "landfillDiversionPct": 46,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-86",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-22",
+      "totalVolumeTons": 18.1,
+      "recyclingRatePct": 42,
+      "separationRatePct": 65.5,
+      "landfillDiversionPct": 53.3,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-87",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-23",
+      "totalVolumeTons": 16.2,
+      "recyclingRatePct": 54.8,
+      "separationRatePct": 56.2,
+      "landfillDiversionPct": 60.7,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-88",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-24",
+      "totalVolumeTons": 18.8,
+      "recyclingRatePct": 40,
+      "separationRatePct": 54.7,
+      "landfillDiversionPct": 48.4,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-89",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-25",
+      "totalVolumeTons": 16.4,
+      "recyclingRatePct": 36.9,
+      "separationRatePct": 54.9,
+      "landfillDiversionPct": 46,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-90",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-26",
+      "totalVolumeTons": 17,
+      "recyclingRatePct": 45.8,
+      "separationRatePct": 48.8,
+      "landfillDiversionPct": 51.3,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-91",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-27",
+      "totalVolumeTons": 14.5,
+      "recyclingRatePct": 53.4,
+      "separationRatePct": 53.8,
+      "landfillDiversionPct": 58.9,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-92",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-28",
+      "totalVolumeTons": 14.3,
+      "recyclingRatePct": 50.6,
+      "separationRatePct": 69,
+      "landfillDiversionPct": 61.2,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-93",
+      "neighborhood": "Peelamedu",
+      "date": "2026-07-29",
+      "totalVolumeTons": 16.9,
+      "recyclingRatePct": 45,
+      "separationRatePct": 53.7,
+      "landfillDiversionPct": 52.1,
+      "breakdown": {
+        "plastic": 32,
+        "organic": 18,
+        "paper": 38,
+        "glass": 6,
+        "mixed": 6
+      }
+    },
+    {
+      "id": "WH-94",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-06-29",
+      "totalVolumeTons": 18.5,
+      "recyclingRatePct": 39.8,
+      "separationRatePct": 54.1,
+      "landfillDiversionPct": 48.1,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-95",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-06-30",
+      "totalVolumeTons": 18.7,
+      "recyclingRatePct": 40.4,
+      "separationRatePct": 53.6,
+      "landfillDiversionPct": 48.4,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-96",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-01",
+      "totalVolumeTons": 14.3,
+      "recyclingRatePct": 39.6,
+      "separationRatePct": 55.6,
+      "landfillDiversionPct": 48.4,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-97",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-02",
+      "totalVolumeTons": 12.8,
+      "recyclingRatePct": 36.2,
+      "separationRatePct": 54.7,
+      "landfillDiversionPct": 45.4,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-98",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-03",
+      "totalVolumeTons": 19.6,
+      "recyclingRatePct": 57.2,
+      "separationRatePct": 61.6,
+      "landfillDiversionPct": 64.2,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-99",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-04",
+      "totalVolumeTons": 15.2,
+      "recyclingRatePct": 53,
+      "separationRatePct": 53.8,
+      "landfillDiversionPct": 58.5,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-100",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-05",
+      "totalVolumeTons": 14.9,
+      "recyclingRatePct": 43.7,
+      "separationRatePct": 62.4,
+      "landfillDiversionPct": 53.7,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-101",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-06",
+      "totalVolumeTons": 14.7,
+      "recyclingRatePct": 38.1,
+      "separationRatePct": 47.5,
+      "landfillDiversionPct": 44.7,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-102",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-07",
+      "totalVolumeTons": 14.2,
+      "recyclingRatePct": 41.6,
+      "separationRatePct": 54.5,
+      "landfillDiversionPct": 49.6,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-103",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-08",
+      "totalVolumeTons": 13.1,
+      "recyclingRatePct": 53.1,
+      "separationRatePct": 55.5,
+      "landfillDiversionPct": 59.1,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-104",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-09",
+      "totalVolumeTons": 18.1,
+      "recyclingRatePct": 43.9,
+      "separationRatePct": 44.9,
+      "landfillDiversionPct": 48.6,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-105",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-10",
+      "totalVolumeTons": 19.7,
+      "recyclingRatePct": 51.3,
+      "separationRatePct": 62.4,
+      "landfillDiversionPct": 59.8,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-106",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-11",
+      "totalVolumeTons": 13.2,
+      "recyclingRatePct": 48.4,
+      "separationRatePct": 48.8,
+      "landfillDiversionPct": 53.4,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-107",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-12",
+      "totalVolumeTons": 17.1,
+      "recyclingRatePct": 50,
+      "separationRatePct": 50.3,
+      "landfillDiversionPct": 55.1,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-108",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-13",
+      "totalVolumeTons": 17.7,
+      "recyclingRatePct": 59.5,
+      "separationRatePct": 64.8,
+      "landfillDiversionPct": 67,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-109",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-14",
+      "totalVolumeTons": 17.9,
+      "recyclingRatePct": 37.2,
+      "separationRatePct": 65.1,
+      "landfillDiversionPct": 49.3,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-110",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-15",
+      "totalVolumeTons": 15.7,
+      "recyclingRatePct": 49.6,
+      "separationRatePct": 44.2,
+      "landfillDiversionPct": 52.9,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-111",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-16",
+      "totalVolumeTons": 13.9,
+      "recyclingRatePct": 58.6,
+      "separationRatePct": 41.5,
+      "landfillDiversionPct": 59.3,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-112",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-17",
+      "totalVolumeTons": 13,
+      "recyclingRatePct": 40.2,
+      "separationRatePct": 69.6,
+      "landfillDiversionPct": 53,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-113",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-18",
+      "totalVolumeTons": 19.2,
+      "recyclingRatePct": 50.1,
+      "separationRatePct": 51.2,
+      "landfillDiversionPct": 55.4,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-114",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-19",
+      "totalVolumeTons": 18.3,
+      "recyclingRatePct": 35.5,
+      "separationRatePct": 48.8,
+      "landfillDiversionPct": 43,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-115",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-20",
+      "totalVolumeTons": 18.1,
+      "recyclingRatePct": 45.7,
+      "separationRatePct": 44.6,
+      "landfillDiversionPct": 49.9,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-116",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-21",
+      "totalVolumeTons": 14.3,
+      "recyclingRatePct": 53.4,
+      "separationRatePct": 56.2,
+      "landfillDiversionPct": 59.6,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-117",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-22",
+      "totalVolumeTons": 16.1,
+      "recyclingRatePct": 58.4,
+      "separationRatePct": 47.6,
+      "landfillDiversionPct": 61,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-118",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-23",
+      "totalVolumeTons": 16.5,
+      "recyclingRatePct": 38.7,
+      "separationRatePct": 66.7,
+      "landfillDiversionPct": 51,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-119",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-24",
+      "totalVolumeTons": 18.7,
+      "recyclingRatePct": 36.5,
+      "separationRatePct": 66,
+      "landfillDiversionPct": 49,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-120",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-25",
+      "totalVolumeTons": 12.8,
+      "recyclingRatePct": 54.5,
+      "separationRatePct": 47.8,
+      "landfillDiversionPct": 57.9,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-121",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-26",
+      "totalVolumeTons": 14,
+      "recyclingRatePct": 54.2,
+      "separationRatePct": 47.1,
+      "landfillDiversionPct": 57.5,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-122",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-27",
+      "totalVolumeTons": 18.9,
+      "recyclingRatePct": 44.4,
+      "separationRatePct": 67.3,
+      "landfillDiversionPct": 55.7,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-123",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-28",
+      "totalVolumeTons": 16.8,
+      "recyclingRatePct": 51.7,
+      "separationRatePct": 69.7,
+      "landfillDiversionPct": 62.3,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-124",
+      "neighborhood": "Saibaba Colony",
+      "date": "2026-07-29",
+      "totalVolumeTons": 15,
+      "recyclingRatePct": 51.7,
+      "separationRatePct": 68.9,
+      "landfillDiversionPct": 62,
+      "breakdown": {
+        "plastic": 14,
+        "organic": 68,
+        "paper": 10,
+        "glass": 4,
+        "mixed": 4
+      }
+    },
+    {
+      "id": "WH-125",
+      "neighborhood": "Singanallur",
+      "date": "2026-06-29",
+      "totalVolumeTons": 14.2,
+      "recyclingRatePct": 39.1,
+      "separationRatePct": 52.8,
+      "landfillDiversionPct": 47.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-126",
+      "neighborhood": "Singanallur",
+      "date": "2026-06-30",
+      "totalVolumeTons": 16.9,
+      "recyclingRatePct": 42.8,
+      "separationRatePct": 59.5,
+      "landfillDiversionPct": 52.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-127",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-01",
+      "totalVolumeTons": 13.1,
+      "recyclingRatePct": 35.8,
+      "separationRatePct": 65.3,
+      "landfillDiversionPct": 48.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-128",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-02",
+      "totalVolumeTons": 15.1,
+      "recyclingRatePct": 37.5,
+      "separationRatePct": 45,
+      "landfillDiversionPct": 43.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-129",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-03",
+      "totalVolumeTons": 12.6,
+      "recyclingRatePct": 47.4,
+      "separationRatePct": 64,
+      "landfillDiversionPct": 57.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-130",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-04",
+      "totalVolumeTons": 16,
+      "recyclingRatePct": 35.5,
+      "separationRatePct": 63.7,
+      "landfillDiversionPct": 47.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-131",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-05",
+      "totalVolumeTons": 17.2,
+      "recyclingRatePct": 47.2,
+      "separationRatePct": 46.3,
+      "landfillDiversionPct": 51.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-132",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-06",
+      "totalVolumeTons": 19.5,
+      "recyclingRatePct": 55,
+      "separationRatePct": 54.3,
+      "landfillDiversionPct": 60.3,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-133",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-07",
+      "totalVolumeTons": 14.5,
+      "recyclingRatePct": 47.6,
+      "separationRatePct": 48.1,
+      "landfillDiversionPct": 52.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-134",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-08",
+      "totalVolumeTons": 17.2,
+      "recyclingRatePct": 38.1,
+      "separationRatePct": 44.8,
+      "landfillDiversionPct": 43.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-135",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-09",
+      "totalVolumeTons": 16.2,
+      "recyclingRatePct": 37,
+      "separationRatePct": 61,
+      "landfillDiversionPct": 47.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-136",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-10",
+      "totalVolumeTons": 13.4,
+      "recyclingRatePct": 43.8,
+      "separationRatePct": 69.1,
+      "landfillDiversionPct": 55.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-137",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-11",
+      "totalVolumeTons": 16.9,
+      "recyclingRatePct": 47.2,
+      "separationRatePct": 69.3,
+      "landfillDiversionPct": 58.6,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-138",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-12",
+      "totalVolumeTons": 16.1,
+      "recyclingRatePct": 50,
+      "separationRatePct": 59,
+      "landfillDiversionPct": 57.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-139",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-13",
+      "totalVolumeTons": 18.6,
+      "recyclingRatePct": 41.9,
+      "separationRatePct": 65,
+      "landfillDiversionPct": 53,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-140",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-14",
+      "totalVolumeTons": 16.8,
+      "recyclingRatePct": 52.8,
+      "separationRatePct": 41,
+      "landfillDiversionPct": 54.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-141",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-15",
+      "totalVolumeTons": 18.7,
+      "recyclingRatePct": 45.2,
+      "separationRatePct": 53.5,
+      "landfillDiversionPct": 52.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-142",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-16",
+      "totalVolumeTons": 12.2,
+      "recyclingRatePct": 55.5,
+      "separationRatePct": 63.4,
+      "landfillDiversionPct": 63.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-143",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-17",
+      "totalVolumeTons": 15.5,
+      "recyclingRatePct": 51.5,
+      "separationRatePct": 55.1,
+      "landfillDiversionPct": 57.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-144",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-18",
+      "totalVolumeTons": 17.9,
+      "recyclingRatePct": 42.5,
+      "separationRatePct": 40.6,
+      "landfillDiversionPct": 46.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-145",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-19",
+      "totalVolumeTons": 13.9,
+      "recyclingRatePct": 37.1,
+      "separationRatePct": 46.2,
+      "landfillDiversionPct": 43.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-146",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-20",
+      "totalVolumeTons": 16.1,
+      "recyclingRatePct": 39.6,
+      "separationRatePct": 61.4,
+      "landfillDiversionPct": 50.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-147",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-21",
+      "totalVolumeTons": 12,
+      "recyclingRatePct": 46.5,
+      "separationRatePct": 53.9,
+      "landfillDiversionPct": 53.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-148",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-22",
+      "totalVolumeTons": 14.7,
+      "recyclingRatePct": 54.6,
+      "separationRatePct": 56.9,
+      "landfillDiversionPct": 60.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-149",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-23",
+      "totalVolumeTons": 17.6,
+      "recyclingRatePct": 37.2,
+      "separationRatePct": 47.1,
+      "landfillDiversionPct": 43.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-150",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-24",
+      "totalVolumeTons": 15.4,
+      "recyclingRatePct": 37.8,
+      "separationRatePct": 50.4,
+      "landfillDiversionPct": 45.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-151",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-25",
+      "totalVolumeTons": 12.1,
+      "recyclingRatePct": 56.9,
+      "separationRatePct": 51.2,
+      "landfillDiversionPct": 60.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-152",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-26",
+      "totalVolumeTons": 17,
+      "recyclingRatePct": 55.3,
+      "separationRatePct": 56,
+      "landfillDiversionPct": 61,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-153",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-27",
+      "totalVolumeTons": 12.8,
+      "recyclingRatePct": 38.7,
+      "separationRatePct": 61.8,
+      "landfillDiversionPct": 49.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-154",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-28",
+      "totalVolumeTons": 17,
+      "recyclingRatePct": 54.2,
+      "separationRatePct": 68.8,
+      "landfillDiversionPct": 64,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-155",
+      "neighborhood": "Singanallur",
+      "date": "2026-07-29",
+      "totalVolumeTons": 18.2,
+      "recyclingRatePct": 59.9,
+      "separationRatePct": 51.6,
+      "landfillDiversionPct": 63.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-156",
+      "neighborhood": "Ukkadam",
+      "date": "2026-06-29",
+      "totalVolumeTons": 18.1,
+      "recyclingRatePct": 56.4,
+      "separationRatePct": 57.2,
+      "landfillDiversionPct": 62.3,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-157",
+      "neighborhood": "Ukkadam",
+      "date": "2026-06-30",
+      "totalVolumeTons": 13.6,
+      "recyclingRatePct": 58.9,
+      "separationRatePct": 61,
+      "landfillDiversionPct": 65.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-158",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-01",
+      "totalVolumeTons": 12.5,
+      "recyclingRatePct": 46.1,
+      "separationRatePct": 55.6,
+      "landfillDiversionPct": 53.6,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-159",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-02",
+      "totalVolumeTons": 12,
+      "recyclingRatePct": 40.2,
+      "separationRatePct": 62.6,
+      "landfillDiversionPct": 50.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-160",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-03",
+      "totalVolumeTons": 17,
+      "recyclingRatePct": 47.7,
+      "separationRatePct": 58.7,
+      "landfillDiversionPct": 55.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-161",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-04",
+      "totalVolumeTons": 16.3,
+      "recyclingRatePct": 52.1,
+      "separationRatePct": 42.6,
+      "landfillDiversionPct": 54.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-162",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-05",
+      "totalVolumeTons": 13.6,
+      "recyclingRatePct": 38.4,
+      "separationRatePct": 51.4,
+      "landfillDiversionPct": 46.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-163",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-06",
+      "totalVolumeTons": 13.6,
+      "recyclingRatePct": 35.3,
+      "separationRatePct": 50,
+      "landfillDiversionPct": 43.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-164",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-07",
+      "totalVolumeTons": 15.8,
+      "recyclingRatePct": 46,
+      "separationRatePct": 65.3,
+      "landfillDiversionPct": 56.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-165",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-08",
+      "totalVolumeTons": 13.9,
+      "recyclingRatePct": 58.1,
+      "separationRatePct": 43.7,
+      "landfillDiversionPct": 59.6,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-166",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-09",
+      "totalVolumeTons": 17.2,
+      "recyclingRatePct": 59,
+      "separationRatePct": 51.6,
+      "landfillDiversionPct": 62.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-167",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-10",
+      "totalVolumeTons": 13.3,
+      "recyclingRatePct": 36,
+      "separationRatePct": 43.8,
+      "landfillDiversionPct": 41.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-168",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-11",
+      "totalVolumeTons": 16.5,
+      "recyclingRatePct": 52.1,
+      "separationRatePct": 42.2,
+      "landfillDiversionPct": 54.3,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-169",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-12",
+      "totalVolumeTons": 18.2,
+      "recyclingRatePct": 50.1,
+      "separationRatePct": 56.2,
+      "landfillDiversionPct": 56.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-170",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-13",
+      "totalVolumeTons": 19.9,
+      "recyclingRatePct": 46.9,
+      "separationRatePct": 44.6,
+      "landfillDiversionPct": 50.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-171",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-14",
+      "totalVolumeTons": 13.5,
+      "recyclingRatePct": 41.4,
+      "separationRatePct": 55.4,
+      "landfillDiversionPct": 49.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-172",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-15",
+      "totalVolumeTons": 14,
+      "recyclingRatePct": 38.3,
+      "separationRatePct": 48.2,
+      "landfillDiversionPct": 45.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-173",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-16",
+      "totalVolumeTons": 12.8,
+      "recyclingRatePct": 55.2,
+      "separationRatePct": 55.2,
+      "landfillDiversionPct": 60.7,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-174",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-17",
+      "totalVolumeTons": 14.8,
+      "recyclingRatePct": 54.3,
+      "separationRatePct": 53.5,
+      "landfillDiversionPct": 59.5,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-175",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-18",
+      "totalVolumeTons": 17.5,
+      "recyclingRatePct": 37.6,
+      "separationRatePct": 65.1,
+      "landfillDiversionPct": 49.6,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-176",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-19",
+      "totalVolumeTons": 13.4,
+      "recyclingRatePct": 43.2,
+      "separationRatePct": 40.8,
+      "landfillDiversionPct": 46.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-177",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-20",
+      "totalVolumeTons": 16.2,
+      "recyclingRatePct": 39.3,
+      "separationRatePct": 54.4,
+      "landfillDiversionPct": 47.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-178",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-21",
+      "totalVolumeTons": 16.4,
+      "recyclingRatePct": 38.7,
+      "separationRatePct": 40.8,
+      "landfillDiversionPct": 43.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-179",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-22",
+      "totalVolumeTons": 13.7,
+      "recyclingRatePct": 39.4,
+      "separationRatePct": 42,
+      "landfillDiversionPct": 44.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-180",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-23",
+      "totalVolumeTons": 17.6,
+      "recyclingRatePct": 57.8,
+      "separationRatePct": 50.6,
+      "landfillDiversionPct": 61.4,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-181",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-24",
+      "totalVolumeTons": 14.1,
+      "recyclingRatePct": 46.1,
+      "separationRatePct": 41,
+      "landfillDiversionPct": 49.2,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-182",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-25",
+      "totalVolumeTons": 16.1,
+      "recyclingRatePct": 38,
+      "separationRatePct": 54,
+      "landfillDiversionPct": 46.6,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-183",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-26",
+      "totalVolumeTons": 13.8,
+      "recyclingRatePct": 59.5,
+      "separationRatePct": 41.5,
+      "landfillDiversionPct": 60.1,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-184",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-27",
+      "totalVolumeTons": 14,
+      "recyclingRatePct": 39.6,
+      "separationRatePct": 53.8,
+      "landfillDiversionPct": 47.8,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-185",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-28",
+      "totalVolumeTons": 19.6,
+      "recyclingRatePct": 44.4,
+      "separationRatePct": 69.1,
+      "landfillDiversionPct": 56.3,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    },
+    {
+      "id": "WH-186",
+      "neighborhood": "Ukkadam",
+      "date": "2026-07-29",
+      "totalVolumeTons": 14.6,
+      "recyclingRatePct": 53.5,
+      "separationRatePct": 63.5,
+      "landfillDiversionPct": 61.9,
+      "breakdown": {
+        "plastic": 22,
+        "organic": 45,
+        "paper": 18,
+        "glass": 7,
+        "mixed": 8
+      }
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "CAMP-001",
+      "neighborhood": "RS Puram",
+      "wasteIssue": "Single-Use Plastic Bottle & Container Accumulation (64% plastic composition)",
+      "titleEn": "RS Puram Zero Plastic Initiative",
+      "titleTa": "ஆர்.எஸ்.புரம் பிளாஸ்டிக் இல்லா முன்னெடுப்பு",
+      "explanationEn": "RS Puram commercial markets show 64% plastic waste, leading to microplastic runoff and bin clogging.",
+      "explanationTa": "ஆர்.எஸ்.புரம் வணிகச் சந்தைகளில் 64% பிளாஸ்டிக் கழிவுகள் பதிவாகியுள்ளன. இது கழிவுநீர் தேக்கத்திற்கு வழிவகுக்கிறது.",
+      "citizenActionEn": "Switch to cotton tote bags and place clean PET bottles in designated blue recycling bins.",
+      "citizenActionTa": "துணிப்பைகளைப் பயன்படுத்தவும், தூய்மையான பிளாஸ்டிக் பாட்டில்களை நீலநிற மறுசுழற்சி தொட்டிகளில் போடுங்கள்.",
+      "posterCopyEn": "Ditch Single-Use Plastic! Protect Our RS Puram Clean Canopy.",
+      "posterCopyTa": "ஒருமுறை பயன்படுத்தும் பிளாஸ்டிக்கை தவிர்க்கவும்! நமது ஆர்.எஸ்.புரத்தை தூய்மையாக்குவோம்.",
+      "socialMediaEn": "Join 5,000+ RS Puram residents segregating plastic waste at source today! #WasteWise #CleanCoimbatore",
+      "socialMediaTa": "பிளாஸ்டிக் கழிவுகளை பிரித்தெடுக்கும் 5,000+ ஆர்.எஸ்.புரம் மக்களுடன் இன்றே இணையுங்கள்! #WasteWise",
+      "targetGroup": "Commercial Shop Owners & Apartment Associations",
+      "duration": "14 Days",
+      "expectedImpact": "32% reduction in unsegregated plastic waste to landfill",
+      "status": "PUBLISHED",
+      "createdAt": "2026-07-27T08:45:57.962Z"
+    }
+  ],
+  "agentEvents": [
+    {
+      "id": "EVT-564379",
+      "workflowId": "WF-564378",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "inputSummary": "Cross-zone waste history analysis for Ukkadam",
+      "outputSummary": "Detected CRITICAL Plastic Spike in Ukkadam (51% vs 22% avg)",
+      "toolUsed": "detectWasteAnomaly",
+      "reasoning": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent.",
+      "latencyMs": 1,
+      "timestamp": "2026-07-29T18:26:04.379Z",
+      "status": "WARNING"
+    },
+    {
+      "id": "EVT-564361",
+      "workflowId": "WF-564361",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "inputSummary": "Cross-zone waste history analysis for Ukkadam",
+      "outputSummary": "Detected CRITICAL Plastic Spike in Ukkadam (51% vs 22% avg)",
+      "toolUsed": "detectWasteAnomaly",
+      "reasoning": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent.",
+      "latencyMs": 0,
+      "timestamp": "2026-07-29T18:26:04.361Z",
+      "status": "WARNING"
+    },
+    {
+      "id": "EVT-554048",
+      "workflowId": "WF-554048",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "inputSummary": "Cross-zone waste history analysis for Ukkadam",
+      "outputSummary": "Detected CRITICAL Plastic Spike in Ukkadam (51% vs 22% avg)",
+      "toolUsed": "detectWasteAnomaly",
+      "reasoning": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent.",
+      "latencyMs": 0,
+      "timestamp": "2026-07-29T18:25:54.048Z",
+      "status": "WARNING"
+    },
+    {
+      "id": "EVT-554031",
+      "workflowId": "WF-554028",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "inputSummary": "Cross-zone waste history analysis for Ukkadam",
+      "outputSummary": "Detected CRITICAL Plastic Spike in Ukkadam (51% vs 22% avg)",
+      "toolUsed": "detectWasteAnomaly",
+      "reasoning": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent.",
+      "latencyMs": 3,
+      "timestamp": "2026-07-29T18:25:54.031Z",
+      "status": "WARNING"
+    },
+    {
+      "id": "EVT-485287",
+      "agentName": "Routing Agent",
+      "eventType": "ROUTE_PROPOSAL_GENERATED",
+      "inputSummary": "Optimized collection for 7 bins",
+      "outputSummary": "Generated 1 route(s). Distance: 17.7km. Est Time: 49min.",
+      "toolUsed": "optimizeMultiTruckRoutes",
+      "reasoning": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "latencyMs": 586,
+      "timestamp": "2026-07-29T10:04:45.287Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-485283",
+      "agentName": "Routing Agent",
+      "eventType": "ROUTE_PROPOSAL_GENERATED",
+      "inputSummary": "Optimized collection for 7 bins",
+      "outputSummary": "Generated 1 route(s). Distance: 17.7km. Est Time: 49min.",
+      "toolUsed": "optimizeMultiTruckRoutes",
+      "reasoning": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "latencyMs": 503,
+      "timestamp": "2026-07-29T10:04:45.283Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-485280",
+      "agentName": "Routing Agent",
+      "eventType": "ROUTE_PROPOSAL_GENERATED",
+      "inputSummary": "Optimized collection for 7 bins",
+      "outputSummary": "Generated 1 route(s). Distance: 17.7km. Est Time: 49min.",
+      "toolUsed": "optimizeMultiTruckRoutes",
+      "reasoning": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "latencyMs": 591,
+      "timestamp": "2026-07-29T10:04:45.280Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-485069",
+      "agentName": "Routing Agent",
+      "eventType": "ROUTE_PROPOSAL_GENERATED",
+      "inputSummary": "Optimized collection for 7 bins",
+      "outputSummary": "Generated 1 route(s). Distance: 17.7km. Est Time: 49min.",
+      "toolUsed": "optimizeMultiTruckRoutes",
+      "reasoning": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "latencyMs": 418,
+      "timestamp": "2026-07-29T10:04:45.069Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-484999",
+      "agentName": "Routing Agent",
+      "eventType": "ROUTE_PROPOSAL_GENERATED",
+      "inputSummary": "Optimized collection for 7 bins",
+      "outputSummary": "Generated 1 route(s). Distance: 17.7km. Est Time: 49min.",
+      "toolUsed": "optimizeMultiTruckRoutes",
+      "reasoning": "Assigned 7 bins (BIN-027, BIN-005, BIN-034, BIN-018, BIN-046, BIN-012, BIN-042) in Saibaba Colony to TRK-01 (Karthik Raja). Route prioritizes critical fill levels while bypassing DB Road North Axis.",
+      "latencyMs": 368,
+      "timestamp": "2026-07-29T10:04:44.999Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-082906",
+      "agentName": "Recycling Analytics Agent",
+      "eventType": "NEIGHBORHOOD_ANALYTICS_COMPILED",
+      "inputSummary": "Processed 30-day waste stream records across 6 zones",
+      "outputSummary": "Overall Recycling Rate: 46.9% | Landfill Diversion: 53.9%",
+      "toolUsed": "getWasteAnalytics",
+      "reasoning": "Identified RS Puram (64% plastic) and Saibaba Colony (68% organic) as key priority intervention zones.",
+      "latencyMs": 1,
+      "timestamp": "2026-07-29T08:51:22.906Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-082696",
+      "agentName": "Recycling Analytics Agent",
+      "eventType": "NEIGHBORHOOD_ANALYTICS_COMPILED",
+      "inputSummary": "Processed 30-day waste stream records across 6 zones",
+      "outputSummary": "Overall Recycling Rate: 46.9% | Landfill Diversion: 53.9%",
+      "toolUsed": "getWasteAnalytics",
+      "reasoning": "Identified RS Puram (64% plastic) and Saibaba Colony (68% organic) as key priority intervention zones.",
+      "latencyMs": 1,
+      "timestamp": "2026-07-29T08:51:22.696Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-01229",
+      "agentName": "Bin Density Agent",
+      "eventType": "CITIZEN_REPORT_INGESTED",
+      "inputSummary": "Citizen report REP-01229 (DAMAGED_BIN) at Gandhipuram",
+      "outputSummary": "AI Confidence: 88%. Logged container structural defect. Maintenance ticket routed.",
+      "toolUsed": "processCitizenCrowdsource",
+      "reasoning": "Ingested live GPS crowdsourced report from user gokul. Spatial location pinned at Gandhipuram.",
+      "latencyMs": 110,
+      "timestamp": "2026-07-29T08:50:01.229Z",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "EVT-1001",
+      "agentName": "Bin Density Agent",
+      "eventType": "CRITICAL_BIN_DETECTED",
+      "inputSummary": "BIN-005 fill level reached 96% in Gandhipuram Sector 5",
+      "outputSummary": "Status escalated to CRITICAL. Overflow risk set to 0.96. Priority URGENT.",
+      "toolUsed": "getBinStatus",
+      "reasoning": "BIN-005 exceeded 95% critical threshold during automated sensor scan cycle.",
+      "latencyMs": 135,
+      "timestamp": "2026-07-29T08:15:57.962Z",
+      "status": "WARNING"
+    },
+    {
+      "id": "EVT-1002",
+      "agentName": "Routing Agent",
+      "eventType": "ROUTE_PROPOSAL_GENERATED",
+      "inputSummary": "Targeted 3 critical/high bins in Gandhipuram zone",
+      "outputSummary": "Assigned Truck TRK-01 (Capacity 5000kg). Route distance: 8.4km. Time: 22 mins.",
+      "toolUsed": "optimizeMultiTruckRoutes",
+      "reasoning": "TRK-01 has 3,800kg available capacity and is 1.2km from Gandhipuram cluster. Bypassed DB Road closure.",
+      "latencyMs": 215,
+      "timestamp": "2026-07-29T08:25:57.962Z",
+      "status": "SUCCESS"
+    }
+  ],
+  "trafficEvents": [
+    {
+      "id": "TRAF-101",
+      "roadName": "Avinashi Road",
+      "neighborhood": "Peelamedu",
+      "severity": "HEAVY",
+      "description": "Heavy flyover construction traffic slowdown.",
+      "active": true,
+      "lat": 11.025,
+      "lng": 76.995
+    },
+    {
+      "id": "TRAF-102",
+      "roadName": "Cross Cut Road",
+      "neighborhood": "Gandhipuram",
+      "severity": "HEAVY",
+      "description": "Simulated heavy rush hour traffic jam in Gandhipuram.",
+      "active": true,
+      "lat": 11.018,
+      "lng": 76.958
+    }
+  ],
+  "roadClosures": [
+    {
+      "id": "ROAD-201",
+      "roadName": "DB Road North Axis",
+      "neighborhood": "RS Puram",
+      "startLat": 11.009,
+      "startLng": 76.946,
+      "endLat": 11.011,
+      "endLng": 76.948,
+      "description": "Pipeline drainage repair work. Complete road block.",
+      "active": true
+    }
+  ],
+  "alerts": [
+    {
+      "id": "ALT-25146",
+      "severity": "WARNING",
+      "title": "Traffic Jam Alert",
+      "message": "Heavy traffic detected in Gandhipuram. Route travel times increased by 60%.",
+      "timestamp": "2026-07-29T09:12:05.146Z"
+    },
+    {
+      "id": "ALT-24110",
+      "severity": "WARNING",
+      "title": "Traffic Jam Alert",
+      "message": "Heavy traffic detected in Gandhipuram. Route travel times increased by 60%.",
+      "timestamp": "2026-07-29T09:12:04.110Z"
+    },
+    {
+      "id": "ALT-01229",
+      "severity": "WARNING",
+      "title": "New Citizen Report: bin damaged",
+      "message": "Crowdsourced update submitted in Gandhipuram: \"mixed waste ...\"",
+      "timestamp": "2026-07-29T08:50:01.229Z",
+      "entityId": "REP-01229",
+      "entityType": "bin"
+    },
+    {
+      "id": "ALT-84473",
+      "severity": "CRITICAL",
+      "title": "CRITICAL OVERFLOW DETECTED",
+      "message": "BIN-005 in Gandhipuram Sector 5 is at 98% capacity. Immediate dispatch required.",
+      "timestamp": "2026-07-29T08:46:24.473Z",
+      "entityId": "BIN-005",
+      "entityType": "bin"
+    },
+    {
+      "id": "ALT-001",
+      "severity": "CRITICAL",
+      "title": "Critical Overflow Warning",
+      "message": "BIN-005 (Gandhipuram Sector 5) is at 96% capacity with high overflow risk.",
+      "timestamp": "2026-07-29T08:15:57.962Z",
+      "entityId": "BIN-005",
+      "entityType": "bin"
+    },
+    {
+      "id": "ALT-002",
+      "severity": "WARNING",
+      "title": "Active Road Closure",
+      "message": "DB Road North Axis in RS Puram blocked due to pipeline work.",
+      "timestamp": "2026-07-29T07:45:57.962Z",
+      "entityId": "ROAD-201",
+      "entityType": "route"
+    }
+  ],
+  "agentStatuses": [
+    {
+      "id": "AGT-01",
+      "name": "Bin Density & Waste Composition Agent",
+      "role": "Density & Composition Specialist",
+      "status": "ACTIVE",
+      "lastAction": "Monitoring 50 municipal bin sensors & composition profiles",
+      "latencyMs": 120,
+      "eventsCount": 2
+    },
+    {
+      "id": "AGT-02",
+      "name": "Logistics & Dynamic Routing Agent",
+      "role": "Dispatch & Route Optimization Specialist",
+      "status": "ACTIVE",
+      "lastAction": "VRPsolver ready; watching traffic & road closure events",
+      "latencyMs": 180,
+      "eventsCount": 6
+    },
+    {
+      "id": "AGT-03",
+      "name": "Recycling Intelligence & Analytics Agent",
+      "role": "Waste Pattern & Contamination Specialist",
+      "status": "ACTIVE",
+      "lastAction": "Flagged plastic anomaly in Ukkadam: 51% plastic",
+      "latencyMs": 1,
+      "eventsCount": 6
+    },
+    {
+      "id": "AGT-04",
+      "name": "Civic Campaign & Engagement Agent",
+      "role": "Bilingual Civic Behavior Specialist",
+      "status": "ACTIVE",
+      "lastAction": "Gemini tool ready for Tamil + English campaigns",
+      "latencyMs": 210,
+      "eventsCount": 0
+    }
+  ],
+  "users": [
+    {
+      "id": "USR-01",
+      "name": "Municipal Admin",
+      "email": "admin@wastewise.gov.in",
+      "role": "ADMIN",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+      "passwordHash": "$2b$10$FqLHQGUkXgNziyUv/.voGuyabcdliHxb2QdXqlQJZSnj9GKxqEh5G",
+      "isActive": true
+    },
+    {
+      "id": "USR-02",
+      "name": "Chief Dispatcher",
+      "email": "dispatcher@wastewise.gov.in",
+      "role": "DISPATCHER",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"
+    },
+    {
+      "id": "USR-03",
+      "name": "Sustainability Analyst",
+      "email": "analyst@wastewise.gov.in",
+      "role": "ANALYST",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150"
+    },
+    {
+      "id": "USR-1785319557479",
+      "name": "Test Citizen User",
+      "email": "test.user.1785319557265@example.com",
+      "role": "USER",
+      "avatar": "https://ui-avatars.com/api/?name=Test%20Citizen%20User&background=0D9488&color=fff",
+      "phone": "+91 99887 66554",
+      "isActive": true,
+      "isEmailVerified": false,
+      "createdAt": "2026-07-29T10:05:57.479Z",
+      "updatedAt": "2026-07-29T10:05:57.609Z",
+      "passwordHash": "$2b$10$czFtU2/U4zlki2nC1yaUMu.Nk8Bot6cqZPuiK.jjowbvLRb1FA/eG",
+      "lastLoginAt": "2026-07-29T10:05:57.609Z"
+    },
+    {
+      "id": "USR-01-DEMO",
+      "name": "Municipal Admin",
+      "email": "admin@wastewise.demo",
+      "role": "ADMIN",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+      "phone": "+91 98765 10002",
+      "isActive": true,
+      "isEmailVerified": true,
+      "createdAt": "2026-07-29T10:06:13.362Z",
+      "updatedAt": "2026-07-29T18:20:07.068Z",
+      "passwordHash": "$2b$10$aXywAnPTpOwZ9sMgzqKEXeRP9eD9MUatIz34I4sJYSpqI0.KDR38S",
+      "lastLoginAt": "2026-07-29T18:20:07.067Z"
+    },
+    {
+      "id": "USR-04-CITIZEN",
+      "name": "Citizen User",
+      "email": "user@wastewise.demo",
+      "role": "USER",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150",
+      "phone": "+91 98765 10007",
+      "isActive": true,
+      "isEmailVerified": true,
+      "createdAt": "2026-07-29T10:06:13.362Z",
+      "updatedAt": "2026-07-29T10:06:13.362Z",
+      "passwordHash": "$2b$10$FqLHQGUkXgNziyUv/.voGuyabcdliHxb2QdXqlQJZSnj9GKxqEh5G"
+    },
+    {
+      "id": "USR-1785319575457",
+      "name": "Test Citizen User",
+      "email": "test.user.1785319575297@example.com",
+      "role": "USER",
+      "avatar": "https://ui-avatars.com/api/?name=Test%20Citizen%20User&background=0D9488&color=fff",
+      "phone": "+91 99887 66554",
+      "isActive": true,
+      "isEmailVerified": false,
+      "createdAt": "2026-07-29T10:06:15.457Z",
+      "updatedAt": "2026-07-29T10:06:15.589Z",
+      "passwordHash": "$2b$10$gbON7cOi14wqdk3YDuX6/.NO7Xbof3ml753axuAhoMNj60XoZ4G3i",
+      "lastLoginAt": "2026-07-29T10:06:15.589Z"
+    },
+    {
+      "id": "USR-1785319595567",
+      "name": "Test Citizen User",
+      "email": "test.user.1785319595433@example.com",
+      "role": "USER",
+      "avatar": "https://ui-avatars.com/api/?name=Test%20Citizen%20User&background=0D9488&color=fff",
+      "phone": "+91 99887 66554",
+      "isActive": true,
+      "isEmailVerified": false,
+      "createdAt": "2026-07-29T10:06:35.567Z",
+      "updatedAt": "2026-07-29T10:06:36.336Z",
+      "passwordHash": "$2b$10$HDxdpwUZ20.XPyYOc0/Y2OLmZ/t4sWiOBjanwYPj8mlaY9//EuI5a",
+      "lastLoginAt": "2026-07-29T10:06:36.336Z",
+      "resetPasswordToken": "fe83ca781de040f2ff2f0018fcdf9ab2f9e09e435f2410fc8782a4f7eb6fa31f",
+      "resetPasswordExpires": "2026-07-29T10:36:35.972Z"
+    },
+    {
+      "id": "USR-1785319623022",
+      "name": "Test Citizen User",
+      "email": "test.user.1785319622862@example.com",
+      "role": "USER",
+      "avatar": "https://ui-avatars.com/api/?name=Test%20Citizen%20User&background=0D9488&color=fff",
+      "phone": "+91 99887 66554",
+      "isActive": true,
+      "isEmailVerified": false,
+      "createdAt": "2026-07-29T10:07:03.022Z",
+      "updatedAt": "2026-07-29T10:07:03.720Z",
+      "passwordHash": "$2b$10$cUvIgse.23hBfvTpT.YFkOKvQWD6jGLx0kxKrKfbzoZwWscQvHs/S",
+      "lastLoginAt": "2026-07-29T10:07:03.720Z",
+      "resetPasswordToken": "7e598ba1197d521d710a59f87fca87f4e8daa7d0313abb683d8c37548707bd46",
+      "resetPasswordExpires": "2026-07-29T10:37:03.396Z"
+    }
+  ],
+  "citizenReports": [
+    {
+      "id": "REP-01229",
+      "reportId": "REP-01229",
+      "reportType": "DAMAGED_BIN",
+      "title": "bin damaged",
+      "description": "mixed waste ",
+      "neighborhood": "Gandhipuram",
+      "locationName": "Gandhipuram GPS Tag",
+      "lat": 11.0168,
+      "lng": 76.9558,
+      "binId": "BIN-006",
+      "photoUrl": "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=500",
+      "status": "PENDING_VERIFICATION",
+      "upvotesCount": 1,
+      "downvotesCount": 0,
+      "reportedBy": "gokul",
+      "aiClassification": "AI Confidence: 88%. Logged container structural defect. Maintenance ticket routed.",
+      "createdAt": "2026-07-29T08:50:01.229Z",
+      "updatedAt": "2026-07-29T08:50:01.229Z"
+    },
+    {
+      "id": "REP-001",
+      "reportId": "REP-001",
+      "reportType": "OVERFLOWING_BIN",
+      "title": "Gandhipuram Sector 5 Commercial Bin Overflow",
+      "description": "Bin near 100 Feet Road bus stop is spilling plastic food containers onto pedestrian walkway.",
+      "neighborhood": "Gandhipuram",
+      "locationName": "100 Feet Road Bus Stand, Sector 5",
+      "lat": 11.0185,
+      "lng": 76.9572,
+      "binId": "BIN-005",
+      "photoUrl": "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=500",
+      "status": "VERIFIED",
+      "upvotesCount": 14,
+      "downvotesCount": 0,
+      "reportedBy": "Kavitha S. (Citizen)",
+      "aiClassification": "AI Confidence: 98%. Confirmed severe overflow of plastic food packaging causing obstruction.",
+      "createdAt": "2026-07-29T06:45:57.962Z",
+      "updatedAt": "2026-07-29T07:45:57.962Z"
+    },
+    {
+      "id": "REP-002",
+      "reportId": "REP-002",
+      "reportType": "ILLEGAL_DUMPING",
+      "title": "Construction Debris & Plastic Bags Dumping",
+      "description": "Dumped pile of broken tiles and unsegregated plastic bags behind DB Road market lane.",
+      "neighborhood": "RS Puram",
+      "locationName": "DB Road West Corner, Sector 2",
+      "lat": 11.0098,
+      "lng": 76.9465,
+      "photoUrl": "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?w=500",
+      "status": "PENDING_VERIFICATION",
+      "upvotesCount": 8,
+      "downvotesCount": 1,
+      "reportedBy": "Rajeshkumar M. (Local Business Owner)",
+      "aiClassification": "AI Confidence: 91%. Identified illegal commercial construction runoff + plastic waste.",
+      "createdAt": "2026-07-29T04:45:57.962Z",
+      "updatedAt": "2026-07-29T04:45:57.962Z"
+    },
+    {
+      "id": "REP-003",
+      "reportId": "REP-003",
+      "reportType": "MISSED_COLLECTION",
+      "title": "Residential Sector Organic Waste Bin Unemptied",
+      "description": "Scheduled morning pickup did not arrive for organic bin BIN-018. Smelling strongly.",
+      "neighborhood": "Saibaba Colony",
+      "locationName": "NSR Road Cross 4, Sector 3",
+      "lat": 11.0285,
+      "lng": 76.9422,
+      "binId": "BIN-018",
+      "photoUrl": "https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?w=500",
+      "status": "IN_PROGRESS",
+      "upvotesCount": 19,
+      "downvotesCount": 0,
+      "reportedBy": "Anand V. (Residents Welfare Assoc.)",
+      "aiClassification": "AI Confidence: 95%. Verified delayed route execution due to morning traffic event TRAF-102.",
+      "createdAt": "2026-07-29T02:45:57.962Z",
+      "updatedAt": "2026-07-29T06:45:57.962Z"
+    },
+    {
+      "id": "REP-004",
+      "reportId": "REP-004",
+      "reportType": "DAMAGED_BIN",
+      "title": "Cracked Base Lid on Recycling Bin BIN-034",
+      "description": "Pedal mechanism broken and base lid cracked; rainwater entering the paper compartment.",
+      "neighborhood": "Peelamedu",
+      "locationName": "Avinashi Road College Axis, Sector 1",
+      "lat": 11.026,
+      "lng": 76.994,
+      "binId": "BIN-034",
+      "status": "RESOLVED",
+      "upvotesCount": 6,
+      "downvotesCount": 0,
+      "reportedBy": "Subhashini T. (Student)",
+      "aiClassification": "AI Confidence: 89%. Mechanical latch defect noted. Maintenance dispatch completed.",
+      "createdAt": "2026-07-27T08:45:57.962Z",
+      "updatedAt": "2026-07-28T08:45:57.962Z"
+    }
+  ],
+  "workflowRuns": [],
+  "agentMessages": [
+    {
+      "id": "MSG-1785349564379-280",
+      "workflowId": "WF-564378",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "sourceAgent": "Recycling Intelligence & Analytics Agent",
+      "targetAgent": "Civic Campaign & Engagement Agent",
+      "payload": {
+        "zone": "Ukkadam",
+        "issue": "High Single-Use Plastic Packaging Contamination in Ukkadam",
+        "severity": "CRITICAL",
+        "evidence": {
+          "currentPlasticPercentage": 51,
+          "historicalAverage": 22,
+          "recyclingRatePct": 47,
+          "contaminationRatePct": 31,
+          "anomalyDelta": 29
+        },
+        "recommendedAction": "Deploy targeted bilingual civic intervention campaign in Ukkadam targeting commercial vendors & residents to reduce plastic bag contamination and enforce source segregation.",
+        "decisionSummary": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent."
+      },
+      "timestamp": "2026-07-29T18:26:04.379Z"
+    },
+    {
+      "id": "MSG-1785349564361-136",
+      "workflowId": "WF-564361",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "sourceAgent": "Recycling Intelligence & Analytics Agent",
+      "targetAgent": "Civic Campaign & Engagement Agent",
+      "payload": {
+        "zone": "Ukkadam",
+        "issue": "High Single-Use Plastic Packaging Contamination in Ukkadam",
+        "severity": "CRITICAL",
+        "evidence": {
+          "currentPlasticPercentage": 51,
+          "historicalAverage": 22,
+          "recyclingRatePct": 47,
+          "contaminationRatePct": 31,
+          "anomalyDelta": 29
+        },
+        "recommendedAction": "Deploy targeted bilingual civic intervention campaign in Ukkadam targeting commercial vendors & residents to reduce plastic bag contamination and enforce source segregation.",
+        "decisionSummary": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent."
+      },
+      "timestamp": "2026-07-29T18:26:04.361Z"
+    },
+    {
+      "id": "MSG-1785349554048-189",
+      "workflowId": "WF-554048",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "sourceAgent": "Recycling Intelligence & Analytics Agent",
+      "targetAgent": "Civic Campaign & Engagement Agent",
+      "payload": {
+        "zone": "Ukkadam",
+        "issue": "High Single-Use Plastic Packaging Contamination in Ukkadam",
+        "severity": "CRITICAL",
+        "evidence": {
+          "currentPlasticPercentage": 51,
+          "historicalAverage": 22,
+          "recyclingRatePct": 47,
+          "contaminationRatePct": 31,
+          "anomalyDelta": 29
+        },
+        "recommendedAction": "Deploy targeted bilingual civic intervention campaign in Ukkadam targeting commercial vendors & residents to reduce plastic bag contamination and enforce source segregation.",
+        "decisionSummary": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent."
+      },
+      "timestamp": "2026-07-29T18:25:54.048Z"
+    },
+    {
+      "id": "MSG-1785349554031-763",
+      "workflowId": "WF-554028",
+      "eventType": "RECYCLING_INSIGHT_GENERATED",
+      "sourceAgent": "Recycling Intelligence & Analytics Agent",
+      "targetAgent": "Civic Campaign & Engagement Agent",
+      "payload": {
+        "zone": "Ukkadam",
+        "issue": "High Single-Use Plastic Packaging Contamination in Ukkadam",
+        "severity": "CRITICAL",
+        "evidence": {
+          "currentPlasticPercentage": 51,
+          "historicalAverage": 22,
+          "recyclingRatePct": 47,
+          "contaminationRatePct": 31,
+          "anomalyDelta": 29
+        },
+        "recommendedAction": "Deploy targeted bilingual civic intervention campaign in Ukkadam targeting commercial vendors & residents to reduce plastic bag contamination and enforce source segregation.",
+        "decisionSummary": "Analytics Agent identified structural plastic waste anomaly in Ukkadam (51% vs 22% baseline). Recommended immediate civic campaign dispatch to Civic Campaign Agent."
+      },
+      "timestamp": "2026-07-29T18:25:54.031Z"
+    }
+  ],
+  "toolCalls": [
+    {
+      "id": "TCL-1785349564379-243",
+      "workflowId": "WF-564378",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "calculateRecyclingOpportunity",
+      "arguments": {
+        "zone": "Ukkadam",
+        "avgRecycling": 47
+      },
+      "resultSummary": "Recycling improvement opportunity score for Ukkadam: 53/100",
+      "timestamp": "2026-07-29T18:26:04.379Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349564379-304",
+      "workflowId": "WF-564378",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "detectWasteAnomaly",
+      "arguments": {
+        "zone": "Ukkadam",
+        "currentPlasticPct": 51,
+        "historicalAvgPlastic": 22
+      },
+      "resultSummary": "Severe Plastic Packaging Anomaly detected in Ukkadam: 51% plastic vs historical 22% (+29% spike)",
+      "timestamp": "2026-07-29T18:26:04.379Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349564379-256",
+      "workflowId": "WF-564378",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "compareZones",
+      "arguments": {},
+      "resultSummary": "Compared cross-zone profiles across 6 municipal zones",
+      "timestamp": "2026-07-29T18:26:04.379Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349564378-381",
+      "workflowId": "WF-564378",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "getHistoricalWasteData",
+      "arguments": {
+        "zone": "Ukkadam"
+      },
+      "resultSummary": "Retrieved 31 historical waste records for analysis",
+      "timestamp": "2026-07-29T18:26:04.379Z",
+      "latencyMs": 1
+    },
+    {
+      "id": "TCL-1785349564361-750",
+      "workflowId": "WF-564361",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "calculateRecyclingOpportunity",
+      "arguments": {
+        "zone": "Ukkadam",
+        "avgRecycling": 47
+      },
+      "resultSummary": "Recycling improvement opportunity score for Ukkadam: 53/100",
+      "timestamp": "2026-07-29T18:26:04.361Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349564361-423",
+      "workflowId": "WF-564361",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "detectWasteAnomaly",
+      "arguments": {
+        "zone": "Ukkadam",
+        "currentPlasticPct": 51,
+        "historicalAvgPlastic": 22
+      },
+      "resultSummary": "Severe Plastic Packaging Anomaly detected in Ukkadam: 51% plastic vs historical 22% (+29% spike)",
+      "timestamp": "2026-07-29T18:26:04.361Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349564361-924",
+      "workflowId": "WF-564361",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "compareZones",
+      "arguments": {},
+      "resultSummary": "Compared cross-zone profiles across 6 municipal zones",
+      "timestamp": "2026-07-29T18:26:04.361Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349564361-294",
+      "workflowId": "WF-564361",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "getHistoricalWasteData",
+      "arguments": {
+        "zone": "Ukkadam"
+      },
+      "resultSummary": "Retrieved 31 historical waste records for analysis",
+      "timestamp": "2026-07-29T18:26:04.361Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349554048-979",
+      "workflowId": "WF-554048",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "calculateRecyclingOpportunity",
+      "arguments": {
+        "zone": "Ukkadam",
+        "avgRecycling": 47
+      },
+      "resultSummary": "Recycling improvement opportunity score for Ukkadam: 53/100",
+      "timestamp": "2026-07-29T18:25:54.048Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349554048-757",
+      "workflowId": "WF-554048",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "detectWasteAnomaly",
+      "arguments": {
+        "zone": "Ukkadam",
+        "currentPlasticPct": 51,
+        "historicalAvgPlastic": 22
+      },
+      "resultSummary": "Severe Plastic Packaging Anomaly detected in Ukkadam: 51% plastic vs historical 22% (+29% spike)",
+      "timestamp": "2026-07-29T18:25:54.048Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349554048-682",
+      "workflowId": "WF-554048",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "compareZones",
+      "arguments": {},
+      "resultSummary": "Compared cross-zone profiles across 6 municipal zones",
+      "timestamp": "2026-07-29T18:25:54.048Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349554048-940",
+      "workflowId": "WF-554048",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "getHistoricalWasteData",
+      "arguments": {
+        "zone": "Ukkadam"
+      },
+      "resultSummary": "Retrieved 31 historical waste records for analysis",
+      "timestamp": "2026-07-29T18:25:54.048Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349554031-50",
+      "workflowId": "WF-554028",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "calculateRecyclingOpportunity",
+      "arguments": {
+        "zone": "Ukkadam",
+        "avgRecycling": 47
+      },
+      "resultSummary": "Recycling improvement opportunity score for Ukkadam: 53/100",
+      "timestamp": "2026-07-29T18:25:54.031Z",
+      "latencyMs": 0
+    },
+    {
+      "id": "TCL-1785349554031-854",
+      "workflowId": "WF-554028",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "detectWasteAnomaly",
+      "arguments": {
+        "zone": "Ukkadam",
+        "currentPlasticPct": 51,
+        "historicalAvgPlastic": 22
+      },
+      "resultSummary": "Severe Plastic Packaging Anomaly detected in Ukkadam: 51% plastic vs historical 22% (+29% spike)",
+      "timestamp": "2026-07-29T18:25:54.031Z",
+      "latencyMs": 1
+    },
+    {
+      "id": "TCL-1785349554030-732",
+      "workflowId": "WF-554028",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "compareZones",
+      "arguments": {},
+      "resultSummary": "Compared cross-zone profiles across 6 municipal zones",
+      "timestamp": "2026-07-29T18:25:54.030Z",
+      "latencyMs": 1
+    },
+    {
+      "id": "TCL-1785349554029-210",
+      "workflowId": "WF-554028",
+      "agentName": "Recycling Intelligence & Analytics Agent",
+      "toolName": "getHistoricalWasteData",
+      "arguments": {
+        "zone": "Ukkadam"
+      },
+      "resultSummary": "Retrieved 31 historical waste records for analysis",
+      "timestamp": "2026-07-29T18:25:54.029Z",
+      "latencyMs": 1
+    }
+  ],
+  "humanApprovals": []
+}
