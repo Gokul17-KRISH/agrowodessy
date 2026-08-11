@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import path from 'path';
 import jwt from 'jsonwebtoken';
@@ -94,6 +97,7 @@ export async function initServerApp() {
 
   try {
     await connectToDatabase();
+    await store.syncWithMongo();
   } catch (err) {
     console.warn('[AgriLink] Database initialization warning:', err);
   }
@@ -191,42 +195,71 @@ export async function initServerApp() {
     }
   });
 
-  // GOOGLE SSO
+  // GOOGLE SSO — Server-side token verification
   app.post('/api/auth/google', authRateLimiter, async (req, res) => {
     try {
-      const { email, name, avatar } = req.body;
-      if (!email) return res.status(400).json({ success: false, message: 'Email is required.' });
+      const { credential } = req.body;
+      if (!credential) return res.status(400).json({ success: false, message: 'Google credential token is required.' });
 
-      const cleanEmail = email.trim().toLowerCase();
+      const GOOGLE_CLIENT_ID = process.env.VITE_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID;
+      if (!GOOGLE_CLIENT_ID) {
+        return res.status(500).json({ success: false, message: 'Google OAuth is not configured on this server.' });
+      }
+
+      // Dynamically import to keep ESM/CJS compatibility
+      const { OAuth2Client } = await import('google-auth-library');
+      const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+      let payload: any;
+      try {
+        const ticket = await client.verifyIdToken({
+          idToken: credential,
+          audience: GOOGLE_CLIENT_ID
+        });
+        payload = ticket.getPayload();
+      } catch {
+        return res.status(401).json({ success: false, message: 'Invalid or expired Google token. Please try again.' });
+      }
+
+      if (!payload || !payload.email) {
+        return res.status(401).json({ success: false, message: 'Could not retrieve email from Google account.' });
+      }
+
+      const cleanEmail = payload.email.trim().toLowerCase();
       let user = store.getUserByEmail(cleanEmail);
 
       if (!user) {
         const nowIso = new Date().toISOString();
-        const passwordHash = bcrypt.hashSync(`google_sso_${Date.now()}`, 10);
+        const displayName = payload.name || cleanEmail.split('@')[0];
         user = {
-          id: `USR-SSO-${Date.now()}`,
-          name: name || cleanEmail.split('@')[0],
+          id: `USR-G-${Date.now()}`,
+          name: displayName,
           email: cleanEmail,
           role: 'FARMER',
-          avatar: avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || cleanEmail)}&background=16A34A&color=fff`,
+          avatar: payload.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=16A34A&color=fff`,
           isActive: true,
-          isEmailVerified: true,
+          isEmailVerified: true, // Google verified the email
           district: 'Coimbatore',
           createdAt: nowIso,
           updatedAt: nowIso,
-          passwordHash
+          passwordHash: bcrypt.hashSync(`google_${payload.sub}_${Date.now()}`, 10)
         };
         store.addUser(user);
+      } else {
+        // Update avatar if Google provides one
+        if (payload.picture && !user.avatar?.includes('ui-avatars')) {
+          store.updateUser(user.id, { avatar: payload.picture, isEmailVerified: true });
+        }
       }
 
       store.updateUser(user.id, { lastLoginAt: new Date().toISOString() });
-      const safeUser = store.sanitizeUser(user);
+      const safeUser = store.sanitizeUser(store.getUserById(user.id) || user);
       const token = jwt.sign({ id: safeUser.id, email: safeUser.email, role: safeUser.role }, JWT_SECRET, { expiresIn: '24h' });
 
       res.cookie('agrilink_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 86400000 });
       res.json({ success: true, token, user: safeUser });
     } catch (err: any) {
-      res.status(500).json({ success: false, message: err.message || 'SSO error.' });
+      res.status(500).json({ success: false, message: err.message || 'Google SSO error.' });
     }
   });
 

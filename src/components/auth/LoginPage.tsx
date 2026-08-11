@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import { User } from '../../types';
 import { api } from '../../services/api';
 
@@ -85,6 +86,20 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       setPassword(newPassword);
       setMode('forgot_success');
     }, 1000);
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+    if (!credentialResponse.credential) return;
+    setError('');
+    setLoading(true);
+    try {
+      const res = await api.auth.googleSSO(credentialResponse.credential);
+      onLogin(res.user);
+    } catch (err: any) {
+      setError(err.message || 'Google sign-in failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDemoLogin = async (demoEmail: string) => {
@@ -265,6 +280,27 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   ⚠️ {error}
                 </div>
               )}
+
+              {/* Google Sign-In Button */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => setError('Google sign-in was cancelled or failed.')}
+                  useOneTap={mode === 'login'}
+                  size="large"
+                  width="400"
+                  text={mode === 'register' ? 'signup_with' : 'signin_with'}
+                  shape="rectangular"
+                  logo_alignment="left"
+                />
+              </div>
+
+              {/* Divider */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '0.25rem 0' }}>
+                <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
+                <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 700, whiteSpace: 'nowrap' }}>OR CONTINUE WITH EMAIL</span>
+                <div style={{ flex: 1, height: 1, background: '#e2e8f0' }} />
+              </div>
 
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {mode === 'register' && (

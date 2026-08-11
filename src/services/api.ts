@@ -52,10 +52,10 @@ export const api = {
       return res;
     },
 
-    googleSSO: async (googleData: { email: string; name: string; avatar?: string }) => {
+    googleSSO: async (credential: string) => {
       const res = await request<{ success: boolean; token: string; user: User }>('/auth/google', {
         method: 'POST',
-        body: JSON.stringify(googleData)
+        body: JSON.stringify({ credential })
       });
       if (res.token) localStorage.setItem('agrilink_token', res.token);
       return res;
