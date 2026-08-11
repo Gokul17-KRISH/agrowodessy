@@ -1,9 +1,11 @@
 {
   "users": [
     {
+      "_id": "6a7b90e2e6090dc63d12a510",
       "id": "USR-FARMER-2",
       "name": "Palani Swamy",
       "email": "palani@agrilink.demo",
+      "passwordHash": "$2b$10$ZGg077CnadUi5JHU4OCiv.LbUUHqvvQW.IrK.q7W/nGH/jZo5Bda2",
       "role": "FARMER",
       "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150",
       "phone": "+91 97866 54321",
@@ -12,13 +14,15 @@
       "isActive": true,
       "isEmailVerified": true,
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z",
-      "passwordHash": "$2b$10$ZGg077CnadUi5JHU4OCiv.LbUUHqvvQW.IrK.q7W/nGH/jZo5Bda2"
+      "updatedAt": "Wed Aug 12 2026 04:52:48 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e2e6090dc63d12a511",
       "id": "USR-FARMER-3",
       "name": "Muthusamy K.",
       "email": "muthu@agrilink.demo",
+      "passwordHash": "$2b$10$ZGg077CnadUi5JHU4OCiv.LbUUHqvvQW.IrK.q7W/nGH/jZo5Bda2",
       "role": "FARMER",
       "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
       "phone": "+91 94880 77112",
@@ -27,13 +31,15 @@
       "isActive": true,
       "isEmailVerified": true,
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z",
-      "passwordHash": "$2b$10$ZGg077CnadUi5JHU4OCiv.LbUUHqvvQW.IrK.q7W/nGH/jZo5Bda2"
+      "updatedAt": "Wed Aug 12 2026 04:52:48 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e2e6090dc63d12a512",
       "id": "USR-BUYER-2",
       "name": "FarmFresh Foods Co.",
       "email": "farmfresh@agrilink.demo",
+      "passwordHash": "$2b$10$ZGg077CnadUi5JHU4OCiv.LbUUHqvvQW.IrK.q7W/nGH/jZo5Bda2",
       "role": "BUYER",
       "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
       "phone": "+91 91234 56789",
@@ -42,8 +48,8 @@
       "isActive": true,
       "isEmailVerified": true,
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z",
-      "passwordHash": "$2b$10$ZGg077CnadUi5JHU4OCiv.LbUUHqvvQW.IrK.q7W/nGH/jZo5Bda2"
+      "updatedAt": "Wed Aug 12 2026 04:52:48 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
       "id": "USR-ADMIN",
@@ -56,8 +62,10 @@
       "isActive": true,
       "isEmailVerified": true,
       "createdAt": "2026-08-11T18:26:36.849Z",
-      "updatedAt": "2026-08-11T18:26:36.849Z",
-      "passwordHash": "$2b$10$On88N/e0tsGEcMlgfgnpouekLuNibB3J0Dza0pjx0Hjp0IgsHXaCy"
+      "updatedAt": "Wed Aug 12 2026 04:52:49 GMT+0530 (India Standard Time)",
+      "passwordHash": "$2b$10$On88N/e0tsGEcMlgfgnpouekLuNibB3J0Dza0pjx0Hjp0IgsHXaCy",
+      "_id": "6a7b90e2e6090dc63d12a513",
+      "__v": 0
     },
     {
       "id": "USR-FARMER-1",
@@ -71,9 +79,11 @@
       "isActive": true,
       "isEmailVerified": true,
       "createdAt": "2026-08-11T18:26:36.849Z",
-      "updatedAt": "2026-08-11T20:49:02.740Z",
+      "updatedAt": "Wed Aug 12 2026 04:51:31 GMT+0530 (India Standard Time)",
       "passwordHash": "$2b$10$On88N/e0tsGEcMlgfgnpouekLuNibB3J0Dza0pjx0Hjp0IgsHXaCy",
-      "lastLoginAt": "2026-08-11T20:49:02.740Z"
+      "_id": "6a7b90e2e6090dc63d12a514",
+      "lastLoginAt": "2026-08-11T20:49:02.740Z",
+      "__v": 0
     },
     {
       "id": "USR-BUYER-1",
@@ -87,9 +97,11 @@
       "isActive": true,
       "isEmailVerified": true,
       "createdAt": "2026-08-11T18:26:36.849Z",
-      "updatedAt": "2026-08-11T20:49:12.507Z",
+      "updatedAt": "Wed Aug 12 2026 04:51:31 GMT+0530 (India Standard Time)",
       "passwordHash": "$2b$10$On88N/e0tsGEcMlgfgnpouekLuNibB3J0Dza0pjx0Hjp0IgsHXaCy",
-      "lastLoginAt": "2026-08-11T20:49:12.507Z"
+      "_id": "6a7b90e2e6090dc63d12a515",
+      "lastLoginAt": "2026-08-11T20:49:12.507Z",
+      "__v": 0
     },
     {
       "id": "USR-GRADER-1",
@@ -102,12 +114,31 @@
       "isActive": true,
       "isEmailVerified": true,
       "createdAt": "2026-08-11T18:26:36.849Z",
-      "updatedAt": "2026-08-11T18:26:36.849Z",
-      "passwordHash": "$2b$10$On88N/e0tsGEcMlgfgnpouekLuNibB3J0Dza0pjx0Hjp0IgsHXaCy"
+      "updatedAt": "Wed Aug 12 2026 04:51:31 GMT+0530 (India Standard Time)",
+      "passwordHash": "$2b$10$On88N/e0tsGEcMlgfgnpouekLuNibB3J0Dza0pjx0Hjp0IgsHXaCy",
+      "_id": "6a7b90e2e6090dc63d12a516",
+      "__v": 0
+    },
+    {
+      "_id": "6a7ba36170fb33d4e80c80c2",
+      "id": "USR-G-1786487649106",
+      "__v": 0,
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocLGCOyBpcefBpN-ReYTadIvNMWb6eoy7QTfYCERjZUFnL2MkU11=s96-c",
+      "createdAt": "Wed Aug 12 2026 04:04:09 GMT+0530 (India Standard Time)",
+      "district": "Coimbatore",
+      "email": "bakthavatchalamgokul@gmail.com",
+      "isActive": true,
+      "isEmailVerified": true,
+      "lastLoginAt": "2026-08-11T22:34:09.187Z",
+      "name": "Gokul Bakthavatchalam",
+      "passwordHash": "$2b$10$Ec3/c5q0yjcwg6Pf/xqp/uL0w2RLxSxcKCBafs.Nnql3CF7wJZ4mW",
+      "role": "FARMER",
+      "updatedAt": "Wed Aug 12 2026 04:51:31 GMT+0530 (India Standard Time)"
     }
   ],
   "demands": [
     {
+      "_id": "6a7b90e3e6090dc63d12a517",
       "id": "DEM-001",
       "buyerId": "USR-BUYER-1",
       "buyerName": "Reliance Retail (Agri Div)",
@@ -122,9 +153,11 @@
       "qualityRequirements": "Size Class A/B, No surface pests, Moisture maximum 12%",
       "status": "OPEN",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:31 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a518",
       "id": "DEM-002",
       "buyerId": "USR-BUYER-1",
       "buyerName": "Reliance Retail (Agri Div)",
@@ -139,9 +172,11 @@
       "qualityRequirements": "Well cured bulbs, double skin intact, size > 55mm.",
       "status": "FULLY_COMMITTED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:31 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a519",
       "id": "DEM-003",
       "buyerId": "USR-BUYER-2",
       "buyerName": "FarmFresh Foods Co.",
@@ -156,9 +191,11 @@
       "qualityRequirements": "Curcumin contents > 4.5%, moisture < 9%.",
       "status": "OPEN",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a51a",
       "id": "DEM-004",
       "buyerId": "USR-BUYER-2",
       "buyerName": "FarmFresh Foods Co.",
@@ -173,9 +210,11 @@
       "qualityRequirements": "Yellow dent maize, foreign matter < 2%, damaged kernels < 5%.",
       "status": "OPEN",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a51b",
       "id": "DEM-005",
       "buyerId": "USR-BUYER-1",
       "buyerName": "Reliance Retail (Agri Div)",
@@ -190,11 +229,13 @@
       "qualityRequirements": "Moisture < 12%, broken grains < 3%.",
       "status": "OPEN",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     }
   ],
   "commitments": [
     {
+      "_id": "6a7b90e3e6090dc63d12a51c",
       "id": "COM-001",
       "farmerId": "USR-FARMER-1",
       "farmerName": "Gopalakrishnan R.",
@@ -206,9 +247,11 @@
       "harvestDateAvailable": "2026-11-10",
       "status": "SEEDED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a51d",
       "id": "COM-002",
       "farmerId": "USR-FARMER-2",
       "farmerName": "Palani Swamy",
@@ -220,9 +263,11 @@
       "harvestDateAvailable": "2026-11-15",
       "status": "PLANNED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a51e",
       "id": "COM-003",
       "farmerId": "USR-FARMER-1",
       "farmerName": "Gopalakrishnan R.",
@@ -234,9 +279,11 @@
       "harvestDateAvailable": "2026-11-01",
       "status": "HARVESTED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a51f",
       "id": "COM-004",
       "farmerId": "USR-FARMER-3",
       "farmerName": "Muthusamy K.",
@@ -248,9 +295,11 @@
       "harvestDateAvailable": "2026-11-05",
       "status": "SEEDED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a520",
       "id": "COM-005",
       "farmerId": "USR-FARMER-2",
       "farmerName": "Palani Swamy",
@@ -262,9 +311,11 @@
       "harvestDateAvailable": "2026-12-05",
       "status": "SEEDED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a521",
       "id": "COM-006",
       "farmerId": "USR-FARMER-1",
       "farmerName": "Gopalakrishnan R.",
@@ -276,9 +327,11 @@
       "harvestDateAvailable": "2026-12-08",
       "status": "SEEDED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a522",
       "id": "COM-007",
       "farmerId": "USR-FARMER-3",
       "farmerName": "Muthusamy K.",
@@ -290,11 +343,13 @@
       "harvestDateAvailable": "2026-11-20",
       "status": "PLANNED",
       "createdAt": "2026-08-11T18:26:36.713Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     }
   ],
   "qualityReports": [
     {
+      "_id": "6a7b90e3e6090dc63d12a523",
       "id": "QR-001",
       "graderId": "USR-GRADER-1",
       "graderName": "Suresh Kumar",
@@ -307,11 +362,15 @@
         "organicRating": 4.8
       },
       "notes": "Premium grade onions. Shell dry, skins are tight, shape spherical. Fully qualified for direct corporate packaging.",
-      "certifiedAt": "2026-08-10T22:26:36.788Z"
+      "certifiedAt": "2026-08-10T22:26:36.788Z",
+      "__v": 0,
+      "createdAt": "2026-08-11T21:15:15.168Z",
+      "updatedAt": "2026-08-11T23:21:32.677Z"
     }
   ],
   "deliveries": [
     {
+      "_id": "6a7b90e3e6090dc63d12a524",
       "id": "DLV-001",
       "demandContractId": "DEM-002",
       "cropName": "Onion",
@@ -349,9 +408,11 @@
       ],
       "qualityReportId": "QR-001",
       "createdAt": "2026-08-08T18:26:36.788Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a525",
       "id": "DLV-002",
       "demandContractId": "DEM-001",
       "cropName": "Tomato",
@@ -374,36 +435,46 @@
         }
       ],
       "createdAt": "2026-08-11T13:26:36.788Z",
-      "updatedAt": "2026-08-11T18:26:36.713Z"
+      "updatedAt": "Wed Aug 12 2026 04:51:32 GMT+0530 (India Standard Time)",
+      "__v": 0
     }
   ],
   "notifications": [
     {
+      "_id": "6a7b90e3e6090dc63d12a526",
       "id": "NOT-001",
       "recipientId": "USR-FARMER-1",
       "title": "New Crop Demand",
       "message": "Reliance Retail posted a contract for Tomato (10,000 Kg) in Coimbatore district at ₹35/Kg.",
       "type": "DEMAND",
       "isRead": false,
-      "createdAt": "2026-08-11T16:26:36.788Z"
+      "createdAt": "2026-08-11T16:26:36.788Z",
+      "__v": 0,
+      "updatedAt": "2026-08-11T23:21:32.893Z"
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a527",
       "id": "NOT-002",
       "recipientId": "USR-BUYER-1",
       "title": "Quality Verification Complete",
       "message": "Grader Suresh Kumar certified Gopalakrishnan R. Onion commitment as Grade A.",
       "type": "QUALITY",
       "isRead": false,
-      "createdAt": "2026-08-11T14:26:36.788Z"
+      "createdAt": "2026-08-11T14:26:36.788Z",
+      "__v": 0,
+      "updatedAt": "2026-08-11T23:21:32.951Z"
     },
     {
+      "_id": "6a7b90e3e6090dc63d12a528",
       "id": "NOT-003",
       "recipientId": "USR-FARMER-1",
       "title": "Escrow Funds Secured",
       "message": "₹4,20,000 has been secured in AgriLink Escrow for Onion delivery DLV-001.",
       "type": "ESCROW",
       "isRead": true,
-      "createdAt": "2026-08-10T18:26:36.788Z"
+      "createdAt": "2026-08-10T18:26:36.788Z",
+      "__v": 0,
+      "updatedAt": "2026-08-11T23:21:33.005Z"
     }
   ]
 }

@@ -611,6 +611,26 @@ const DemandMarketplace: React.FC<DemandMarketplaceProps> = ({ user, demands, on
               </div>
 
               <div className="input-group">
+                <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155' }}>Upload Quality Specification / Lab Standard Document (PDF / Image)</label>
+                <input
+                  type="file"
+                  accept="image/*,.pdf"
+                  className="input"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        console.log('File uploaded:', file.name);
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  style={{ padding: '8px' }}
+                />
+              </div>
+
+              <div className="input-group">
                 <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155' }}>Quality & Inspection Requirements</label>
                 <textarea className="input" value={newQualitySpecs} onChange={e => setNewQualitySpecs(e.target.value)} rows={2} required />
               </div>

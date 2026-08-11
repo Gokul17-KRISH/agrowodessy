@@ -222,8 +222,24 @@ const GraderDashboard: React.FC<GraderDashboardProps> = ({ user, commitments, de
                       </div>
 
                       <div className="input-group" style={{ marginBottom: '1rem' }}>
-                        <label>Assayer Lab Notes & Observations</label>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155' }}>Assayer Lab Notes & Observations</label>
                         <input className="input" value={notes} onChange={e => setNotes(e.target.value)} placeholder="e.g. Moisture within 11% limits, uniform color grading, zero pest damage..." />
+                      </div>
+
+                      <div className="input-group" style={{ marginBottom: '1rem' }}>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155' }}>Upload Assayer Lab Test Certificate (PDF / Image)</label>
+                        <input
+                          type="file"
+                          accept="image/*,.pdf"
+                          className="input"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              console.log('Lab certificate uploaded:', file.name);
+                            }
+                          }}
+                          style={{ padding: '8px' }}
+                        />
                       </div>
 
                       <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>

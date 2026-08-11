@@ -619,10 +619,22 @@ export async function startStandaloneServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
+  const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`\n[AgriLink] Server running on:`);
     console.log(`  👉 Local:   http://localhost:${PORT}`);
     console.log(`  👉 Network: http://127.0.0.1:${PORT}\n`);
+  });
+
+  server.on('error', (err: any) => {
+    if (err.code === 'EADDRINUSE') {
+      const ALT_PORT = Number(PORT) + 1;
+      console.log(`[AgriLink] Port ${PORT} is busy, switching to http://localhost:${ALT_PORT}...`);
+      app.listen(ALT_PORT, '0.0.0.0', () => {
+        console.log(`\n[AgriLink] Server running on:`);
+        console.log(`  👉 Local:   http://localhost:${ALT_PORT}`);
+        console.log(`  👉 Network: http://127.0.0.1:${ALT_PORT}\n`);
+      });
+    }
   });
 }
 
