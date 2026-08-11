@@ -2,45 +2,31 @@ import fs from 'fs';
 import path from 'path';
 import bcrypt from 'bcryptjs';
 import {
-  Bin,
-  Truck,
-  Route,
-  WasteHistory,
-  Campaign,
-  AgentEvent,
-  TrafficEvent,
-  RoadClosure,
-  SystemAlert,
-  AgentStatus,
-  BinStatus,
-  PriorityLevel,
-  WasteType,
   User,
-  CitizenReport,
-  SharedWorkflowState,
-  AgentMessage,
-  ToolCallLog,
-  HumanApprovalRecord
+  DemandContract,
+  CropCommitment,
+  QualityReport,
+  Delivery,
+  Notification,
+  DistrictSaturationIntelligence,
+  SaturationMetrics,
+  SystemMetrics
 } from '../../src/types.js';
-import { COIMBATORE_NEIGHBORHOODS, calculateDistanceKm } from '../config/cityData.js';
+import { isMongoConnected } from './mongodb.js';
+import { MongoUserModel } from './models/User.js';
+import { MongoDemandContractModel } from './models/DemandContract.js';
+import { MongoCropCommitmentModel } from './models/CropCommitment.js';
+import { MongoQualityReportModel } from './models/QualityReport.js';
+import { MongoDeliveryModel } from './models/Delivery.js';
+import { MongoNotificationModel } from './models/Notification.js';
 
 class DatabaseStore {
-  public bins: Bin[] = [];
-  public trucks: Truck[] = [];
-  public routes: Route[] = [];
-  public wasteHistory: WasteHistory[] = [];
-  public campaigns: Campaign[] = [];
-  public agentEvents: AgentEvent[] = [];
-  public trafficEvents: TrafficEvent[] = [];
-  public roadClosures: RoadClosure[] = [];
-  public alerts: SystemAlert[] = [];
-  public agentStatuses: AgentStatus[] = [];
   public users: User[] = [];
-  public citizenReports: CitizenReport[] = [];
-  public workflowRuns: SharedWorkflowState[] = [];
-  public agentMessages: AgentMessage[] = [];
-  public toolCalls: ToolCallLog[] = [];
-  public humanApprovals: HumanApprovalRecord[] = [];
+  public demands: DemandContract[] = [];
+  public commitments: CropCommitment[] = [];
+  public qualityReports: QualityReport[] = [];
+  public deliveries: Delivery[] = [];
+  public notifications: Notification[] = [];
 
   private dataFilePath = path.join(process.cwd(), 'data', 'store.json');
 
@@ -49,32 +35,25 @@ class DatabaseStore {
   }
 
   private init() {
-    // Try reading from JSON file if exists
     try {
+      const dir = path.dirname(this.dataFilePath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
       if (fs.existsSync(this.dataFilePath)) {
         const raw = fs.readFileSync(this.dataFilePath, 'utf-8');
         const parsed = JSON.parse(raw);
-        this.bins = parsed.bins || [];
-        this.trucks = parsed.trucks || [];
-        this.routes = parsed.routes || [];
-        this.wasteHistory = parsed.wasteHistory || [];
-        this.campaigns = parsed.campaigns || [];
-        this.agentEvents = parsed.agentEvents || [];
-        this.trafficEvents = parsed.trafficEvents || [];
-        this.roadClosures = parsed.roadClosures || [];
-        this.alerts = parsed.alerts || [];
-        this.agentStatuses = parsed.agentStatuses || [];
         this.users = parsed.users || [];
-        this.citizenReports = parsed.citizenReports || [];
-        this.workflowRuns = parsed.workflowRuns || [];
-        this.agentMessages = parsed.agentMessages || [];
-        this.toolCalls = parsed.toolCalls || [];
-        this.humanApprovals = parsed.humanApprovals || [];
-        
-        if (this.bins.length >= 50 && this.citizenReports.length > 0) {
+        this.demands = parsed.demands || [];
+        this.commitments = parsed.commitments || [];
+        this.qualityReports = parsed.qualityReports || [];
+        this.deliveries = parsed.deliveries || [];
+        this.notifications = parsed.notifications || [];
+
+        if (this.users.length > 0 && this.demands.length > 0) {
           this.ensureSystemUsers();
-          this.ensureFourAgents();
-          console.log(`[Store] Loaded ${this.bins.length} bins, ${this.trucks.length} trucks, ${this.users.length} users, and ${this.citizenReports.length} citizen reports.`);
+          console.log(`[Store] Loaded ${this.users.length} users, ${this.demands.length} demands, ${this.commitments.length} commitments, ${this.deliveries.length} deliveries.`);
           return;
         }
       }
@@ -84,117 +63,87 @@ class DatabaseStore {
 
     this.seedData();
     this.ensureSystemUsers();
-    this.ensureFourAgents();
     this.saveToDisk();
   }
 
-  public ensureFourAgents() {
-    const defaultAgents: AgentStatus[] = [
-      {
-        id: 'AGT-01',
-        name: 'Bin Density & Waste Composition Agent',
-        role: 'Density & Composition Specialist',
-        status: 'ACTIVE',
-        lastAction: 'Monitoring 50 municipal bin sensors & composition profiles',
-        latencyMs: 120,
-        eventsCount: this.agentEvents.filter(e => e.agentName.includes('Bin')).length
-      },
-      {
-        id: 'AGT-02',
-        name: 'Logistics & Dynamic Routing Agent',
-        role: 'Dispatch & Route Optimization Specialist',
-        status: 'ACTIVE',
-        lastAction: 'VRPsolver ready; watching traffic & road closure events',
-        latencyMs: 180,
-        eventsCount: this.agentEvents.filter(e => e.agentName.includes('Routing') || e.agentName.includes('Logistics')).length
-      },
-      {
-        id: 'AGT-03',
-        name: 'Recycling Intelligence & Analytics Agent',
-        role: 'Waste Pattern & Contamination Specialist',
-        status: 'ACTIVE',
-        lastAction: 'Analyzing 30-day zone diversion & anomaly baselines',
-        latencyMs: 140,
-        eventsCount: this.agentEvents.filter(e => e.agentName.includes('Recycling') || e.agentName.includes('Analytics')).length
-      },
-      {
-        id: 'AGT-04',
-        name: 'Civic Campaign & Engagement Agent',
-        role: 'Bilingual Civic Behavior Specialist',
-        status: 'ACTIVE',
-        lastAction: 'Gemini tool ready for Tamil + English campaigns',
-        latencyMs: 210,
-        eventsCount: this.agentEvents.filter(e => e.agentName.includes('Campaign')).length
-      }
-    ];
+  public async syncWithMongo() {
+    if (!isMongoConnected()) return;
 
-    this.agentStatuses = defaultAgents;
-  }
+    try {
+      console.log('[Store] Syncing with MongoDB Atlas cluster...');
+      const dbUsersCount = await MongoUserModel.countDocuments();
+      const dbDemandsCount = await MongoDemandContractModel.countDocuments();
 
-  public ensureSystemUsers() {
-    const defaultPasswordHash = bcrypt.hashSync(process.env.DEMO_PASSWORD || 'demo1234', 10);
-    const initialAdminEmail = process.env.INITIAL_ADMIN_EMAIL || 'admin@wastewise.demo';
-    const initialAdminPassword = process.env.INITIAL_ADMIN_PASSWORD || 'demo1234';
-    const initialAdminHash = bcrypt.hashSync(initialAdminPassword, 10);
-    const nowIso = new Date().toISOString();
-
-    const requiredUsers: User[] = [
-      {
-        id: 'USR-01-DEMO',
-        name: 'Municipal Admin',
-        email: initialAdminEmail,
-        role: 'ADMIN',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-        phone: '+91 98765 10002',
-        isActive: true,
-        isEmailVerified: true,
-        createdAt: nowIso,
-        updatedAt: nowIso,
-        passwordHash: initialAdminHash
-      },
-      {
-        id: 'USR-04-CITIZEN',
-        name: 'Citizen User',
-        email: 'user@wastewise.demo',
-        role: 'USER',
-        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
-        phone: '+91 98765 10007',
-        isActive: true,
-        isEmailVerified: true,
-        createdAt: nowIso,
-        updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
-      },
-      {
-        id: 'USR-01',
-        name: 'Municipal Admin',
-        email: 'admin@wastewise.gov.in',
-        role: 'ADMIN',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-        phone: '+91 98765 10001',
-        isActive: true,
-        isEmailVerified: true,
-        createdAt: nowIso,
-        updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
-      }
-    ];
-
-    for (const reqUser of requiredUsers) {
-      const idx = this.users.findIndex(u => u.email.toLowerCase() === reqUser.email.toLowerCase());
-      if (idx === -1) {
-        this.users.push(reqUser);
+      if (dbUsersCount === 0 && dbDemandsCount === 0) {
+        console.log('[Store] Seeding MongoDB Atlas collections from store snapshot...');
+        if (this.users.length > 0) {
+          await MongoUserModel.insertMany(this.users.map(u => ({ ...u, _id: undefined })) as any);
+        }
+        if (this.demands.length > 0) {
+          await MongoDemandContractModel.insertMany(this.demands.map(d => ({ ...d, _id: undefined })) as any);
+        }
+        if (this.commitments.length > 0) {
+          await MongoCropCommitmentModel.insertMany(this.commitments.map(c => ({ ...c, _id: undefined })) as any);
+        }
+        if (this.qualityReports.length > 0) {
+          await MongoQualityReportModel.insertMany(this.qualityReports.map(q => ({ ...q, _id: undefined })) as any);
+        }
+        if (this.deliveries.length > 0) {
+          await MongoDeliveryModel.insertMany(this.deliveries.map(d => ({ ...d, _id: undefined })) as any);
+        }
+        if (this.notifications.length > 0) {
+          await MongoNotificationModel.insertMany(this.notifications.map(n => ({ ...n, _id: undefined })) as any);
+        }
+        console.log('[Store] 🟢 MongoDB Atlas collections seeded successfully!');
       } else {
-        // Update passwordHash and roles if missing
-        this.users[idx] = {
-          ...this.users[idx],
-          role: reqUser.role,
-          passwordHash: this.users[idx].passwordHash || reqUser.passwordHash,
-          isActive: this.users[idx].isActive !== undefined ? this.users[idx].isActive : true
-        };
+        console.log('[Store] Fetching live dataset from MongoDB Atlas collections...');
+        const mongoUsers = await MongoUserModel.find().lean();
+        const mongoDemands = await MongoDemandContractModel.find().lean();
+        const mongoCommitments = await MongoCropCommitmentModel.find().lean();
+        const mongoQuality = await MongoQualityReportModel.find().lean();
+        const mongoDeliveries = await MongoDeliveryModel.find().lean();
+        const mongoNotifications = await MongoNotificationModel.find().lean();
+
+        if (mongoUsers.length > 0) this.users = mongoUsers as any;
+        if (mongoDemands.length > 0) this.demands = mongoDemands as any;
+        if (mongoCommitments.length > 0) this.commitments = mongoCommitments as any;
+        if (mongoQuality.length > 0) this.qualityReports = mongoQuality as any;
+        if (mongoDeliveries.length > 0) this.deliveries = mongoDeliveries as any;
+        if (mongoNotifications.length > 0) this.notifications = mongoNotifications as any;
+
+        this.ensureSystemUsers();
+        this.saveToDisk();
+        console.log(`[Store] 🟢 MongoDB Atlas synced: ${this.users.length} Users, ${this.demands.length} Demands, ${this.commitments.length} Commitments.`);
       }
+    } catch (err) {
+      console.warn('[Store] Error during MongoDB Atlas sync:', err);
     }
-    this.saveToDisk();
+  }
+
+  public async saveToMongo() {
+    if (!isMongoConnected()) return;
+    try {
+      for (const u of this.users) {
+        await MongoUserModel.updateOne({ id: u.id }, { $set: u as any }, { upsert: true });
+      }
+      for (const d of this.demands) {
+        await MongoDemandContractModel.updateOne({ id: d.id }, { $set: d as any }, { upsert: true });
+      }
+      for (const c of this.commitments) {
+        await MongoCropCommitmentModel.updateOne({ id: c.id }, { $set: c as any }, { upsert: true });
+      }
+      for (const q of this.qualityReports) {
+        await MongoQualityReportModel.updateOne({ id: q.id }, { $set: q as any }, { upsert: true });
+      }
+      for (const del of this.deliveries) {
+        await MongoDeliveryModel.updateOne({ id: del.id }, { $set: del as any }, { upsert: true });
+      }
+      for (const n of this.notifications) {
+        await MongoNotificationModel.updateOne({ id: n.id }, { $set: n as any }, { upsert: true });
+      }
+    } catch (err) {
+      console.warn('[Store] Error writing to MongoDB Atlas:', err);
+    }
   }
 
   public saveToDisk() {
@@ -207,525 +156,472 @@ class DatabaseStore {
         this.dataFilePath,
         JSON.stringify(
           {
-            bins: this.bins,
-            trucks: this.trucks,
-            routes: this.routes,
-            wasteHistory: this.wasteHistory,
-            campaigns: this.campaigns,
-            agentEvents: this.agentEvents,
-            trafficEvents: this.trafficEvents,
-            roadClosures: this.roadClosures,
-            alerts: this.alerts,
-            agentStatuses: this.agentStatuses,
             users: this.users,
-            citizenReports: this.citizenReports,
-            workflowRuns: this.workflowRuns,
-            agentMessages: this.agentMessages,
-            toolCalls: this.toolCalls,
-            humanApprovals: this.humanApprovals
+            demands: this.demands,
+            commitments: this.commitments,
+            qualityReports: this.qualityReports,
+            deliveries: this.deliveries,
+            notifications: this.notifications
           },
           null,
           2
         )
       );
+      this.saveToMongo().catch(err => console.warn('[Store] Background save to Mongo failed:', err));
     } catch (e) {
       console.warn('[Store] Failed writing persistent store:', e);
     }
   }
 
-  private seedData() {
-    console.log('[Store] Seeding initial WasteWise municipal dataset...');
-
-    const wasteTypes: WasteType[] = ['mixed', 'organic', 'plastic', 'paper', 'glass'];
-
-    // 1. Seed Bins (50 bins across 6 neighborhoods)
-    let binCounter = 1;
-    this.bins = [];
-
-    COIMBATORE_NEIGHBORHOODS.forEach((nh) => {
-      // Create 8 to 9 bins per neighborhood
-      const count = nh.name === 'Gandhipuram' || nh.name === 'RS Puram' ? 9 : 8;
-      for (let i = 0; i < count; i++) {
-        // Offset coords slightly around center
-        const latOffset = (Math.random() - 0.5) * 0.018;
-        const lngOffset = (Math.random() - 0.5) * 0.018;
-        
-        // Random fill level with a few intentional HIGH and CRITICAL bins for initial demo
-        let fillLevel = Math.floor(20 + Math.random() * 65);
-        if (binCounter === 5 || binCounter === 18 || binCounter === 34) {
-          fillLevel = 94 + Math.floor(Math.random() * 5); // 94-98% Critical
-        } else if (binCounter === 12 || binCounter === 27 || binCounter === 42) {
-          fillLevel = 84 + Math.floor(Math.random() * 8); // 84-91% High
-        }
-
-        const binId = `BIN-${String(binCounter).padStart(3, '0')}`;
-        const status = this.getBinStatus(fillLevel);
-        const priority = this.getPriority(status);
-        const overflowRisk = Math.min(1, Math.round((fillLevel / 100) * (1 + (fillLevel > 80 ? 0.15 : 0)) * 100) / 100);
-
-        // Waste type distribution tailored per neighborhood
-        let wasteType: WasteType = wasteTypes[i % wasteTypes.length];
-        if (nh.name === 'RS Puram' && i % 2 === 0) wasteType = 'plastic';
-        if (nh.name === 'Saibaba Colony' && i % 2 === 0) wasteType = 'organic';
-        if (nh.name === 'Peelamedu' && i % 3 === 0) wasteType = 'paper';
-
-        this.bins.push({
-          id: binId,
-          binId,
-          locationName: `${nh.name} Sector ${i + 1}`,
-          neighborhood: nh.name,
-          lat: Math.round((nh.centerLat + latOffset) * 10000) / 10000,
-          lng: Math.round((nh.centerLng + lngOffset) * 10000) / 10000,
-          fillLevel,
-          wasteType,
-          status,
-          priority,
-          estimatedOverflowRisk: overflowRisk,
-          lastUpdated: new Date(Date.now() - Math.floor(Math.random() * 3600000)).toISOString(),
-          historicalReadings: Array.from({ length: 6 }).map((_, idx) => ({
-            timestamp: new Date(Date.now() - (6 - idx) * 3600000 * 4).toISOString(),
-            fillLevel: Math.max(10, Math.min(100, fillLevel - (6 - idx) * 12 + Math.floor(Math.random() * 10 - 5)))
-          }))
-        });
-
-        binCounter++;
-      }
-    });
-
-    // 2. Seed Garbage Trucks (10 trucks)
-    const driverNames = [
-      'Karthik Raja', 'M. Arumugam', 'Senthil Kumar', 'R. Dhanapal', 'P. Murugan',
-      'V. Sundaram', 'S. Natarajan', 'G. Balaji', 'K. Elango', 'M. Saravanan'
-    ];
-
-    this.trucks = Array.from({ length: 10 }).map((_, idx) => {
-      const truckId = `TRK-${String(idx + 1).padStart(2, '0')}`;
-      const nh = COIMBATORE_NEIGHBORHOODS[idx % COIMBATORE_NEIGHBORHOODS.length];
-      const capacityKg = idx % 2 === 0 ? 5000 : 3500;
-      const currentLoadKg = idx === 0 ? 1200 : idx === 3 ? 3100 : Math.floor(capacityKg * (0.1 + Math.random() * 0.4));
-      
-      return {
-        id: truckId,
-        truckId,
-        driverName: driverNames[idx],
-        capacityKg,
-        currentLoadKg,
-        fuelLevel: 75 + Math.floor(Math.random() * 25),
-        currentLat: nh.centerLat + (Math.random() - 0.5) * 0.01,
-        currentLng: nh.centerLng + (Math.random() - 0.5) * 0.01,
-        status: idx === 0 ? 'IDLE' : idx === 2 ? 'COLLECTING' : 'IDLE',
-        assignedRouteId: null
-      };
-    });
-
-    // 3. Seed Traffic & Road Closures
-    this.trafficEvents = [
-      {
-        id: 'TRAF-101',
-        roadName: 'Avinashi Road',
-        neighborhood: 'Peelamedu',
-        severity: 'HEAVY',
-        description: 'Heavy flyover construction traffic slowdown.',
-        active: true,
-        lat: 11.0250,
-        lng: 76.9950
-      },
-      {
-        id: 'TRAF-102',
-        roadName: 'Cross Cut Road',
-        neighborhood: 'Gandhipuram',
-        severity: 'MODERATE',
-        description: 'Commercial rush hour market congestion.',
-        active: true,
-        lat: 11.0180,
-        lng: 76.9580
-      }
-    ];
-
-    this.roadClosures = [
-      {
-        id: 'ROAD-201',
-        roadName: 'DB Road North Axis',
-        neighborhood: 'RS Puram',
-        startLat: 11.0090,
-        startLng: 76.9460,
-        endLat: 11.0110,
-        endLng: 76.9480,
-        description: 'Pipeline drainage repair work. Complete road block.',
-        active: true
-      }
-    ];
-
-    // 4. Seed Historical Waste Records (100+ items across 6 neighborhoods over past 30 days)
-    this.wasteHistory = [];
-    const now = Date.now();
-    let historyId = 1;
-
-    COIMBATORE_NEIGHBORHOODS.forEach((nh) => {
-      for (let day = 30; day >= 0; day--) {
-        const dateStr = new Date(now - day * 86400000).toISOString().split('T')[0];
-        
-        let plastic = 22;
-        let organic = 45;
-        let paper = 18;
-        let glass = 7;
-        let mixed = 8;
-
-        if (nh.name === 'RS Puram') {
-          plastic = 64; // High plastic waste issue
-          organic = 16;
-          paper = 12;
-          glass = 4;
-          mixed = 4;
-        } else if (nh.name === 'Saibaba Colony') {
-          organic = 68; // High organic waste issue
-          plastic = 14;
-          paper = 10;
-          glass = 4;
-          mixed = 4;
-        } else if (nh.name === 'Peelamedu') {
-          paper = 38;
-          plastic = 32;
-          organic = 18;
-          glass = 6;
-          mixed = 6;
-        }
-
-        const totalVolumeTons = Math.round((12 + Math.random() * 8) * 10) / 10;
-        const recyclingRatePct = Math.round((35 + Math.random() * 25) * 10) / 10;
-        const separationRatePct = Math.round((40 + Math.random() * 30) * 10) / 10;
-        const landfillDiversionPct = Math.round((recyclingRatePct * 0.8 + separationRatePct * 0.3) * 10) / 10;
-
-        this.wasteHistory.push({
-          id: `WH-${historyId++}`,
-          neighborhood: nh.name,
-          date: dateStr,
-          totalVolumeTons,
-          recyclingRatePct,
-          separationRatePct,
-          landfillDiversionPct,
-          breakdown: { plastic, organic, paper, glass, mixed }
-        });
-      }
-    });
-
-    // 5. Seed Initial Campaigns
-    this.campaigns = [
-      {
-        id: 'CAMP-001',
-        neighborhood: 'RS Puram',
-        wasteIssue: 'Single-Use Plastic Bottle & Container Accumulation (64% plastic composition)',
-        titleEn: 'RS Puram Zero Plastic Initiative',
-        titleTa: 'ஆர்.எஸ்.புரம் பிளாஸ்டிக் இல்லா முன்னெடுப்பு',
-        explanationEn: 'RS Puram commercial markets show 64% plastic waste, leading to microplastic runoff and bin clogging.',
-        explanationTa: 'ஆர்.எஸ்.புரம் வணிகச் சந்தைகளில் 64% பிளாஸ்டிக் கழிவுகள் பதிவாகியுள்ளன. இது கழிவுநீர் தேக்கத்திற்கு வழிவகுக்கிறது.',
-        citizenActionEn: 'Switch to cotton tote bags and place clean PET bottles in designated blue recycling bins.',
-        citizenActionTa: 'துணிப்பைகளைப் பயன்படுத்தவும், தூய்மையான பிளாஸ்டிக் பாட்டில்களை நீலநிற மறுசுழற்சி தொட்டிகளில் போடுங்கள்.',
-        posterCopyEn: 'Ditch Single-Use Plastic! Protect Our RS Puram Clean Canopy.',
-        posterCopyTa: 'ஒருமுறை பயன்படுத்தும் பிளாஸ்டிக்கை தவிர்க்கவும்! நமது ஆர்.எஸ்.புரத்தை தூய்மையாக்குவோம்.',
-        socialMediaEn: 'Join 5,000+ RS Puram residents segregating plastic waste at source today! #WasteWise #CleanCoimbatore',
-        socialMediaTa: 'பிளாஸ்டிக் கழிவுகளை பிரித்தெடுக்கும் 5,000+ ஆர்.எஸ்.புரம் மக்களுடன் இன்றே இணையுங்கள்! #WasteWise',
-        targetGroup: 'Commercial Shop Owners & Apartment Associations',
-        duration: '14 Days',
-        expectedImpact: '32% reduction in unsegregated plastic waste to landfill',
-        status: 'PUBLISHED',
-        createdAt: new Date(Date.now() - 86400000 * 2).toISOString()
-      }
-    ];
-
-    // 6. Seed Agent Statuses
-    this.agentStatuses = [
-      {
-        id: 'agent-1',
-        name: 'Bin Density Agent',
-        role: 'Computer Vision & IoT Fill Analytics',
-        status: 'ACTIVE',
-        lastAction: 'Scanned 50 city bins. Flagged BIN-005 (96%) as CRITICAL.',
-        latencyMs: 140,
-        eventsCount: 38
-      },
-      {
-        id: 'agent-2',
-        name: 'Routing Agent',
-        role: 'Multi-Vehicle VRP & Traffic Optimization',
-        status: 'ACTIVE',
-        lastAction: 'Calculated optimal collection route for Truck TRK-01.',
-        latencyMs: 210,
-        eventsCount: 24
-      },
-      {
-        id: 'agent-3',
-        name: 'Recycling Analytics Agent',
-        role: 'Landfill Diversion & Waste Breakdown',
-        status: 'ACTIVE',
-        lastAction: 'Processed 30-day neighborhood waste separation metrics.',
-        latencyMs: 180,
-        eventsCount: 19
-      },
-      {
-        id: 'agent-4',
-        name: 'Civic Campaign Agent',
-        role: 'Bilingual Civic Campaign Generator (En/Ta)',
-        status: 'ACTIVE',
-        lastAction: 'Generated RS Puram Zero Plastic campaign.',
-        latencyMs: 420,
-        eventsCount: 12
-      }
-    ];
-
-    // 7. Seed Initial Agent Events
-    this.agentEvents = [
-      {
-        id: 'EVT-1001',
-        agentName: 'Bin Density Agent',
-        eventType: 'CRITICAL_BIN_DETECTED',
-        inputSummary: 'BIN-005 fill level reached 96% in Gandhipuram Sector 5',
-        outputSummary: 'Status escalated to CRITICAL. Overflow risk set to 0.96. Priority URGENT.',
-        toolUsed: 'getBinStatus',
-        reasoning: 'BIN-005 exceeded 95% critical threshold during automated sensor scan cycle.',
-        latencyMs: 135,
-        timestamp: new Date(Date.now() - 1800000).toISOString(),
-        status: 'WARNING'
-      },
-      {
-        id: 'EVT-1002',
-        agentName: 'Routing Agent',
-        eventType: 'ROUTE_PROPOSAL_GENERATED',
-        inputSummary: 'Targeted 3 critical/high bins in Gandhipuram zone',
-        outputSummary: 'Assigned Truck TRK-01 (Capacity 5000kg). Route distance: 8.4km. Time: 22 mins.',
-        toolUsed: 'optimizeMultiTruckRoutes',
-        reasoning: 'TRK-01 has 3,800kg available capacity and is 1.2km from Gandhipuram cluster. Bypassed DB Road closure.',
-        latencyMs: 215,
-        timestamp: new Date(Date.now() - 1200000).toISOString(),
-        status: 'SUCCESS'
-      }
-    ];
-
-    // 8. Seed Initial Alerts
-    this.alerts = [
-      {
-        id: 'ALT-001',
-        severity: 'CRITICAL',
-        title: 'Critical Overflow Warning',
-        message: 'BIN-005 (Gandhipuram Sector 5) is at 96% capacity with high overflow risk.',
-        timestamp: new Date(Date.now() - 1800000).toISOString(),
-        entityId: 'BIN-005',
-        entityType: 'bin'
-      },
-      {
-        id: 'ALT-002',
-        severity: 'WARNING',
-        title: 'Active Road Closure',
-        message: 'DB Road North Axis in RS Puram blocked due to pipeline work.',
-        timestamp: new Date(Date.now() - 3600000).toISOString(),
-        entityId: 'ROAD-201',
-        entityType: 'route'
-      }
-    ];
-
-    // 9. Seed Users
-    const defaultPasswordHash = bcrypt.hashSync(process.env.DEMO_PASSWORD || 'demo1234', 10);
+  public ensureSystemUsers() {
+    const salt = bcrypt.genSaltSync(10);
+    const demoPasswordHash = bcrypt.hashSync('demo1234', salt);
     const nowIso = new Date().toISOString();
 
-    const initialAdminEmail = process.env.INITIAL_ADMIN_EMAIL || 'admin@wastewise.demo';
-    const initialAdminPassword = process.env.INITIAL_ADMIN_PASSWORD || 'demo1234';
-    const initialAdminHash = bcrypt.hashSync(initialAdminPassword, 10);
-
-    this.users = [
+    const defaultUsers: User[] = [
       {
-        id: 'USR-01',
-        name: 'Municipal Admin',
-        email: 'admin@wastewise.gov.in',
+        id: 'USR-ADMIN',
+        name: 'AgriLink Admin',
+        email: 'admin@agrilink.demo',
         role: 'ADMIN',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-        phone: '+91 98765 10001',
+        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
+        phone: '+91 94432 10001',
+        district: 'Chennai',
         isActive: true,
         isEmailVerified: true,
         createdAt: nowIso,
         updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
+        passwordHash: demoPasswordHash
       },
       {
-        id: 'USR-01-DEMO',
-        name: 'Municipal Admin',
-        email: initialAdminEmail,
-        role: 'ADMIN',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-        phone: '+91 98765 10002',
-        isActive: true,
-        isEmailVerified: true,
-        createdAt: nowIso,
-        updatedAt: nowIso,
-        passwordHash: initialAdminHash
-      },
-      {
-        id: 'USR-02',
-        name: 'Chief Dispatcher',
-        email: 'dispatcher@wastewise.gov.in',
-        role: 'DISPATCHER',
+        id: 'USR-FARMER-1',
+        name: 'Gopalakrishnan R.',
+        email: 'farmer@agrilink.demo',
+        role: 'FARMER',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-        phone: '+91 98765 10003',
+        phone: '+91 98422 12345',
+        district: 'Coimbatore',
+        farmSizeAcres: 12.5,
         isActive: true,
         isEmailVerified: true,
         createdAt: nowIso,
         updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
+        passwordHash: demoPasswordHash
       },
       {
-        id: 'USR-02-DEMO',
-        name: 'Chief Dispatcher',
-        email: 'dispatcher@wastewise.demo',
-        role: 'DISPATCHER',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-        phone: '+91 98765 10004',
+        id: 'USR-BUYER-1',
+        name: 'Reliance Retail (Agri Div)',
+        email: 'buyer@agrilink.demo',
+        role: 'BUYER',
+        avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150',
+        phone: '+91 99655 88888',
+        district: 'Coimbatore',
+        businessName: 'Reliance Retail Ltd',
         isActive: true,
         isEmailVerified: true,
         createdAt: nowIso,
         updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
+        passwordHash: demoPasswordHash
       },
       {
-        id: 'USR-03',
-        name: 'Sustainability Analyst',
-        email: 'analyst@wastewise.gov.in',
-        role: 'ANALYST',
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
-        phone: '+91 98765 10005',
+        id: 'USR-GRADER-1',
+        name: 'Suresh Kumar',
+        email: 'grader@agrilink.demo',
+        role: 'GRADER',
+        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
+        phone: '+91 93600 77777',
+        district: 'Coimbatore',
         isActive: true,
         isEmailVerified: true,
         createdAt: nowIso,
         updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
-      },
-      {
-        id: 'USR-03-DEMO',
-        name: 'Sustainability Analyst',
-        email: 'analyst@wastewise.demo',
-        role: 'ANALYST',
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
-        phone: '+91 98765 10006',
-        isActive: true,
-        isEmailVerified: true,
-        createdAt: nowIso,
-        updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
-      },
-      {
-        id: 'USR-04-CITIZEN',
-        name: 'Citizen User',
-        email: 'user@wastewise.demo',
-        role: 'USER',
-        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
-        phone: '+91 98765 10007',
-        isActive: true,
-        isEmailVerified: true,
-        createdAt: nowIso,
-        updatedAt: nowIso,
-        passwordHash: defaultPasswordHash
+        passwordHash: demoPasswordHash
       }
     ];
 
-    // 10. Seed Citizen Crowdsourced Reports
-    this.citizenReports = [
-      {
-        id: 'REP-001',
-        reportId: 'REP-001',
-        reportType: 'OVERFLOWING_BIN',
-        title: 'Gandhipuram Sector 5 Commercial Bin Overflow',
-        description: 'Bin near 100 Feet Road bus stop is spilling plastic food containers onto pedestrian walkway.',
-        neighborhood: 'Gandhipuram',
-        locationName: '100 Feet Road Bus Stand, Sector 5',
-        lat: 11.0185,
-        lng: 76.9572,
-        binId: 'BIN-005',
-        photoUrl: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=500',
-        status: 'VERIFIED',
-        upvotesCount: 14,
-        downvotesCount: 0,
-        reportedBy: 'Kavitha S. (Citizen)',
-        aiClassification: 'AI Confidence: 98%. Confirmed severe overflow of plastic food packaging causing obstruction.',
-        createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-        updatedAt: new Date(Date.now() - 3600000).toISOString()
-      },
-      {
-        id: 'REP-002',
-        reportId: 'REP-002',
-        reportType: 'ILLEGAL_DUMPING',
-        title: 'Construction Debris & Plastic Bags Dumping',
-        description: 'Dumped pile of broken tiles and unsegregated plastic bags behind DB Road market lane.',
-        neighborhood: 'RS Puram',
-        locationName: 'DB Road West Corner, Sector 2',
-        lat: 11.0098,
-        lng: 76.9465,
-        photoUrl: 'https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?w=500',
-        status: 'PENDING_VERIFICATION',
-        upvotesCount: 8,
-        downvotesCount: 1,
-        reportedBy: 'Rajeshkumar M. (Local Business Owner)',
-        aiClassification: 'AI Confidence: 91%. Identified illegal commercial construction runoff + plastic waste.',
-        createdAt: new Date(Date.now() - 3600000 * 4).toISOString(),
-        updatedAt: new Date(Date.now() - 3600000 * 4).toISOString()
-      },
-      {
-        id: 'REP-003',
-        reportId: 'REP-003',
-        reportType: 'MISSED_COLLECTION',
-        title: 'Residential Sector Organic Waste Bin Unemptied',
-        description: 'Scheduled morning pickup did not arrive for organic bin BIN-018. Smelling strongly.',
-        neighborhood: 'Saibaba Colony',
-        locationName: 'NSR Road Cross 4, Sector 3',
-        lat: 11.0285,
-        lng: 76.9422,
-        binId: 'BIN-018',
-        photoUrl: 'https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?w=500',
-        status: 'IN_PROGRESS',
-        upvotesCount: 19,
-        downvotesCount: 0,
-        reportedBy: 'Anand V. (Residents Welfare Assoc.)',
-        aiClassification: 'AI Confidence: 95%. Verified delayed route execution due to morning traffic event TRAF-102.',
-        createdAt: new Date(Date.now() - 3600000 * 6).toISOString(),
-        updatedAt: new Date(Date.now() - 3600000 * 2).toISOString()
-      },
-      {
-        id: 'REP-004',
-        reportId: 'REP-004',
-        reportType: 'DAMAGED_BIN',
-        title: 'Cracked Base Lid on Recycling Bin BIN-034',
-        description: 'Pedal mechanism broken and base lid cracked; rainwater entering the paper compartment.',
-        neighborhood: 'Peelamedu',
-        locationName: 'Avinashi Road College Axis, Sector 1',
-        lat: 11.0260,
-        lng: 76.9940,
-        binId: 'BIN-034',
-        status: 'RESOLVED',
-        upvotesCount: 6,
-        downvotesCount: 0,
-        reportedBy: 'Subhashini T. (Student)',
-        aiClassification: 'AI Confidence: 89%. Mechanical latch defect noted. Maintenance dispatch completed.',
-        createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-        updatedAt: new Date(Date.now() - 86400000).toISOString()
+    for (const defUser of defaultUsers) {
+      const idx = this.users.findIndex(u => u.email.toLowerCase() === defUser.email.toLowerCase());
+      if (idx === -1) {
+        this.users.push(defUser);
+      } else {
+        // Update password hash if needed
+        this.users[idx] = {
+          ...defUser,
+          ...this.users[idx],
+          passwordHash: this.users[idx].passwordHash || defUser.passwordHash
+        };
       }
-    ];
-  }
-
-  public getBinStatus(fill: number): BinStatus {
-    if (fill <= 30) return 'EMPTY';
-    if (fill <= 60) return 'NORMAL';
-    if (fill <= 80) return 'MEDIUM';
-    if (fill <= 95) return 'HIGH';
-    return 'CRITICAL';
-  }
-
-  public getPriority(status: BinStatus): PriorityLevel {
-    switch (status) {
-      case 'CRITICAL': return 'URGENT';
-      case 'HIGH': return 'HIGH';
-      case 'MEDIUM': return 'NORMAL';
-      default: return 'LOW';
     }
   }
 
-  // User Helper Operations with Persistence
+  private seedData() {
+    console.log('[Store] Seeding initial AgriLink digital market dataset...');
+    const nowIso = new Date().toISOString();
+
+    // 1. Seed some fallback users (extra farmers, buyers, graders)
+    const salt = bcrypt.genSaltSync(10);
+    const demoPasswordHash = bcrypt.hashSync('demo1234', salt);
+
+    this.users = [
+      {
+        id: 'USR-FARMER-2',
+        name: 'Palani Swamy',
+        email: 'palani@agrilink.demo',
+        role: 'FARMER',
+        avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150',
+        phone: '+91 97866 54321',
+        district: 'Erode',
+        farmSizeAcres: 8.0,
+        isActive: true,
+        isEmailVerified: true,
+        createdAt: nowIso,
+        updatedAt: nowIso,
+        passwordHash: demoPasswordHash
+      },
+      {
+        id: 'USR-FARMER-3',
+        name: 'Muthusamy K.',
+        email: 'muthu@agrilink.demo',
+        role: 'FARMER',
+        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
+        phone: '+91 94880 77112',
+        district: 'Tiruppur',
+        farmSizeAcres: 15.0,
+        isActive: true,
+        isEmailVerified: true,
+        createdAt: nowIso,
+        updatedAt: nowIso,
+        passwordHash: demoPasswordHash
+      },
+      {
+        id: 'USR-BUYER-2',
+        name: 'FarmFresh Foods Co.',
+        email: 'farmfresh@agrilink.demo',
+        role: 'BUYER',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150',
+        phone: '+91 91234 56789',
+        district: 'Erode',
+        businessName: 'FarmFresh Corp',
+        isActive: true,
+        isEmailVerified: true,
+        createdAt: nowIso,
+        updatedAt: nowIso,
+        passwordHash: demoPasswordHash
+      }
+    ];
+
+    // 2. Seed Buyer crop demands (DemandContracts)
+    this.demands = [
+      {
+        id: 'DEM-001',
+        buyerId: 'USR-BUYER-1',
+        buyerName: 'Reliance Retail (Agri Div)',
+        businessName: 'Reliance Retail Ltd',
+        cropName: 'Tomato',
+        quantityRequiredKg: 10000,
+        quantityCommittedKg: 8500,
+        pricePerKg: 35,
+        targetMonth: 'November 2026',
+        district: 'Coimbatore',
+        terms: 'Payment released instantly upon Grader verification of moisture < 10% and size > 4cm.',
+        qualityRequirements: 'Size Class A/B, No surface pests, Moisture maximum 12%',
+        status: 'OPEN',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'DEM-002',
+        buyerId: 'USR-BUYER-1',
+        buyerName: 'Reliance Retail (Agri Div)',
+        businessName: 'Reliance Retail Ltd',
+        cropName: 'Onion',
+        quantityRequiredKg: 15000,
+        quantityCommittedKg: 15000, // Fully committed, alert level OPTIMAL
+        pricePerKg: 42,
+        targetMonth: 'November 2026',
+        district: 'Coimbatore',
+        terms: 'Buyer deposits 100% in escrow. Farmers ship to depot.',
+        qualityRequirements: 'Well cured bulbs, double skin intact, size > 55mm.',
+        status: 'FULLY_COMMITTED',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'DEM-003',
+        buyerId: 'USR-BUYER-2',
+        buyerName: 'FarmFresh Foods Co.',
+        businessName: 'FarmFresh Corp',
+        cropName: 'Turmeric',
+        quantityRequiredKg: 5000,
+        quantityCommittedKg: 6200, // OVER-SATURATED (High density alerts)
+        pricePerKg: 135,
+        targetMonth: 'December 2026',
+        district: 'Erode',
+        terms: 'Grade A Erode Turmeric bulbs only. Settle payment via direct bank transfer escrow release.',
+        qualityRequirements: 'Curcumin contents > 4.5%, moisture < 9%.',
+        status: 'OPEN',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'DEM-004',
+        buyerId: 'USR-BUYER-2',
+        buyerName: 'FarmFresh Foods Co.',
+        businessName: 'FarmFresh Corp',
+        cropName: 'Maize',
+        quantityRequiredKg: 30000,
+        quantityCommittedKg: 5000, // Under-supplied (Need seeding!)
+        pricePerKg: 24,
+        targetMonth: 'November 2026',
+        district: 'Tiruppur',
+        terms: 'Moisture < 14%. Payment within 24 hours of grader validation.',
+        qualityRequirements: 'Yellow dent maize, foreign matter < 2%, damaged kernels < 5%.',
+        status: 'OPEN',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'DEM-005',
+        buyerId: 'USR-BUYER-1',
+        buyerName: 'Reliance Retail (Agri Div)',
+        businessName: 'Reliance Retail Ltd',
+        cropName: 'Rice (Ponni)',
+        quantityRequiredKg: 20000,
+        quantityCommittedKg: 4000,
+        pricePerKg: 55,
+        targetMonth: 'December 2026',
+        district: 'Trichy',
+        terms: 'Double polished Ponni rice, crop year 2026.',
+        qualityRequirements: 'Moisture < 12%, broken grains < 3%.',
+        status: 'OPEN',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      }
+    ];
+
+    // 3. Seed crop commitments from farmers
+    this.commitments = [
+      {
+        id: 'COM-001',
+        farmerId: 'USR-FARMER-1',
+        farmerName: 'Gopalakrishnan R.',
+        demandContractId: 'DEM-001',
+        cropName: 'Tomato',
+        quantityKg: 5000,
+        district: 'Coimbatore',
+        plantingDate: '2026-08-01',
+        harvestDateAvailable: '2026-11-10',
+        status: 'SEEDED',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'COM-002',
+        farmerId: 'USR-FARMER-2',
+        farmerName: 'Palani Swamy',
+        demandContractId: 'DEM-001',
+        cropName: 'Tomato',
+        quantityKg: 3500,
+        district: 'Coimbatore',
+        plantingDate: '2026-08-05',
+        harvestDateAvailable: '2026-11-15',
+        status: 'PLANNED',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'COM-003',
+        farmerId: 'USR-FARMER-1',
+        farmerName: 'Gopalakrishnan R.',
+        demandContractId: 'DEM-002',
+        cropName: 'Onion',
+        quantityKg: 10000,
+        district: 'Coimbatore',
+        plantingDate: '2026-07-20',
+        harvestDateAvailable: '2026-11-01',
+        status: 'HARVESTED', // Harvested and ready for logistics!
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'COM-004',
+        farmerId: 'USR-FARMER-3',
+        farmerName: 'Muthusamy K.',
+        demandContractId: 'DEM-002',
+        cropName: 'Onion',
+        quantityKg: 5000,
+        district: 'Coimbatore',
+        plantingDate: '2026-07-25',
+        harvestDateAvailable: '2026-11-05',
+        status: 'SEEDED',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'COM-005',
+        farmerId: 'USR-FARMER-2',
+        farmerName: 'Palani Swamy',
+        demandContractId: 'DEM-003',
+        cropName: 'Turmeric',
+        quantityKg: 4000,
+        district: 'Erode',
+        plantingDate: '2026-05-10',
+        harvestDateAvailable: '2026-12-05',
+        status: 'SEEDED',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'COM-006',
+        farmerId: 'USR-FARMER-1',
+        farmerName: 'Gopalakrishnan R.',
+        demandContractId: 'DEM-003',
+        cropName: 'Turmeric',
+        quantityKg: 2200,
+        district: 'Erode',
+        plantingDate: '2026-05-15',
+        harvestDateAvailable: '2026-12-08',
+        status: 'SEEDED',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      },
+      {
+        id: 'COM-007',
+        farmerId: 'USR-FARMER-3',
+        farmerName: 'Muthusamy K.',
+        demandContractId: 'DEM-004',
+        cropName: 'Maize',
+        quantityKg: 5000,
+        district: 'Tiruppur',
+        plantingDate: '2026-08-10',
+        harvestDateAvailable: '2026-11-20',
+        status: 'PLANNED',
+        createdAt: nowIso,
+        updatedAt: nowIso
+      }
+    ];
+
+    // 4. Quality Reports
+    this.qualityReports = [
+      {
+        id: 'QR-001',
+        graderId: 'USR-GRADER-1',
+        graderName: 'Suresh Kumar',
+        cropCommitmentId: 'COM-003', // Onions
+        grade: 'A',
+        parameters: {
+          moisturePct: 8.5,
+          avgSizeCm: 6.2,
+          defectsPct: 1.5,
+          organicRating: 4.8
+        },
+        notes: 'Premium grade onions. Shell dry, skins are tight, shape spherical. Fully qualified for direct corporate packaging.',
+        certifiedAt: new Date(Date.now() - 3600000 * 20).toISOString()
+      }
+    ];
+
+    // 5. Escrow and shipping deliveries
+    this.deliveries = [
+      {
+        id: 'DLV-001',
+        demandContractId: 'DEM-002',
+        cropName: 'Onion',
+        buyerId: 'USR-BUYER-1',
+        buyerName: 'Reliance Retail (Agri Div)',
+        farmerId: 'USR-FARMER-1',
+        farmerName: 'Gopalakrishnan R.',
+        cropCommitmentId: 'COM-003',
+        graderId: 'USR-GRADER-1',
+        graderName: 'Suresh Kumar',
+        quantityDeliveredKg: 10000,
+        pricePerKg: 42,
+        totalAmount: 420000, // 10000 * 42 = 4.2 Lakhs
+        escrowStatus: 'HELD_IN_ESCROW', // Fund locked in escrow by buyer
+        deliveryStatus: 'QUALITY_CERTIFIED', // Graded grade A, now ready for packaging transit
+        trackingTimeline: [
+          {
+            status: 'PENDING',
+            timestamp: new Date(Date.now() - 86400000 * 3).toISOString(),
+            updatedBy: 'System',
+            description: 'Delivery record generated following Harvest notification.'
+          },
+          {
+            status: 'RECEIVED',
+            timestamp: new Date(Date.now() - 86400000 * 2).toISOString(),
+            updatedBy: 'USR-GRADER-1',
+            description: 'Crop bulk arrived at Coimbatore grading station. Checked in.'
+          },
+          {
+            status: 'QUALITY_CERTIFIED',
+            timestamp: new Date(Date.now() - 86400000).toISOString(),
+            updatedBy: 'USR-GRADER-1',
+            description: 'Quality report certified as Grade A. Escrow status updated to HELD_IN_ESCROW.'
+          }
+        ],
+        qualityReportId: 'QR-001',
+        createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
+        updatedAt: nowIso
+      },
+      {
+        id: 'DLV-002',
+        demandContractId: 'DEM-001',
+        cropName: 'Tomato',
+        buyerId: 'USR-BUYER-1',
+        buyerName: 'Reliance Retail (Agri Div)',
+        farmerId: 'USR-FARMER-1',
+        farmerName: 'Gopalakrishnan R.',
+        cropCommitmentId: 'COM-001',
+        quantityDeliveredKg: 5000,
+        pricePerKg: 35,
+        totalAmount: 175000,
+        escrowStatus: 'AWAITING_DEPOSIT', // Buyer has not deposited escrow cash yet
+        deliveryStatus: 'PENDING',
+        trackingTimeline: [
+          {
+            status: 'PENDING',
+            timestamp: new Date(Date.now() - 3600000 * 5).toISOString(),
+            updatedBy: 'System',
+            description: 'Waiting for Buyer deposit confirmation to activate logistics.'
+          }
+        ],
+        createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
+        updatedAt: nowIso
+      }
+    ];
+
+    // 6. Notifications
+    this.notifications = [
+      {
+        id: 'NOT-001',
+        recipientId: 'USR-FARMER-1',
+        title: 'New Crop Demand',
+        message: 'Reliance Retail posted a contract for Tomato (10,000 Kg) in Coimbatore district at ₹35/Kg.',
+        type: 'DEMAND',
+        isRead: false,
+        createdAt: new Date(Date.now() - 3600000 * 2).toISOString()
+      },
+      {
+        id: 'NOT-002',
+        recipientId: 'USR-BUYER-1',
+        title: 'Quality Verification Complete',
+        message: 'Grader Suresh Kumar certified Gopalakrishnan R. Onion commitment as Grade A.',
+        type: 'QUALITY',
+        isRead: false,
+        createdAt: new Date(Date.now() - 3600000 * 4).toISOString()
+      },
+      {
+        id: 'NOT-003',
+        recipientId: 'USR-FARMER-1',
+        title: 'Escrow Funds Secured',
+        message: '₹4,20,000 has been secured in AgriLink Escrow for Onion delivery DLV-001.',
+        type: 'ESCROW',
+        isRead: false,
+        createdAt: new Date(Date.now() - 86400000).toISOString()
+      }
+    ];
+  }
+
+  // User Helper Operations
   public getUserByEmail(email: string): User | undefined {
     if (!email) return undefined;
     const clean = email.trim().toLowerCase();
@@ -734,11 +630,6 @@ class DatabaseStore {
 
   public getUserById(id: string): User | undefined {
     return this.users.find(u => u.id === id);
-  }
-
-  public getUserByResetToken(token: string): User | undefined {
-    if (!token) return undefined;
-    return this.users.find(u => u.resetPasswordToken === token);
   }
 
   public addUser(user: User): User {
@@ -759,15 +650,254 @@ class DatabaseStore {
       ...this.users[index],
       ...updates,
       updatedAt: new Date().toISOString()
-    };
+    } as User;
 
     this.saveToDisk();
     return this.users[index];
   }
 
-  public sanitizeUser(user: User): Omit<User, 'passwordHash' | 'resetPasswordToken' | 'resetPasswordExpires'> {
-    const { passwordHash, resetPasswordToken, resetPasswordExpires, ...safeUser } = user;
+  public sanitizeUser(user: User): Omit<User, 'passwordHash'> {
+    const { passwordHash, ...safeUser } = user;
     return safeUser;
+  }
+
+  // Demand Handlers
+  public getDemands(): DemandContract[] {
+    return this.demands;
+  }
+
+  public getDemandById(id: string): DemandContract | undefined {
+    return this.demands.find(d => d.id === id);
+  }
+
+  public addDemand(demand: DemandContract): DemandContract {
+    this.demands.push(demand);
+    this.saveToDisk();
+    return demand;
+  }
+
+  public updateDemand(id: string, updates: Partial<DemandContract>): DemandContract | undefined {
+    const idx = this.demands.findIndex(d => d.id === id);
+    if (idx === -1) return undefined;
+    this.demands[idx] = {
+      ...this.demands[idx],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    this.saveToDisk();
+    return this.demands[idx];
+  }
+
+  // Commitments
+  public getCommitments(): CropCommitment[] {
+    return this.commitments;
+  }
+
+  public getCommitmentsByFarmer(farmerId: string): CropCommitment[] {
+    return this.commitments.filter(c => c.farmerId === farmerId);
+  }
+
+  public addCommitment(commitment: CropCommitment): CropCommitment {
+    this.commitments.push(commitment);
+    
+    // Update quantityCommittedKg on demand contract
+    const demand = this.demands.find(d => d.id === commitment.demandContractId);
+    if (demand) {
+      demand.quantityCommittedKg += commitment.quantityKg;
+      if (demand.quantityCommittedKg >= demand.quantityRequiredKg) {
+        demand.status = 'FULLY_COMMITTED';
+      }
+      demand.updatedAt = new Date().toISOString();
+    }
+    
+    this.saveToDisk();
+    return commitment;
+  }
+
+  public updateCommitment(id: string, updates: Partial<CropCommitment>): CropCommitment | undefined {
+    const idx = this.commitments.findIndex(c => c.id === id);
+    if (idx === -1) return undefined;
+    this.commitments[idx] = {
+      ...this.commitments[idx],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    this.saveToDisk();
+    return this.commitments[idx];
+  }
+
+  // Quality Reports
+  public getQualityReports(): QualityReport[] {
+    return this.qualityReports;
+  }
+
+  public addQualityReport(report: QualityReport): QualityReport {
+    this.qualityReports.push(report);
+    // Also find referencing commitment and update status to HARVESTED or DELIVERED depending on details
+    const commitment = this.commitments.find(c => c.id === report.cropCommitmentId);
+    if (commitment) {
+      if (report.grade === 'REJECTED') {
+        // Can handle rejection flows
+      } else {
+        // Add delivery tracking if not already there
+        const delivery = this.deliveries.find(d => d.cropCommitmentId === report.cropCommitmentId);
+        if (delivery) {
+          delivery.deliveryStatus = 'QUALITY_CERTIFIED';
+          delivery.graderId = report.graderId;
+          delivery.graderName = report.graderName;
+          delivery.qualityReportId = report.id;
+          delivery.trackingTimeline.push({
+            status: 'QUALITY_CERTIFIED',
+            timestamp: new Date().toISOString(),
+            updatedBy: report.graderId,
+            description: `Quality certified as Grade ${report.grade}. Notes: ${report.notes}`
+          });
+          delivery.updatedAt = new Date().toISOString();
+        }
+      }
+    }
+    this.saveToDisk();
+    return report;
+  }
+
+  // Deliveries & Escrow
+  public getDeliveries(): Delivery[] {
+    return this.deliveries;
+  }
+
+  public getDeliveryById(id: string): Delivery | undefined {
+    return this.deliveries.find(d => d.id === id);
+  }
+
+  public addDelivery(delivery: Delivery): Delivery {
+    this.deliveries.push(delivery);
+    this.saveToDisk();
+    return delivery;
+  }
+
+  public updateDelivery(id: string, updates: Partial<Delivery>): Delivery | undefined {
+    const idx = this.deliveries.findIndex(d => d.id === id);
+    if (idx === -1) return undefined;
+    this.deliveries[idx] = {
+      ...this.deliveries[idx],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    this.saveToDisk();
+    return this.deliveries[idx];
+  }
+
+  // Notifications
+  public getNotifications(userId: string): Notification[] {
+    return this.notifications.filter(n => n.recipientId === userId).sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  public addNotification(notification: Notification): Notification {
+    this.notifications.push(notification);
+    this.saveToDisk();
+    return notification;
+  }
+
+  public markNotificationAsRead(id: string): boolean {
+    const notif = this.notifications.find(n => n.id === id);
+    if (notif) {
+      notif.isRead = true;
+      this.saveToDisk();
+      return true;
+    }
+    return false;
+  }
+
+  // Saturation Intelligence & Analytics
+  public getDistrictSaturationData(): DistrictSaturationIntelligence[] {
+    const districts = ['Coimbatore', 'Erode', 'Tiruppur', 'Salem', 'Trichy', 'Madurai'];
+    const crops = ['Tomato', 'Onion', 'Turmeric', 'Maize', 'Rice (Ponni)'];
+
+    return districts.map(district => {
+      const metrics: SaturationMetrics[] = crops.map(crop => {
+        // Calculate demand in this district for this crop
+        const districtDemands = this.demands.filter(d => d.district.toLowerCase() === district.toLowerCase() && d.cropName.toLowerCase() === crop.toLowerCase());
+        const totalDemand = districtDemands.reduce((acc, curr) => acc + curr.quantityRequiredKg, 0);
+
+        // Calculate commitments in this district for this crop
+        const districtCommitments = this.commitments.filter(c => c.district.toLowerCase() === district.toLowerCase() && c.cropName.toLowerCase() === crop.toLowerCase());
+        const totalCommitment = districtCommitments.reduce((acc, curr) => acc + curr.quantityKg, 0);
+
+        // Saturation Percentage
+        const satPct = totalDemand > 0 ? Math.round((totalCommitment / totalDemand) * 100) : 0;
+        
+        let alertLevel: 'LOW' | 'OPTIMAL' | 'HIGH' | 'CRITICAL' = 'LOW';
+        if (satPct > 110) alertLevel = 'CRITICAL'; // Serious oversupply
+        else if (satPct > 90) alertLevel = 'OPTIMAL';
+        else if (satPct > 70) alertLevel = 'HIGH'; // Approaching oversupply
+        else if (satPct > 0) alertLevel = 'LOW'; // Under-supplied
+        
+        const contributingFarmers = new Set(districtCommitments.map(c => c.farmerId)).size;
+
+        return {
+          cropName: crop,
+          totalDemandKg: totalDemand || 1000 + Math.floor(Math.random() * 5000), // realistic fallback
+          totalCommitmentKg: totalCommitment,
+          saturationPercentage: satPct,
+          alertLevel,
+          contributingFarmers
+        } as SaturationMetrics;
+      });
+
+      // Tailored actions
+      const recommendations = metrics.map(m => {
+        let action: 'PLANT' | 'AVOID' | 'MONITOR' = 'PLANT';
+        let reason = `Market demand is high with very few commitments registered. Great opportunity.`;
+
+        if (m.alertLevel === 'CRITICAL') {
+          action = 'AVOID';
+          reason = `Market commitments exceed demand by ${m.saturationPercentage - 100}%. High risk of price crash.`;
+        } else if (m.alertLevel === 'HIGH') {
+          action = 'MONITOR';
+          reason = `Commitment saturation is at ${m.saturationPercentage}%. Monitor before initiating more planting cycles.`;
+        } else if (m.alertLevel === 'OPTIMAL') {
+          action = 'MONITOR';
+          reason = `Demand is fully matched at ${m.saturationPercentage}%. Price stability is predicted.`;
+        }
+
+        return {
+          cropName: m.cropName,
+          action,
+          reason
+        };
+      });
+
+      return {
+        district,
+        lastUpdated: new Date().toISOString(),
+        metrics,
+        recommendations
+      };
+    });
+  }
+
+  public getSystemMetrics(): SystemMetrics {
+    const activeDemands = this.demands.filter(d => d.status === 'OPEN' || d.status === 'FULLY_COMMITTED');
+    const totalCommitmentKgs = this.commitments.reduce((acc, curr) => acc + curr.quantityKg, 0);
+    const totalFarmers = this.users.filter(u => u.role === 'FARMER').length;
+    const totalBuyers = this.users.filter(u => u.role === 'BUYER').length;
+    
+    // Escrow volume from deliveries in HELD_IN_ESCROW or RELEASED_TO_FARMER
+    const escrowVolume = this.deliveries
+      .filter(d => d.escrowStatus === 'HELD_IN_ESCROW' || d.escrowStatus === 'RELEASED_TO_FARMER')
+      .reduce((acc, curr) => acc + curr.totalAmount, 0);
+
+    const successfulDeliveries = this.deliveries.filter(d => d.deliveryStatus === 'DELIVERED').length;
+
+    return {
+      totalFarmers,
+      totalBuyers,
+      activeDemandsCount: activeDemands.length,
+      totalCommitmentsKg: totalCommitmentKgs,
+      escrowVolumeRupees: escrowVolume,
+      successfulDeliveriesCount: successfulDeliveries,
+      districtSaturationData: this.getDistrictSaturationData()
+    };
   }
 }
 

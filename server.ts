@@ -3,20 +3,20 @@ import path from 'path';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
-import crypto from 'crypto';
 import { createServer as createViteServer } from 'vite';
 import { store } from './server/db/store.js';
 import { connectToDatabase, isMongoConnected } from './server/db/mongodb.js';
-import { MongoUserModel } from './server/db/models/User.js';
-import { processBinDensityAnalysis } from './server/agents/binDensityAgent.js';
-import { processRoutingOptimization, handleRoadClosureDisruption } from './server/agents/routingAgent.js';
-import { processRecyclingAnalytics } from './server/agents/analyticsAgent.js';
-import { processCampaignGeneration } from './server/agents/campaignAgent.js';
-import { WorkflowOrchestrator } from './server/workflows/orchestrator.js';
-import { SimulationEngine } from './server/simulation/simulator.js';
 import { User } from './src/types.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'wastewise_super_secret_jwt_key_2026';
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+    }
+  }
+}
+
+const JWT_SECRET = process.env.JWT_SECRET || 'agrilink_jwt_secret_2026_resilient_supply';
 
 // Auth Rate Limiter
 const authRateLimits = new Map<string, { count: number; resetAt: number }>();
@@ -24,7 +24,7 @@ const authRateLimits = new Map<string, { count: number; resetAt: number }>();
 function authRateLimiter(req: any, res: any, next: any) {
   const ip = req.ip || req.headers['x-forwarded-for'] || '127.0.0.1';
   const now = Date.now();
-  const windowMs = 60 * 1000; // 1 minute
+  const windowMs = 60 * 1000;
   const maxRequests = 25;
 
   const current = authRateLimits.get(ip);
@@ -36,7 +36,7 @@ function authRateLimiter(req: any, res: any, next: any) {
   if (current.count >= maxRequests) {
     return res.status(429).json({
       success: false,
-      message: 'Too many authentication attempts. Please wait a minute before trying again.'
+      message: 'Too many authentication attempts. Please wait a minute.'
     });
   }
 
@@ -49,17 +49,17 @@ function authenticateToken(req: any, res: any, next: any) {
   const authHeader = req.headers['authorization'];
   let token = authHeader && authHeader.split(' ')[1];
 
-  if (!token && req.cookies && req.cookies.wastewise_token) {
-    token = req.cookies.wastewise_token;
+  if (!token && req.cookies && req.cookies.agrilink_token) {
+    token = req.cookies.agrilink_token;
   }
 
   if (!token) {
-    return res.status(401).json({ success: false, message: 'Authentication required. Please sign in.' });
+    return res.status(401).json({ success: false, message: 'Authentication required.' });
   }
 
   jwt.verify(token, JWT_SECRET, (err: any, decoded: any) => {
     if (err) {
-      return res.status(401).json({ success: false, message: 'Invalid or expired authentication session.' });
+      return res.status(401).json({ success: false, message: 'Invalid or expired session.' });
     }
 
     const user = store.getUserById(decoded.id) || store.getUserByEmail(decoded.email);
@@ -68,7 +68,7 @@ function authenticateToken(req: any, res: any, next: any) {
     }
 
     if (user.isActive === false) {
-      return res.status(403).json({ success: false, message: 'Your account has been deactivated.' });
+      return res.status(403).json({ success: false, message: 'Account deactivated.' });
     }
 
     req.user = user;
@@ -79,83 +79,74 @@ function authenticateToken(req: any, res: any, next: any) {
 function requireRole(allowedRoles: string[]) {
   return (req: any, res: any, next: any) => {
     if (!req.user || !allowedRoles.includes(req.user.role)) {
-      return res.status(403).json({ success: false, message: 'Forbidden: Insufficient role permissions.' });
+      return res.status(403).json({ success: false, message: 'Insufficient permissions.' });
     }
     next();
   };
 }
 
-async function startServer() {
-  await connectToDatabase();
+export const app = express();
+let isAppInitialized = false;
 
-  const app = express();
-  const PORT = 3000;
+export async function initServerApp() {
+  if (isAppInitialized) return app;
+  isAppInitialized = true;
+
+  try {
+    await connectToDatabase();
+  } catch (err) {
+    console.warn('[AgriLink] Database initialization warning:', err);
+  }
 
   app.use(express.json({ limit: '10mb' }));
   app.use(cookieParser());
 
   // ==========================================
-  // REST API ENDPOINTS
+  // HEALTH CHECK
   // ==========================================
-
-  // Health
   app.get('/api/health', (req, res) => {
     res.json({
       status: 'ok',
-      service: 'WasteWise Multi-Agent Platform',
+      service: 'AgriLink — Resilient Agricultural Marketplace',
       mongoConnected: isMongoConnected(),
       timestamp: new Date().toISOString()
     });
   });
 
   // ==========================================
-  // AUTHENTICATION ENDPOINTS (PHASE 2)
+  // AUTHENTICATION ENDPOINTS
   // ==========================================
 
-  // 1. REGISTER USER (Public - ALWAYS creates role: 'USER')
+  // REGISTER
   app.post('/api/auth/register', authRateLimiter, async (req, res) => {
     try {
-      const { name, fullName, email, password, confirmPassword, phone, termsAccepted } = req.body;
+      const { name, fullName, email, password, confirmPassword, phone, district, role: requestedRole } = req.body;
       const displayName = (fullName || name || '').trim();
 
-      if (!displayName) {
-        return res.status(400).json({ success: false, message: 'Please enter your name.' });
-      }
-
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        return res.status(400).json({ success: false, message: 'Please enter a valid email.' });
-      }
-
-      if (!password || password.length < 8) {
-        return res.status(400).json({ success: false, message: 'Password must contain at least 8 characters.' });
-      }
-
-      if (confirmPassword !== undefined && password !== confirmPassword) {
-        return res.status(400).json({ success: false, message: 'Passwords do not match.' });
-      }
-
-      if (termsAccepted === false) {
-        return res.status(400).json({ success: false, message: 'You must accept the Terms & Conditions.' });
-      }
+      if (!displayName) return res.status(400).json({ success: false, message: 'Name is required.' });
+      if (!email || !email.includes('@')) return res.status(400).json({ success: false, message: 'Valid email is required.' });
+      if (!password || password.length < 8) return res.status(400).json({ success: false, message: 'Password must be at least 8 characters.' });
+      if (confirmPassword !== undefined && password !== confirmPassword) return res.status(400).json({ success: false, message: 'Passwords do not match.' });
 
       const cleanEmail = email.trim().toLowerCase();
-      const existingUser = store.getUserByEmail(cleanEmail);
-      if (existingUser) {
+      if (store.getUserByEmail(cleanEmail)) {
         return res.status(409).json({ success: false, message: 'An account with this email already exists.' });
       }
 
-      // SECURITY CRITICAL: Public signup ALWAYS assigns role = 'USER'
+      const allowedRoles = ['FARMER', 'BUYER', 'GRADER'];
+      const role = (requestedRole && allowedRoles.includes(requestedRole)) ? requestedRole : 'FARMER';
+
       const passwordHash = bcrypt.hashSync(password, 10);
       const nowIso = new Date().toISOString();
-      const userId = `USR-${Date.now()}`;
 
       const newUser: User = {
-        id: userId,
+        id: `USR-${Date.now()}`,
         name: displayName,
         email: cleanEmail,
-        role: 'USER', // FORCED SECURITY BOUNDARY
-        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=0D9488&color=fff`,
-        phone: phone ? phone.trim() : undefined,
+        role,
+        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=16A34A&color=fff`,
+        phone: phone?.trim(),
+        district: district || 'Coimbatore',
         isActive: true,
         isEmailVerified: false,
         createdAt: nowIso,
@@ -164,863 +155,423 @@ async function startServer() {
       };
 
       store.addUser(newUser);
-
-      if (isMongoConnected()) {
-        try {
-          await MongoUserModel.create(newUser);
-        } catch (err) {
-          console.warn('[MongoDB] Registration sync notice:', err);
-        }
-      }
-
       const safeUser = store.sanitizeUser(newUser);
       const token = jwt.sign({ id: safeUser.id, email: safeUser.email, role: safeUser.role }, JWT_SECRET, { expiresIn: '24h' });
 
-      res.cookie('wastewise_token', token, {
-        httpOnly: true,
-        sameSite: 'lax',
-        maxAge: 24 * 60 * 60 * 1000
-      });
-
-      res.status(201).json({
-        success: true,
-        message: 'Account registered successfully.',
-        token,
-        user: safeUser
-      });
+      res.cookie('agrilink_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 86400000 });
+      res.status(201).json({ success: true, message: 'Account created.', token, user: safeUser });
     } catch (err: any) {
-      console.error('[API/Auth/Register] Error:', err);
-      res.status(500).json({ success: false, message: err.message || 'Internal server error during registration.' });
+      res.status(500).json({ success: false, message: err.message || 'Registration error.' });
     }
   });
 
-  // 2. LOGIN API
+  // LOGIN
   app.post('/api/auth/login', authRateLimiter, async (req, res) => {
     try {
       const { email, password } = req.body;
-
-      if (!email || !password) {
-        return res.status(400).json({ success: false, message: 'Please enter both email and password.' });
-      }
+      if (!email || !password) return res.status(400).json({ success: false, message: 'Email and password required.' });
 
       const cleanEmail = email.trim().toLowerCase();
       const user = store.getUserByEmail(cleanEmail);
 
-      if (!user || !user.passwordHash) {
-        return res.status(401).json({ success: false, message: 'Invalid email or password.' });
-      }
+      if (!user) return res.status(401).json({ success: false, message: 'Invalid email or password.' });
+      if (!user.passwordHash) return res.status(401).json({ success: false, message: 'Account requires password setup.' });
 
-      if (user.isActive === false) {
-        return res.status(403).json({ success: false, message: 'Your account has been deactivated. Please contact administrator.' });
-      }
+      const validPassword = bcrypt.compareSync(password, user.passwordHash);
+      if (!validPassword) return res.status(401).json({ success: false, message: 'Invalid email or password.' });
 
-      const passwordValid = bcrypt.compareSync(password, user.passwordHash);
-      if (!passwordValid) {
-        return res.status(401).json({ success: false, message: 'Invalid email or password.' });
-      }
-
-      const updatedUser = store.updateUser(user.id, { lastLoginAt: new Date().toISOString() }) || user;
-
-      if (isMongoConnected()) {
-        try {
-          await (MongoUserModel as any).updateOne({ id: user.id }, { lastLoginAt: updatedUser.lastLoginAt });
-        } catch (err) {
-          console.warn('[MongoDB] Login sync notice:', err);
-        }
-      }
-
-      const safeUser = store.sanitizeUser(updatedUser);
+      store.updateUser(user.id, { lastLoginAt: new Date().toISOString() });
+      const safeUser = store.sanitizeUser(user);
       const token = jwt.sign({ id: safeUser.id, email: safeUser.email, role: safeUser.role }, JWT_SECRET, { expiresIn: '24h' });
 
-      res.cookie('wastewise_token', token, {
-        httpOnly: true,
-        sameSite: 'lax',
-        maxAge: 24 * 60 * 60 * 1000
-      });
-
-      res.json({
-        success: true,
-        message: 'Authenticated successfully.',
-        token,
-        user: safeUser
-      });
+      res.cookie('agrilink_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 86400000 });
+      res.json({ success: true, token, user: safeUser });
     } catch (err: any) {
-      console.error('[API/Auth/Login] Error:', err);
-      res.status(500).json({ success: false, message: 'Internal server error during login.' });
+      res.status(500).json({ success: false, message: err.message || 'Login error.' });
     }
   });
 
-  // 3. LOGOUT API
-  app.post('/api/auth/logout', (req, res) => {
-    res.clearCookie('wastewise_token');
-    res.json({ success: true, message: 'Successfully logged out.' });
-  });
-
-  // 4. ME (Session Verification)
-  app.get('/api/auth/me', (req, res) => {
-    const authHeader = req.headers['authorization'];
-    let token = authHeader && authHeader.split(' ')[1];
-
-    if (!token && req.cookies && req.cookies.wastewise_token) {
-      token = req.cookies.wastewise_token;
-    }
-
-    if (!token) {
-      return res.status(401).json({ success: false, message: 'No active authentication session.' });
-    }
-
-    jwt.verify(token, JWT_SECRET, (err: any, decoded: any) => {
-      if (err) {
-        res.clearCookie('wastewise_token');
-        return res.status(401).json({ success: false, message: 'Your session has expired. Please log in again.' });
-      }
-
-      const user = store.getUserById(decoded.id) || store.getUserByEmail(decoded.email);
-      if (!user) {
-        res.clearCookie('wastewise_token');
-        return res.status(404).json({ success: false, message: 'User account not found.' });
-      }
-
-      if (user.isActive === false) {
-        res.clearCookie('wastewise_token');
-        return res.status(403).json({ success: false, message: 'Your account has been deactivated.' });
-      }
-
-      res.json({
-        success: true,
-        user: store.sanitizeUser(user)
-      });
-    });
-  });
-
-  // 5. FORGOT PASSWORD API
-  app.post('/api/auth/forgot-password', authRateLimiter, async (req, res) => {
+  // GOOGLE SSO
+  app.post('/api/auth/google', authRateLimiter, async (req, res) => {
     try {
-      const { email } = req.body;
-
-      if (!email || !email.includes('@')) {
-        return res.status(400).json({ success: false, message: 'Please enter a valid email.' });
-      }
+      const { email, name, avatar } = req.body;
+      if (!email) return res.status(400).json({ success: false, message: 'Email is required.' });
 
       const cleanEmail = email.trim().toLowerCase();
-      const user = store.getUserByEmail(cleanEmail);
+      let user = store.getUserByEmail(cleanEmail);
 
-      if (user) {
-        const resetToken = crypto.randomBytes(32).toString('hex');
-        const resetExpires = new Date(Date.now() + 30 * 60 * 1000).toISOString();
-
-        store.updateUser(user.id, {
-          resetPasswordToken: resetToken,
-          resetPasswordExpires: resetExpires
-        });
-
-        if (isMongoConnected()) {
-          try {
-            await (MongoUserModel as any).updateOne({ id: user.id }, {
-              resetPasswordToken: resetToken,
-              resetPasswordExpires: resetExpires
-            });
-          } catch (err) {
-            console.warn('[MongoDB] Forgot password sync notice:', err);
-          }
-        }
-      }
-
-      // Security requirement: Generic message to avoid email enumeration
-      res.json({
-        success: true,
-        message: 'If an account exists for this email, password reset instructions will be sent.'
-      });
-    } catch (err: any) {
-      console.error('[API/Auth/ForgotPassword] Error:', err);
-      res.status(500).json({ success: false, message: 'Internal server error processing reset request.' });
-    }
-  });
-
-  // 6. RESET PASSWORD API
-  app.post(['/api/auth/reset-password/:token', '/api/auth/reset-password'], authRateLimiter, async (req, res) => {
-    try {
-      const token = req.params.token || req.body.token;
-      const { newPassword, password, confirmPassword } = req.body;
-      const targetPassword = newPassword || password;
-
-      if (!token) {
-        return res.status(400).json({ success: false, message: 'Password reset token is required.' });
-      }
-
-      if (!targetPassword || targetPassword.length < 8) {
-        return res.status(400).json({ success: false, message: 'Password must contain at least 8 characters.' });
-      }
-
-      if (confirmPassword !== undefined && targetPassword !== confirmPassword) {
-        return res.status(400).json({ success: false, message: 'Passwords do not match.' });
-      }
-
-      const user = store.getUserByResetToken(token);
-      if (!user || !user.resetPasswordExpires) {
-        return res.status(400).json({ success: false, message: 'Invalid or expired password reset token.' });
-      }
-
-      if (new Date(user.resetPasswordExpires).getTime() < Date.now()) {
-        return res.status(400).json({ success: false, message: 'Password reset token has expired.' });
-      }
-
-      const passwordHash = bcrypt.hashSync(targetPassword, 10);
-      store.updateUser(user.id, {
-        passwordHash,
-        resetPasswordToken: undefined,
-        resetPasswordExpires: undefined
-      });
-
-      if (isMongoConnected()) {
-        try {
-          await (MongoUserModel as any).updateOne({ id: user.id }, {
-            passwordHash,
-            resetPasswordToken: null,
-            resetPasswordExpires: null
-          });
-        } catch (err) {
-          console.warn('[MongoDB] Reset password sync notice:', err);
-        }
-      }
-
-      res.json({
-        success: true,
-        message: 'Password successfully updated.'
-      });
-    } catch (err: any) {
-      console.error('[API/Auth/ResetPassword] Error:', err);
-      res.status(500).json({ success: false, message: 'Internal server error processing password reset.' });
-    }
-  });
-
-  // 7. CHANGE PASSWORD API (Protected)
-  app.post('/api/auth/change-password', authenticateToken, async (req, res) => {
-    try {
-      const { currentPassword, newPassword, confirmPassword } = req.body;
-
-      if (!currentPassword) {
-        return res.status(400).json({ success: false, message: 'Please enter your current password.' });
-      }
-
-      if (!newPassword || newPassword.length < 8) {
-        return res.status(400).json({ success: false, message: 'New password must contain at least 8 characters.' });
-      }
-
-      if (confirmPassword !== undefined && newPassword !== confirmPassword) {
-        return res.status(400).json({ success: false, message: 'New passwords do not match.' });
-      }
-
-      const user = store.getUserById((req as any).user.id);
-      if (!user || !user.passwordHash) {
-        return res.status(400).json({ success: false, message: 'Invalid user account.' });
-      }
-
-      const validCurrent = bcrypt.compareSync(currentPassword, user.passwordHash);
-      if (!validCurrent) {
-        return res.status(400).json({ success: false, message: 'Current password is incorrect.' });
-      }
-
-      const passwordHash = bcrypt.hashSync(newPassword, 10);
-      store.updateUser(user.id, { passwordHash });
-
-      if (isMongoConnected()) {
-        try {
-          await (MongoUserModel as any).updateOne({ id: user.id }, { passwordHash });
-        } catch (err) {
-          console.warn('[MongoDB] Change password sync notice:', err);
-        }
-      }
-
-      res.json({
-        success: true,
-        message: 'Your password has been changed successfully.'
-      });
-    } catch (err: any) {
-      console.error('[API/Auth/ChangePassword] Error:', err);
-      res.status(500).json({ success: false, message: 'Internal server error changing password.' });
-    }
-  });
-
-  // 8. GOOGLE AUTH (Preserved)
-  app.post('/api/auth/google', authRateLimiter, (req, res) => {
-    const { email, name, avatar } = req.body;
-
-    if (!email) {
-      return res.status(400).json({ success: false, message: 'Google account email is required.' });
-    }
-
-    const cleanEmail = email.trim().toLowerCase();
-    let user = store.getUserByEmail(cleanEmail);
-
-    if (!user) {
-      const isDomainAdmin = cleanEmail.includes('admin') || cleanEmail.includes('gov');
-      const assignedRole = isDomainAdmin ? 'ADMIN' : 'USER';
-      const userName = name || cleanEmail.split('@')[0].replace('.', ' ').toUpperCase();
-      const userAvatar = avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=0D9488&color=fff`;
-
-      const nowIso = new Date().toISOString();
-      user = {
-        id: `USR-G-${Math.floor(Math.random() * 9000 + 1000)}`,
-        name: userName,
-        email: cleanEmail,
-        role: assignedRole,
-        avatar: userAvatar,
-        isActive: true,
-        isEmailVerified: true,
-        createdAt: nowIso,
-        updatedAt: nowIso
-      };
-
-      store.addUser(user);
-    }
-
-    const safeUser = store.sanitizeUser(user);
-    const token = jwt.sign({ id: safeUser.id, email: safeUser.email, role: safeUser.role }, JWT_SECRET, { expiresIn: '24h' });
-
-    res.cookie('wastewise_token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60 * 1000
-    });
-
-    res.json({
-      success: true,
-      token,
-      user: safeUser
-    });
-  });
-
-  app.post('/api/auth/logout', (req, res) => {
-    res.json({ success: true, message: 'Successfully logged out.' });
-  });
-
-  app.get('/api/auth/users', authenticateToken, requireRole(['ADMIN']), (req, res) => {
-    const usersWithoutHash = store.users.map(({ passwordHash, resetPasswordToken, resetPasswordExpires, ...u }) => u);
-    res.json({ success: true, count: usersWithoutHash.length, data: usersWithoutHash });
-  });
-
-  app.get('/api/admin/users', authenticateToken, requireRole(['ADMIN']), (req, res) => {
-    const usersWithoutHash = store.users.map(({ passwordHash, resetPasswordToken, resetPasswordExpires, ...u }) => u);
-    res.json({ success: true, count: usersWithoutHash.length, data: usersWithoutHash });
-  });
-
-  // Bins API
-  app.get('/api/bins', (req, res) => {
-    res.json({ success: true, count: store.bins.length, data: store.bins });
-  });
-
-  app.get('/api/bins/:id', (req, res) => {
-    const bin = store.bins.find(b => b.id === req.params.id || b.binId === req.params.id);
-    if (!bin) return res.status(404).json({ success: false, message: 'Bin not found' });
-    res.json({ success: true, data: bin });
-  });
-
-  app.post('/api/bins/simulate', (req, res) => {
-    const { binId, fillLevel, delta } = req.body;
-    let result;
-    if (delta) {
-      result = SimulationEngine.increaseBinFill(binId, delta);
-    } else if (fillLevel !== undefined) {
-      const target = store.bins.find(b => b.binId === binId || b.id === binId);
-      if (target) {
-        target.fillLevel = fillLevel;
-        target.status = store.getBinStatus(fillLevel);
-        target.priority = store.getPriority(target.status);
-        target.lastUpdated = new Date().toISOString();
-        result = { message: `Updated bin ${target.binId} fill level to ${fillLevel}%`, bin: target };
-      }
-    } else {
-      result = SimulationEngine.generateNewWasteEvent();
-    }
-    store.saveToDisk();
-    res.json({ success: true, ...result });
-  });
-
-  app.post('/api/bins/scan', async (req, res) => {
-    try {
-      const { binId, fillLevel, imageDescription } = req.body;
-      const result = await processBinDensityAnalysis({ binId, fillPercentage: fillLevel || 85, imageDescription });
-      res.json({ success: true, data: result });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  app.post('/api/bins/update-waste-type', (req, res) => {
-    const { binId, wasteType, isMixed, contaminationDetails } = req.body;
-    const target = store.bins.find(b => b.binId === binId || b.id === binId);
-    if (!target) return res.status(404).json({ success: false, message: 'Bin not found' });
-
-    target.wasteType = wasteType;
-    target.isMixed = isMixed !== undefined ? isMixed : (wasteType === 'mixed');
-    if (contaminationDetails !== undefined) target.contaminationDetails = contaminationDetails;
-    target.lastUpdated = new Date().toISOString();
-
-    if (target.isMixed || wasteType === 'mixed') {
-      store.alerts.unshift({
-        id: `ALT-${Date.now()}`,
-        severity: 'WARNING',
-        title: `Mixed Waste Contamination at ${target.binId}`,
-        message: contaminationDetails || `Bin ${target.binId} (${target.locationName}) contains mixed degradable and non-degradable waste.`,
-        entityType: 'bin',
-        entityId: target.binId,
-        timestamp: new Date().toISOString()
-      });
-    }
-
-    store.saveToDisk();
-    res.json({ success: true, message: `Updated bin ${target.binId} waste type to ${wasteType}`, bin: target });
-  });
-
-  // Trucks API
-  app.get('/api/trucks', (req, res) => {
-    res.json({ success: true, count: store.trucks.length, data: store.trucks });
-  });
-
-  app.get('/api/trucks/:id', (req, res) => {
-    const truck = store.trucks.find(t => t.id === req.params.id || t.truckId === req.params.id);
-    if (!truck) return res.status(404).json({ success: false, message: 'Truck not found' });
-    res.json({ success: true, data: truck });
-  });
-
-  // Routes API
-  app.get('/api/routes', (req, res) => {
-    res.json({ success: true, count: store.routes.length, data: store.routes });
-  });
-
-  app.post('/api/routes/optimize', async (req, res) => {
-    try {
-      const { targetBinIds } = req.body;
-      const result = await processRoutingOptimization(targetBinIds || []);
-      res.json({ success: true, data: result });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  app.post('/api/routes/:id/approve', (req, res) => {
-    const route = store.routes.find(r => r.id === req.params.id || r.routeId === req.params.id);
-    if (!route) return res.status(404).json({ success: false, message: 'Route not found' });
-
-    route.approvalStatus = 'APPROVED';
-    route.updatedAt = new Date().toISOString();
-
-    const truck = store.trucks.find(t => t.truckId === route.truckId);
-    if (truck) truck.status = 'IN_TRANSIT';
-
-    store.alerts.unshift({
-      id: `ALT-${Date.now().toString().slice(-5)}`,
-      severity: 'INFO',
-      title: 'Route Approved',
-      message: `Dispatcher approved collection Route ${route.routeId} for Truck ${route.truckId}.`,
-      timestamp: new Date().toISOString()
-    });
-
-    store.saveToDisk();
-    res.json({ success: true, message: 'Route approved and truck dispatched', data: route });
-  });
-
-  app.post('/api/routes/:id/reject', (req, res) => {
-    const route = store.routes.find(r => r.id === req.params.id || r.routeId === req.params.id);
-    if (!route) return res.status(404).json({ success: false, message: 'Route not found' });
-
-    route.approvalStatus = 'REJECTED';
-    route.updatedAt = new Date().toISOString();
-
-    const truck = store.trucks.find(t => t.truckId === route.truckId);
-    if (truck) {
-      truck.status = 'IDLE';
-      truck.assignedRouteId = null;
-    }
-
-    store.saveToDisk();
-    res.json({ success: true, message: 'Route rejected', data: route });
-  });
-
-  app.post('/api/routes/:id/modify', (req, res) => {
-    const route = store.routes.find(r => r.id === req.params.id || r.routeId === req.params.id);
-    if (!route) return res.status(404).json({ success: false, message: 'Route not found' });
-
-    const { newBinSequence, newTruckId } = req.body;
-    if (newTruckId) {
-      route.truckId = newTruckId;
-      const truck = store.trucks.find(t => t.truckId === newTruckId);
-      if (truck) route.truckName = `${truck.truckId} (${truck.driverName})`;
-    }
-
-    if (Array.isArray(newBinSequence) && newBinSequence.length > 0) {
-      route.assignedBinIds = newBinSequence;
-      route.orderedBins = newBinSequence.map(binId => {
-        const bin = store.bins.find(b => b.binId === binId);
-        return {
-          binId,
-          locationName: bin?.locationName || binId,
-          neighborhood: bin?.neighborhood || 'Gandhipuram',
-          lat: bin?.lat || 11.0168,
-          lng: bin?.lng || 76.9558,
-          fillLevel: bin?.fillLevel || 80,
-          wasteType: bin?.wasteType || 'mixed',
-          priority: bin?.priority || 'HIGH'
+      if (!user) {
+        const nowIso = new Date().toISOString();
+        const passwordHash = bcrypt.hashSync(`google_sso_${Date.now()}`, 10);
+        user = {
+          id: `USR-SSO-${Date.now()}`,
+          name: name || cleanEmail.split('@')[0],
+          email: cleanEmail,
+          role: 'FARMER',
+          avatar: avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || cleanEmail)}&background=16A34A&color=fff`,
+          isActive: true,
+          isEmailVerified: true,
+          district: 'Coimbatore',
+          createdAt: nowIso,
+          updatedAt: nowIso,
+          passwordHash
         };
-      });
-    }
-
-    route.modifiedByHuman = true;
-    route.updatedAt = new Date().toISOString();
-    store.saveToDisk();
-
-    res.json({ success: true, message: 'Route manually modified by dispatcher', data: route });
-  });
-
-  app.post('/api/routes/:id/approve', async (req, res) => {
-    const route = store.routes.find(r => r.id === req.params.id || r.routeId === req.params.id);
-    if (!route) return res.status(404).json({ success: false, message: 'Route not found' });
-
-    const result = await WorkflowOrchestrator.handleHumanApproval(
-      route.routeId,
-      'ROUTE',
-      route.id,
-      'APPROVED',
-      req.body.comments || 'Approved by dispatcher'
-    );
-
-    res.json({ success: true, message: 'Route approved and dispatched to truck driver', data: route, approval: result });
-  });
-
-  app.post('/api/routes/:id/reject', async (req, res) => {
-    const route = store.routes.find(r => r.id === req.params.id || r.routeId === req.params.id);
-    if (!route) return res.status(404).json({ success: false, message: 'Route not found' });
-
-    const result = await WorkflowOrchestrator.handleHumanApproval(
-      route.routeId,
-      'ROUTE',
-      route.id,
-      'REJECTED',
-      req.body.comments || 'Rejected by dispatcher'
-    );
-
-    res.json({ success: true, message: 'Route rejected and re-optimization triggered', data: route, approval: result });
-  });
-
-  app.post('/api/routes/:id/reoptimize', async (req, res) => {
-    try {
-      const route = store.routes.find(r => r.id === req.params.id || r.routeId === req.params.id);
-      if (!route) return res.status(404).json({ success: false, message: 'Route not found' });
-
-      const result = await processRoutingOptimization(route.assignedBinIds);
-      res.json({ success: true, message: 'Route reoptimized considering new traffic/road conditions', data: result });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  // Analytics API
-  app.get('/api/analytics', async (req, res) => {
-    try {
-      const finding = await processRecyclingAnalytics();
-      res.json({ success: true, data: finding });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  // Campaigns API
-  app.get('/api/campaigns', (req, res) => {
-    res.json({ success: true, count: store.campaigns.length, data: store.campaigns });
-  });
-
-  app.post('/api/campaigns/generate', async (req, res) => {
-    try {
-      const { neighborhood, wasteIssue } = req.body;
-      const campaign = await processCampaignGeneration({ zone: neighborhood || 'Ukkadam', issue: wasteIssue || 'High Plastic Packaging' });
-      res.json({ success: true, data: campaign });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  app.post('/api/campaigns/:id/approve', async (req, res) => {
-    const campaign = store.campaigns.find(c => c.id === req.params.id);
-    if (!campaign) return res.status(404).json({ success: false, message: 'Campaign not found' });
-
-    const result = await WorkflowOrchestrator.handleHumanApproval(
-      'WORKFLOW-CAMPAIGN',
-      'CAMPAIGN',
-      campaign.id,
-      'APPROVED',
-      req.body.comments || 'Approved by administrator'
-    );
-
-    res.json({ success: true, message: 'Campaign approved and published successfully', data: campaign, approval: result });
-  });
-
-  app.post('/api/campaigns/:id/publish', (req, res) => {
-    const campaign = store.campaigns.find(c => c.id === req.params.id);
-    if (!campaign) return res.status(404).json({ success: false, message: 'Campaign not found' });
-
-    campaign.status = 'PUBLISHED';
-    store.saveToDisk();
-    res.json({ success: true, message: 'Campaign published successfully', data: campaign });
-  });
-
-  // Agents API
-  app.get('/api/agents/status', (req, res) => {
-    store.ensureFourAgents();
-    res.json({ success: true, data: store.agentStatuses });
-  });
-
-  app.get('/api/agents/events', (req, res) => {
-    res.json({ success: true, count: store.agentEvents.length, data: store.agentEvents });
-  });
-
-  app.get('/api/agents/workflows', (req, res) => {
-    res.json({ success: true, count: store.workflowRuns.length, data: store.workflowRuns });
-  });
-
-  app.get('/api/agents/workflows/:id', (req, res) => {
-    const wf = store.workflowRuns.find(w => w.workflowId === req.params.id);
-    if (!wf) return res.status(404).json({ success: false, message: 'Workflow run not found' });
-    res.json({ success: true, data: wf });
-  });
-
-  app.get('/api/agents/messages', (req, res) => {
-    res.json({ success: true, count: store.agentMessages.length, data: store.agentMessages });
-  });
-
-  app.get('/api/agents/tool-calls', (req, res) => {
-    res.json({ success: true, count: store.toolCalls.length, data: store.toolCalls });
-  });
-
-  app.post('/api/agents/workflows', async (req, res) => {
-    try {
-      const { triggerReason, binInput } = req.body;
-      const wf = WorkflowOrchestrator.createWorkflow(triggerReason || 'Manual Workflow Execution');
-      const resultState = await WorkflowOrchestrator.executeStep(wf.workflowId, binInput);
-      res.json({ success: true, data: resultState });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  app.post('/api/agents/workflows/demo', async (req, res) => {
-    try {
-      const demoState = await WorkflowOrchestrator.runFullAutomatedDemo();
-      res.json({ success: true, message: '22-Step Automated Multi-Agent Pipeline Completed Successfully', data: demoState });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  // Traffic & Closures
-  app.get('/api/traffic', (req, res) => {
-    res.json({ success: true, data: store.trafficEvents });
-  });
-
-  app.post('/api/traffic/simulate', (req, res) => {
-    const { neighborhood, severity } = req.body;
-    const result = SimulationEngine.simulateTraffic(neighborhood, severity);
-    res.json({ success: true, data: result });
-  });
-
-  app.get('/api/road-closures', (req, res) => {
-    res.json({ success: true, data: store.roadClosures });
-  });
-
-  app.post('/api/road-closures', (req, res) => {
-    const { neighborhood, roadName } = req.body;
-    const result = SimulationEngine.closeRoad(neighborhood, roadName);
-    res.json({ success: true, data: result });
-  });
-
-  // Simulation Controls
-  app.post('/api/simulation/overflow', (req, res) => {
-    const { binId } = req.body;
-    const result = SimulationEngine.simulateOverflow(binId);
-    res.json({ success: true, data: result });
-  });
-
-  app.post('/api/simulation/reset', (req, res) => {
-    const result = SimulationEngine.resetSimulation();
-    res.json({ success: true, data: result });
-  });
-
-  app.post('/api/simulation/demo-step', async (req, res) => {
-    try {
-      const stepResult = await SimulationEngine.executeDemoPipelineStep();
-      res.json({ success: true, data: stepResult });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  app.post('/api/orchestration/trigger', async (req, res) => {
-    try {
-      const { triggerType } = req.body;
-      const wf = WorkflowOrchestrator.createWorkflow(triggerType || 'MANUAL_OPTIMIZE');
-      const state = await WorkflowOrchestrator.executeStep(wf.workflowId);
-      res.json({ success: true, data: state });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
-    }
-  });
-
-  // Alerts API
-  app.get('/api/alerts', (req, res) => {
-    res.json({ success: true, data: store.alerts });
-  });
-
-  // Citizen Crowdsourced Reports API
-  app.get('/api/citizen-reports', (req, res) => {
-    res.json({ success: true, count: store.citizenReports.length, data: store.citizenReports });
-  });
-
-  app.post('/api/citizen-reports', (req, res) => {
-    try {
-      const {
-        reportType,
-        title,
-        description,
-        neighborhood,
-        locationName,
-        lat,
-        lng,
-        binId,
-        photoUrl,
-        reportedBy
-      } = req.body;
-
-      if (!title || !description || !neighborhood) {
-        return res.status(400).json({ success: false, message: 'Title, description, and neighborhood are required' });
+        store.addUser(user);
       }
 
-      const id = `REP-${Date.now().toString().slice(-5)}`;
-      const now = new Date().toISOString();
+      store.updateUser(user.id, { lastLoginAt: new Date().toISOString() });
+      const safeUser = store.sanitizeUser(user);
+      const token = jwt.sign({ id: safeUser.id, email: safeUser.email, role: safeUser.role }, JWT_SECRET, { expiresIn: '24h' });
 
-      // Heuristic AI classification for crowdsourced input
-      let aiClassification = `AI Analyzed: High-confidence citizen report in ${neighborhood}.`;
-      if (reportType === 'OVERFLOWING_BIN') {
-        aiClassification = `AI Confidence: 96%. Cross-referenced with Bin Density Agent telemetry. Priority escalated for collection.`;
-      } else if (reportType === 'ILLEGAL_DUMPING') {
-        aiClassification = `AI Confidence: 92%. Detected unsegregated dumping pattern near commercial center. Flagged for sanitation sweep.`;
-      } else if (reportType === 'MISSED_COLLECTION') {
-        aiClassification = `AI Confidence: 95%. Verified delayed route dispatch for ${neighborhood} sector.`;
-      } else if (reportType === 'DAMAGED_BIN') {
-        aiClassification = `AI Confidence: 88%. Logged container structural defect. Maintenance ticket routed.`;
-      }
-
-      // If associated with a bin, boost bin fill/priority if overflowing
-      if (binId && reportType === 'OVERFLOWING_BIN') {
-        const bin = store.bins.find(b => b.binId === binId || b.id === binId);
-        if (bin) {
-          bin.fillLevel = Math.max(bin.fillLevel, 96);
-          bin.status = 'CRITICAL';
-          bin.priority = 'URGENT';
-          bin.estimatedOverflowRisk = 0.98;
-          bin.lastUpdated = now;
-        }
-      }
-
-      const newReport = {
-        id,
-        reportId: id,
-        reportType: reportType || 'OVERFLOWING_BIN',
-        title,
-        description,
-        neighborhood,
-        locationName: locationName || `${neighborhood} Citizen Tag`,
-        lat: lat || 11.0168 + (Math.random() - 0.5) * 0.02,
-        lng: lng || 76.9558 + (Math.random() - 0.5) * 0.02,
-        binId: binId || undefined,
-        photoUrl: photoUrl || 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=500',
-        status: 'PENDING_VERIFICATION' as const,
-        upvotesCount: 1,
-        downvotesCount: 0,
-        reportedBy: reportedBy || 'Concerned Citizen',
-        aiClassification,
-        createdAt: now,
-        updatedAt: now
-      };
-
-      store.citizenReports.unshift(newReport);
-
-      // System alert
-      store.alerts.unshift({
-        id: `ALT-${Date.now().toString().slice(-5)}`,
-        severity: reportType === 'OVERFLOWING_BIN' || reportType === 'ILLEGAL_DUMPING' ? 'CRITICAL' : 'WARNING',
-        title: `New Citizen Report: ${title}`,
-        message: `Crowdsourced update submitted in ${neighborhood}: "${description.substring(0, 80)}..."`,
-        timestamp: now,
-        entityId: id,
-        entityType: 'bin'
-      });
-
-      // Log agent event
-      store.agentEvents.unshift({
-        id: `EVT-${Date.now().toString().slice(-5)}`,
-        agentName: 'Bin Density Agent',
-        eventType: 'CITIZEN_REPORT_INGESTED',
-        inputSummary: `Citizen report ${id} (${reportType}) at ${neighborhood}`,
-        outputSummary: aiClassification,
-        toolUsed: 'processCitizenCrowdsource',
-        reasoning: `Ingested live GPS crowdsourced report from user ${reportedBy}. Spatial location pinned at ${neighborhood}.`,
-        latencyMs: 110,
-        timestamp: now,
-        status: 'SUCCESS'
-      });
-
-      store.saveToDisk();
-
-      res.json({ success: true, message: 'Citizen report submitted and AI classified', data: newReport });
-    } catch (e: any) {
-      res.status(500).json({ success: false, error: e.message });
+      res.cookie('agrilink_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 86400000 });
+      res.json({ success: true, token, user: safeUser });
+    } catch (err: any) {
+      res.status(500).json({ success: false, message: err.message || 'SSO error.' });
     }
   });
 
-  app.post('/api/citizen-reports/:id/vote', (req, res) => {
-    const report = store.citizenReports.find(r => r.id === req.params.id || r.reportId === req.params.id);
-    if (!report) return res.status(404).json({ success: false, message: 'Report not found' });
-
-    const { direction } = req.body;
-    if (direction === 'up') {
-      report.upvotesCount += 1;
-      if (report.upvotesCount >= 3 && report.status === 'PENDING_VERIFICATION') {
-        report.status = 'VERIFIED';
-        report.aiClassification = `Community Consensus Verified (${report.upvotesCount} citizen confirm votes).`;
-      }
-    } else if (direction === 'down') {
-      report.downvotesCount += 1;
-    }
-
-    report.updatedAt = new Date().toISOString();
-    store.saveToDisk();
-
-    res.json({ success: true, data: report });
+  // GET ME
+  app.get('/api/auth/me', authenticateToken, (req, res) => {
+    const safeUser = store.sanitizeUser(req.user);
+    res.json({ success: true, user: safeUser });
   });
 
-  app.post('/api/citizen-reports/:id/status', (req, res) => {
-    const report = store.citizenReports.find(r => r.id === req.params.id || r.reportId === req.params.id);
-    if (!report) return res.status(404).json({ success: false, message: 'Report not found' });
+  // LOGOUT
+  app.post('/api/auth/logout', (req, res) => {
+    res.clearCookie('agrilink_token');
+    res.json({ success: true, message: 'Logged out.' });
+  });
 
-    const { status } = req.body;
-    report.status = status;
-    report.updatedAt = new Date().toISOString();
-
-    store.alerts.unshift({
-      id: `ALT-${Date.now().toString().slice(-5)}`,
-      severity: 'INFO',
-      title: `Citizen Report ${report.reportId} Updated`,
-      message: `Status changed to ${status} by municipal dispatcher.`,
-      timestamp: new Date().toISOString()
-    });
-
-    store.saveToDisk();
-    res.json({ success: true, message: `Report status updated to ${status}`, data: report });
+  // LIST USERS (Admin only)
+  app.get('/api/auth/users', authenticateToken, requireRole(['ADMIN']), (req, res) => {
+    const usersClean = store.users.map(u => store.sanitizeUser(u));
+    res.json({ success: true, count: usersClean.length, data: usersClean });
   });
 
   // ==========================================
-  // VITE & STATIC FILE SERVING
+  // DEMAND CONTRACTS (Buyer creates, all view)
   // ==========================================
+
+  app.get('/api/demands', (req, res) => {
+    const { district, status, cropName } = req.query as any;
+    let demands = store.getDemands();
+    if (district) demands = demands.filter(d => d.district.toLowerCase() === district.toLowerCase());
+    if (status) demands = demands.filter(d => d.status === status);
+    if (cropName) demands = demands.filter(d => d.cropName.toLowerCase().includes(cropName.toLowerCase()));
+    res.json({ success: true, count: demands.length, data: demands });
+  });
+
+  app.get('/api/demands/:id', (req, res) => {
+    const demand = store.getDemandById(req.params.id);
+    if (!demand) return res.status(404).json({ success: false, message: 'Demand contract not found.' });
+
+    // Attach related commitments
+    const commitments = store.getCommitments().filter(c => c.demandContractId === demand.id);
+    res.json({ success: true, data: { ...demand, commitments } });
+  });
+
+  app.post('/api/demands', authenticateToken, requireRole(['BUYER', 'ADMIN']), (req, res) => {
+    try {
+      const { cropName, quantityRequiredKg, pricePerKg, targetMonth, district, terms, qualityRequirements } = req.body;
+      if (!cropName || !quantityRequiredKg || !pricePerKg || !targetMonth || !district) {
+        return res.status(400).json({ success: false, message: 'All fields required: cropName, quantityRequiredKg, pricePerKg, targetMonth, district.' });
+      }
+
+      const demand = store.addDemand({
+        id: `DEM-${Date.now().toString().slice(-6)}`,
+        buyerId: req.user.id,
+        buyerName: req.user.name,
+        businessName: req.user.businessName || '',
+        cropName,
+        quantityRequiredKg,
+        quantityCommittedKg: 0,
+        pricePerKg,
+        targetMonth,
+        district,
+        terms: terms || '',
+        qualityRequirements: qualityRequirements || '',
+        status: 'OPEN',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      });
+
+      // Notify farmers in district
+      const farmersinDistrict = store.users.filter(u => u.role === 'FARMER' && u.district?.toLowerCase() === district.toLowerCase());
+      farmersinDistrict.forEach(f => {
+        store.addNotification({
+          id: `NOT-${Date.now()}-${f.id}`,
+          recipientId: f.id,
+          title: 'New Crop Demand',
+          message: `${req.user.name} posted a contract for ${cropName} (${quantityRequiredKg.toLocaleString()} Kg) at ₹${pricePerKg}/Kg in ${district}.`,
+          type: 'DEMAND',
+          isRead: false,
+          createdAt: new Date().toISOString()
+        });
+      });
+
+      res.status(201).json({ success: true, data: demand });
+    } catch (err: any) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  });
+
+  app.patch('/api/demands/:id', authenticateToken, requireRole(['BUYER', 'ADMIN']), (req, res) => {
+    const demand = store.updateDemand(req.params.id, req.body);
+    if (!demand) return res.status(404).json({ success: false, message: 'Demand not found.' });
+    res.json({ success: true, data: demand });
+  });
+
+  // ==========================================
+  // CROP COMMITMENTS (Farmer creates)
+  // ==========================================
+
+  app.get('/api/commitments', (req, res) => {
+    const { farmerId, demandContractId, district } = req.query as any;
+    let commitments = store.getCommitments();
+    if (farmerId) commitments = commitments.filter(c => c.farmerId === farmerId);
+    if (demandContractId) commitments = commitments.filter(c => c.demandContractId === demandContractId);
+    if (district) commitments = commitments.filter(c => c.district.toLowerCase() === district.toLowerCase());
+    res.json({ success: true, count: commitments.length, data: commitments });
+  });
+
+  app.post('/api/commitments', authenticateToken, requireRole(['FARMER', 'ADMIN']), (req, res) => {
+    try {
+      const { demandContractId, quantityKg, plantingDate, harvestDateAvailable } = req.body;
+
+      const demand = store.getDemandById(demandContractId);
+      if (!demand) return res.status(404).json({ success: false, message: 'Demand contract not found.' });
+      if (demand.status === 'CANCELLED' || demand.status === 'COMPLETED') {
+        return res.status(400).json({ success: false, message: 'This demand is no longer accepting commitments.' });
+      }
+
+      const commitment = store.addCommitment({
+        id: `COM-${Date.now().toString().slice(-6)}`,
+        farmerId: req.user.id,
+        farmerName: req.user.name,
+        demandContractId,
+        cropName: demand.cropName,
+        quantityKg,
+        district: demand.district,
+        plantingDate: plantingDate || new Date().toISOString().split('T')[0],
+        harvestDateAvailable: harvestDateAvailable || '',
+        status: 'PLANNED',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      });
+
+      // Notify buyer
+      store.addNotification({
+        id: `NOT-${Date.now()}`,
+        recipientId: demand.buyerId,
+        title: 'New Farmer Commitment',
+        message: `${req.user.name} committed ${quantityKg.toLocaleString()} Kg of ${demand.cropName} for your demand.`,
+        type: 'COMMITMENT',
+        isRead: false,
+        createdAt: new Date().toISOString()
+      });
+
+      res.status(201).json({ success: true, data: commitment });
+    } catch (err: any) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  });
+
+  app.patch('/api/commitments/:id', authenticateToken, (req, res) => {
+    const commitment = store.updateCommitment(req.params.id, req.body);
+    if (!commitment) return res.status(404).json({ success: false, message: 'Commitment not found.' });
+    res.json({ success: true, data: commitment });
+  });
+
+  // ==========================================
+  // QUALITY REPORTS (Grader creates)
+  // ==========================================
+
+  app.get('/api/quality-reports', (req, res) => {
+    const reports = store.getQualityReports();
+    res.json({ success: true, count: reports.length, data: reports });
+  });
+
+  app.post('/api/quality-reports', authenticateToken, requireRole(['GRADER', 'ADMIN']), (req, res) => {
+    try {
+      const { cropCommitmentId, grade, parameters, notes } = req.body;
+      if (!cropCommitmentId || !grade) {
+        return res.status(400).json({ success: false, message: 'cropCommitmentId and grade required.' });
+      }
+
+      const report = store.addQualityReport({
+        id: `QR-${Date.now().toString().slice(-6)}`,
+        graderId: req.user.id,
+        graderName: req.user.name,
+        cropCommitmentId,
+        grade,
+        parameters: parameters || { moisturePct: 0, avgSizeCm: 0, defectsPct: 0, organicRating: 0 },
+        notes: notes || '',
+        certifiedAt: new Date().toISOString()
+      });
+
+      // Notify relevant farmer
+      const commitment = store.getCommitments().find(c => c.id === cropCommitmentId);
+      if (commitment) {
+        store.addNotification({
+          id: `NOT-${Date.now()}`,
+          recipientId: commitment.farmerId,
+          title: 'Quality Report Filed',
+          message: `Your ${commitment.cropName} batch was graded "${grade}" by ${req.user.name}.`,
+          type: 'QUALITY',
+          isRead: false,
+          createdAt: new Date().toISOString()
+        });
+      }
+
+      res.status(201).json({ success: true, data: report });
+    } catch (err: any) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  });
+
+  // ==========================================
+  // DELIVERIES & ESCROW
+  // ==========================================
+
+  app.get('/api/deliveries', (req, res) => {
+    const { buyerId, farmerId, demandContractId } = req.query as any;
+    let deliveries = store.getDeliveries();
+    if (buyerId) deliveries = deliveries.filter(d => d.buyerId === buyerId);
+    if (farmerId) deliveries = deliveries.filter(d => d.farmerId === farmerId);
+    if (demandContractId) deliveries = deliveries.filter(d => d.demandContractId === demandContractId);
+    res.json({ success: true, count: deliveries.length, data: deliveries });
+  });
+
+  app.get('/api/deliveries/:id', (req, res) => {
+    const delivery = store.getDeliveryById(req.params.id);
+    if (!delivery) return res.status(404).json({ success: false, message: 'Delivery not found.' });
+    res.json({ success: true, data: delivery });
+  });
+
+  app.post('/api/deliveries', authenticateToken, (req, res) => {
+    try {
+      const { demandContractId, cropCommitmentId, quantityDeliveredKg } = req.body;
+      const demand = store.getDemandById(demandContractId);
+      const commitment = store.getCommitments().find(c => c.id === cropCommitmentId);
+      if (!demand || !commitment) return res.status(404).json({ success: false, message: 'Demand or commitment not found.' });
+
+      const delivery = store.addDelivery({
+        id: `DLV-${Date.now().toString().slice(-6)}`,
+        demandContractId,
+        cropName: demand.cropName,
+        buyerId: demand.buyerId,
+        buyerName: demand.buyerName,
+        farmerId: commitment.farmerId,
+        farmerName: commitment.farmerName,
+        cropCommitmentId,
+        quantityDeliveredKg: quantityDeliveredKg || commitment.quantityKg,
+        pricePerKg: demand.pricePerKg,
+        totalAmount: (quantityDeliveredKg || commitment.quantityKg) * demand.pricePerKg,
+        escrowStatus: 'AWAITING_DEPOSIT',
+        deliveryStatus: 'PENDING',
+        trackingTimeline: [{
+          status: 'PENDING',
+          timestamp: new Date().toISOString(),
+          updatedBy: 'System',
+          description: 'Delivery record created. Waiting for buyer escrow deposit.'
+        }],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      });
+
+      res.status(201).json({ success: true, data: delivery });
+    } catch (err: any) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  });
+
+  // Escrow action: deposit / release / refund
+  app.post('/api/deliveries/:id/escrow', authenticateToken, (req, res) => {
+    const { action } = req.body;
+    const delivery = store.getDeliveryById(req.params.id);
+    if (!delivery) return res.status(404).json({ success: false, message: 'Delivery not found.' });
+
+    const now = new Date().toISOString();
+    if (action === 'deposit') {
+      delivery.escrowStatus = 'HELD_IN_ESCROW';
+      delivery.trackingTimeline.push({
+        status: 'ESCROW_DEPOSITED',
+        timestamp: now,
+        updatedBy: req.user.id,
+        description: `Buyer deposited ₹${delivery.totalAmount.toLocaleString()} into escrow.`
+      });
+    } else if (action === 'release') {
+      delivery.escrowStatus = 'RELEASED_TO_FARMER';
+      delivery.deliveryStatus = 'DELIVERED';
+      delivery.trackingTimeline.push({
+        status: 'RELEASED',
+        timestamp: now,
+        updatedBy: req.user.id,
+        description: `Escrow funds released to farmer. Transaction complete.`
+      });
+    } else if (action === 'refund') {
+      delivery.escrowStatus = 'REFUNDED_TO_BUYER';
+      delivery.trackingTimeline.push({
+        status: 'REFUNDED',
+        timestamp: now,
+        updatedBy: req.user.id,
+        description: `Escrow refunded to buyer due to quality/delivery issue.`
+      });
+    }
+
+    delivery.updatedAt = now;
+    store.saveToDisk();
+    res.json({ success: true, data: delivery });
+  });
+
+  // Delivery status update
+  app.patch('/api/deliveries/:id', authenticateToken, (req, res) => {
+    const delivery = store.updateDelivery(req.params.id, req.body);
+    if (!delivery) return res.status(404).json({ success: false, message: 'Delivery not found.' });
+    res.json({ success: true, data: delivery });
+  });
+
+  // ==========================================
+  // NOTIFICATIONS
+  // ==========================================
+
+  app.get('/api/notifications', authenticateToken, (req, res) => {
+    const notifications = store.getNotifications(req.user.id);
+    res.json({ success: true, count: notifications.length, data: notifications });
+  });
+
+  app.post('/api/notifications/:id/read', authenticateToken, (req, res) => {
+    store.markNotificationAsRead(req.params.id);
+    res.json({ success: true });
+  });
+
+  // ==========================================
+  // DISTRICT SATURATION INTELLIGENCE
+  // ==========================================
+
+  app.get('/api/saturation', (req, res) => {
+    const { district } = req.query as any;
+    let data = store.getDistrictSaturationData();
+    if (district) data = data.filter(d => d.district.toLowerCase() === district.toLowerCase());
+    res.json({ success: true, count: data.length, data });
+  });
+
+  // ==========================================
+  // SYSTEM METRICS
+  // ==========================================
+
+  app.get('/api/metrics', (req, res) => {
+    const metrics = store.getSystemMetrics();
+    res.json({ success: true, data: metrics });
+  });
+
+  return app;
+}
+
+export async function startStandaloneServer() {
+  await initServerApp();
+  const PORT = Number(process.env.PORT) || 3000;
+
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -1036,8 +587,12 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[WasteWise] Server running on http://0.0.0.0:${PORT}`);
+    console.log(`[AgriLink] Server running on http://0.0.0.0:${PORT}`);
   });
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  startStandaloneServer();
+}
+
+export default app;

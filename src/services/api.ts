@@ -1,364 +1,239 @@
-import {
-  Bin,
-  Truck,
-  Route,
-  WasteHistory,
-  Campaign,
-  AgentEvent,
-  TrafficEvent,
-  RoadClosure,
-  SystemAlert,
-  AgentStatus,
-  User
-} from '../types.js';
+import { User, DemandContract, CropCommitment, QualityReport, Delivery, Notification, DistrictSaturationIntelligence, SystemMetrics } from '../types';
 
-const API_BASE = '/api';
+const BASE_URL = '/api';
 
-const TOKEN_KEY = 'wastewise_token';
+async function request<T>(url: string, options: RequestInit = {}): Promise<T> {
+  const token = localStorage.getItem('agrilink_token');
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(options.headers || {})
+  };
 
-function getHeaders(customHeaders: Record<string, string> = {}): Record<string, string> {
-  const headers: Record<string, string> = { ...customHeaders };
-  const token = localStorage.getItem(TOKEN_KEY);
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+  const response = await fetch(`${BASE_URL}${url}`, { ...options, headers });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || `Request failed (${response.status})`);
   }
-  return headers;
+
+  return data;
 }
 
+// ==========================================
+// AUTH
+// ==========================================
+
 export const api = {
-  // Auth
-  setToken(token: string) {
-    localStorage.setItem(TOKEN_KEY, token);
-  },
-
-  getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
-  },
-
-  removeToken() {
-    localStorage.removeItem(TOKEN_KEY);
-  },
-
-  async login(email: string, password: string): Promise<{ success: boolean; token?: string; user?: User; message?: string }> {
-    try {
-      const res = await fetch(`${API_BASE}/auth/login`, {
+  auth: {
+    register: async (payload: {
+      name: string;
+      email: string;
+      password: string;
+      confirmPassword?: string;
+      phone?: string;
+      district?: string;
+      role?: string;
+    }) => {
+      const res = await request<{ success: boolean; token: string; user: User }>('/auth/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.token) localStorage.setItem('agrilink_token', res.token);
+      return res;
+    },
+
+    login: async (email: string, password: string) => {
+      const res = await request<{ success: boolean; token: string; user: User }>('/auth/login', {
+        method: 'POST',
         body: JSON.stringify({ email, password })
       });
-      const data = await res.json();
-      if (data.success && data.token) {
-        this.setToken(data.token);
-      }
-      return data;
-    } catch (e: any) {
-      return { success: false, message: e.message || 'Server network error.' };
-    }
-  },
+      if (res.token) localStorage.setItem('agrilink_token', res.token);
+      return res;
+    },
 
-  async loginWithGoogle(email: string, name?: string, avatar?: string): Promise<{ success: boolean; token?: string; user?: User; message?: string }> {
-    try {
-      const res = await fetch(`${API_BASE}/auth/google`, {
+    googleSSO: async (googleData: { email: string; name: string; avatar?: string }) => {
+      const res = await request<{ success: boolean; token: string; user: User }>('/auth/google', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, avatar })
+        body: JSON.stringify(googleData)
       });
-      const data = await res.json();
-      if (data.success && data.token) {
-        this.setToken(data.token);
-      }
-      return data;
-    } catch (e: any) {
-      return { success: false, message: e.message || 'Google SSO authentication error.' };
+      if (res.token) localStorage.setItem('agrilink_token', res.token);
+      return res;
+    },
+
+    getMe: async () => {
+      return request<{ success: boolean; user: User }>('/auth/me');
+    },
+
+    logout: async () => {
+      localStorage.removeItem('agrilink_token');
+      return request<{ success: boolean }>('/auth/logout', { method: 'POST' });
+    },
+
+    getUsers: async () => {
+      return request<{ success: boolean; data: User[] }>('/auth/users');
     }
   },
 
-  async getMe(): Promise<{ success: boolean; user?: User; message?: string }> {
-    const token = this.getToken();
-    if (!token) return { success: false, message: 'No token stored' };
-    try {
-      const res = await fetch(`${API_BASE}/auth/me`, {
-        headers: getHeaders()
-      });
-      return await res.json();
-    } catch (e: any) {
-      return { success: false, message: e.message || 'Failed to authenticate session' };
-    }
-  },
+  // ==========================================
+  // DEMANDS
+  // ==========================================
 
-  async logout(): Promise<{ success: boolean }> {
-    try {
-      await fetch(`${API_BASE}/auth/logout`, {
+  demands: {
+    list: async (filters?: { district?: string; status?: string; cropName?: string }) => {
+      const params = new URLSearchParams();
+      if (filters?.district) params.set('district', filters.district);
+      if (filters?.status) params.set('status', filters.status);
+      if (filters?.cropName) params.set('cropName', filters.cropName);
+      const qs = params.toString();
+      return request<{ success: boolean; count: number; data: DemandContract[] }>(`/demands${qs ? `?${qs}` : ''}`);
+    },
+
+    get: async (id: string) => {
+      return request<{ success: boolean; data: DemandContract & { commitments: CropCommitment[] } }>(`/demands/${id}`);
+    },
+
+    create: async (payload: Partial<DemandContract>) => {
+      return request<{ success: boolean; data: DemandContract }>('/demands', {
         method: 'POST',
-        headers: getHeaders()
+        body: JSON.stringify(payload)
       });
-    } catch {
-      // Ignore network errors on logout
+    },
+
+    update: async (id: string, updates: Partial<DemandContract>) => {
+      return request<{ success: boolean; data: DemandContract }>(`/demands/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(updates)
+      });
     }
-    this.removeToken();
-    return { success: true };
   },
 
-  // Bins
-  async getBins(): Promise<{ success: boolean; data: Bin[] }> {
-    const res = await fetch(`${API_BASE}/bins`, { headers: getHeaders() });
-    return await res.json();
+  // ==========================================
+  // COMMITMENTS
+  // ==========================================
+
+  commitments: {
+    list: async (filters?: { farmerId?: string; demandContractId?: string; district?: string }) => {
+      const params = new URLSearchParams();
+      if (filters?.farmerId) params.set('farmerId', filters.farmerId);
+      if (filters?.demandContractId) params.set('demandContractId', filters.demandContractId);
+      if (filters?.district) params.set('district', filters.district);
+      const qs = params.toString();
+      return request<{ success: boolean; count: number; data: CropCommitment[] }>(`/commitments${qs ? `?${qs}` : ''}`);
+    },
+
+    create: async (payload: { demandContractId: string; quantityKg: number; plantingDate?: string; harvestDateAvailable?: string }) => {
+      return request<{ success: boolean; data: CropCommitment }>('/commitments', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+    },
+
+    update: async (id: string, updates: Partial<CropCommitment>) => {
+      return request<{ success: boolean; data: CropCommitment }>(`/commitments/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(updates)
+      });
+    }
   },
 
-  async getBin(id: string): Promise<{ success: boolean; data: Bin }> {
-    const res = await fetch(`${API_BASE}/bins/${id}`);
-    return await res.json();
+  // ==========================================
+  // QUALITY REPORTS
+  // ==========================================
+
+  qualityReports: {
+    list: async () => {
+      return request<{ success: boolean; count: number; data: QualityReport[] }>('/quality-reports');
+    },
+
+    create: async (payload: Partial<QualityReport>) => {
+      return request<{ success: boolean; data: QualityReport }>('/quality-reports', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+    }
   },
 
-  async simulateBinFill(binId?: string, delta?: number): Promise<any> {
-    const res = await fetch(`${API_BASE}/bins/simulate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ binId, delta })
-    });
-    return await res.json();
+  // ==========================================
+  // DELIVERIES & ESCROW
+  // ==========================================
+
+  deliveries: {
+    list: async (filters?: { buyerId?: string; farmerId?: string; demandContractId?: string }) => {
+      const params = new URLSearchParams();
+      if (filters?.buyerId) params.set('buyerId', filters.buyerId);
+      if (filters?.farmerId) params.set('farmerId', filters.farmerId);
+      if (filters?.demandContractId) params.set('demandContractId', filters.demandContractId);
+      const qs = params.toString();
+      return request<{ success: boolean; count: number; data: Delivery[] }>(`/deliveries${qs ? `?${qs}` : ''}`);
+    },
+
+    get: async (id: string) => {
+      return request<{ success: boolean; data: Delivery }>(`/deliveries/${id}`);
+    },
+
+    create: async (payload: { demandContractId: string; cropCommitmentId: string; quantityDeliveredKg?: number }) => {
+      return request<{ success: boolean; data: Delivery }>('/deliveries', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+    },
+
+    escrowAction: async (deliveryId: string, action: 'deposit' | 'release' | 'refund') => {
+      return request<{ success: boolean; data: Delivery }>(`/deliveries/${deliveryId}/escrow`, {
+        method: 'POST',
+        body: JSON.stringify({ action })
+      });
+    },
+
+    update: async (id: string, updates: Partial<Delivery>) => {
+      return request<{ success: boolean; data: Delivery }>(`/deliveries/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(updates)
+      });
+    }
   },
 
-  async scanBinImage(binId: string, imageDescription: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/bins/scan`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ binId, imageDescription })
-    });
-    return await res.json();
+  // ==========================================
+  // NOTIFICATIONS
+  // ==========================================
+
+  notifications: {
+    list: async () => {
+      return request<{ success: boolean; count: number; data: Notification[] }>('/notifications');
+    },
+
+    markRead: async (id: string) => {
+      return request<{ success: boolean }>(`/notifications/${id}/read`, { method: 'POST' });
+    }
   },
 
-  async updateBinWasteType(binId: string, wasteType: string, isMixed?: boolean, contaminationDetails?: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/bins/update-waste-type`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ binId, wasteType, isMixed, contaminationDetails })
-    });
-    return await res.json();
+  // ==========================================
+  // INTELLIGENCE & METRICS
+  // ==========================================
+
+  saturation: {
+    get: async (district?: string) => {
+      const qs = district ? `?district=${encodeURIComponent(district)}` : '';
+      return request<{ success: boolean; count: number; data: DistrictSaturationIntelligence[] }>(`/saturation${qs}`);
+    }
   },
 
-  // Trucks
-  async getTrucks(): Promise<{ success: boolean; data: Truck[] }> {
-    const res = await fetch(`${API_BASE}/trucks`);
-    return await res.json();
+  metrics: {
+    get: async () => {
+      return request<{ success: boolean; data: SystemMetrics }>('/metrics');
+    }
   },
 
-  // Routes
-  async getRoutes(): Promise<{ success: boolean; data: Route[] }> {
-    const res = await fetch(`${API_BASE}/routes`);
-    return await res.json();
-  },
+  // ==========================================
+  // HEALTH
+  // ==========================================
 
-  async optimizeRoutes(targetBinIds?: string[]): Promise<any> {
-    const res = await fetch(`${API_BASE}/routes/optimize`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ targetBinIds })
-    });
-    return await res.json();
-  },
-
-  async approveRoute(routeId: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/routes/${routeId}/approve`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  async rejectRoute(routeId: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/routes/${routeId}/reject`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  async modifyRoute(routeId: string, newBinSequence?: string[], newTruckId?: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/routes/${routeId}/modify`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ newBinSequence, newTruckId })
-    });
-    return await res.json();
-  },
-
-  async reoptimizeRoute(routeId: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/routes/${routeId}/reoptimize`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  // Analytics
-  async getAnalytics(): Promise<any> {
-    const res = await fetch(`${API_BASE}/analytics`);
-    return await res.json();
-  },
-
-  // Campaigns
-  async getCampaigns(): Promise<{ success: boolean; data: Campaign[] }> {
-    const res = await fetch(`${API_BASE}/campaigns`);
-    return await res.json();
-  },
-
-  async generateCampaign(neighborhood: string, wasteIssue?: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/campaigns/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ neighborhood, wasteIssue })
-    });
-    return await res.json();
-  },
-
-  async getWorkflows(): Promise<{ success: boolean; data: any[] }> {
-    const res = await fetch(`${API_BASE}/agents/workflows`);
-    return await res.json();
-  },
-
-  async getWorkflow(id: string): Promise<{ success: boolean; data: any }> {
-    const res = await fetch(`${API_BASE}/agents/workflows/${id}`);
-    return await res.json();
-  },
-
-  async getAgentMessages(): Promise<{ success: boolean; data: any[] }> {
-    const res = await fetch(`${API_BASE}/agents/messages`);
-    return await res.json();
-  },
-
-  async getToolCalls(): Promise<{ success: boolean; data: any[] }> {
-    const res = await fetch(`${API_BASE}/agents/tool-calls`);
-    return await res.json();
-  },
-
-  async triggerWorkflowDemo(): Promise<any> {
-    const res = await fetch(`${API_BASE}/agents/workflows/demo`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  async approveCampaign(campaignId: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/campaigns/${campaignId}/approve`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  async publishCampaign(campaignId: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/campaigns/${campaignId}/publish`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  // Agent Status & Events
-  async getAgentStatuses(): Promise<{ success: boolean; data: AgentStatus[] }> {
-    const res = await fetch(`${API_BASE}/agents/status`);
-    return await res.json();
-  },
-
-  async getAgentEvents(): Promise<{ success: boolean; data: AgentEvent[] }> {
-    const res = await fetch(`${API_BASE}/agents/events`);
-    return await res.json();
-  },
-
-  // Simulation & Traffic
-  async simulateOverflow(binId = 'BIN-005'): Promise<any> {
-    const res = await fetch(`${API_BASE}/simulation/overflow`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ binId })
-    });
-    return await res.json();
-  },
-
-  async simulateTraffic(neighborhood = 'Gandhipuram'): Promise<any> {
-    const res = await fetch(`${API_BASE}/traffic/simulate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ neighborhood, severity: 'HEAVY' })
-    });
-    return await res.json();
-  },
-
-  async closeRoad(neighborhood = 'RS Puram', roadName = 'DB Road North Axis'): Promise<any> {
-    const res = await fetch(`${API_BASE}/road-closures`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ neighborhood, roadName })
-    });
-    return await res.json();
-  },
-
-  async resetSimulation(): Promise<any> {
-    const res = await fetch(`${API_BASE}/simulation/reset`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  async executeDemoStep(): Promise<any> {
-    const res = await fetch(`${API_BASE}/simulation/demo-step`, {
-      method: 'POST'
-    });
-    return await res.json();
-  },
-
-  async triggerOrchestration(triggerType = 'MANUAL_OPTIMIZE'): Promise<any> {
-    const res = await fetch(`${API_BASE}/orchestration/trigger`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ triggerType })
-    });
-    return await res.json();
-  },
-
-  // Alerts
-  async getAlerts(): Promise<{ success: boolean; data: SystemAlert[] }> {
-    const res = await fetch(`${API_BASE}/alerts`);
-    return await res.json();
-  },
-
-  // Traffic & Road Closures
-  async getTraffic(): Promise<{ success: boolean; data: TrafficEvent[] }> {
-    const res = await fetch(`${API_BASE}/traffic`);
-    return await res.json();
-  },
-
-  async getRoadClosures(): Promise<{ success: boolean; data: RoadClosure[] }> {
-    const res = await fetch(`${API_BASE}/road-closures`);
-    return await res.json();
-  },
-
-  // Citizen Reports
-  async getCitizenReports(): Promise<{ success: boolean; data: any[] }> {
-    const res = await fetch(`${API_BASE}/citizen-reports`);
-    return await res.json();
-  },
-
-  async createCitizenReport(reportData: any): Promise<any> {
-    const res = await fetch(`${API_BASE}/citizen-reports`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(reportData)
-    });
-    return await res.json();
-  },
-
-  async voteCitizenReport(id: string, direction: 'up' | 'down'): Promise<any> {
-    const res = await fetch(`${API_BASE}/citizen-reports/${id}/vote`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ direction })
-    });
-    return await res.json();
-  },
-
-  async updateCitizenReportStatus(id: string, status: string): Promise<any> {
-    const res = await fetch(`${API_BASE}/citizen-reports/${id}/status`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
-    });
-    return await res.json();
+  health: {
+    check: async () => {
+      return request<{ status: string; service: string }>('/health');
+    }
   }
 };
+
+export default api;

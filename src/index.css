@@ -1,5 +1,349 @@
-@import "tailwindcss";
+/* ======================================== */
+/* AGROW – Brand Design System              */
+/* "Know the demand before you plant."      */
+/* ======================================== */
+
+:root {
+  /* AGROW Agricultural Color Palette */
+  --agrow-forest-950: #021a12;
+  --agrow-forest-900: #042619;
+  --agrow-forest-800: #063c29;
+  --agrow-forest-700: #085238;
+  --agrow-forest-600: #0a6948;
+
+  --agrow-leaf-500: #059669;
+  --agrow-leaf-400: #10b981;
+  --agrow-leaf-300: #34d399;
+  --agrow-leaf-100: #d1fae5;
+  --agrow-leaf-50: #ecfdf5;
+
+  --agrow-amber-600: #d97706;
+  --agrow-amber-500: #f59e0b;
+  --agrow-amber-100: #fef3c7;
+  --agrow-amber-50: #fffbeb;
+
+  --agrow-ivory-50: #fcfbf7;
+  --agrow-ivory-100: #f7f4ec;
+  --agrow-ivory-200: #eae4d5;
+  --agrow-ivory-300: #d8cdb7;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  /* Semantic Tokens */
+  --color-primary: var(--agrow-forest-900);
+  --color-accent: var(--agrow-leaf-500);
+  --color-surface: #ffffff;
+  --color-surface-ivory: var(--agrow-ivory-50);
+  --color-border: #e2e8f0;
+  --color-text: var(--slate-900);
+  --color-text-muted: var(--slate-600);
+
+  /* Typography */
+  --font-display: 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+
+  /* Radii - Clean minimal subtle rounded corners */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows - Subtle editorial depth */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.12);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ======================================== */
+/* Reset & Base                             */
+/* ======================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 body {
-  background-color: #FAF5EA;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--agrow-ivory-50);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--agrow-forest-950);
+  line-height: 1.2;
+}
+
+a {
+  color: var(--agrow-leaf-500);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--agrow-forest-700);
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: none;
+  background: none;
+}
+
+/* Button System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: var(--agrow-forest-900);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--agrow-forest-800);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(4, 38, 25, 0.2);
+}
+
+.btn-secondary {
+  background: var(--agrow-leaf-500);
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background: var(--agrow-leaf-400);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--agrow-forest-900);
+  border-color: var(--agrow-forest-900);
+}
+
+.btn-outline:hover {
+  background: var(--agrow-forest-900);
+  color: #ffffff;
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+/* Card System */
+.card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Badge System */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.badge-green { background: var(--agrow-leaf-100); color: var(--agrow-forest-800); }
+.badge-amber { background: var(--agrow-amber-100); color: var(--agrow-amber-600); }
+.badge-red { background: #fef2f2; color: #dc2626; }
+.badge-slate { background: var(--slate-100); color: var(--slate-600); }
+
+/* Form Controls */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-700);
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--radius-md);
+  background: white;
+  transition: all var(--transition-fast);
+  font-size: 0.9375rem;
+  color: var(--slate-900);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--agrow-leaf-500);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: white;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table th {
+  text-align: left;
+  padding: 0.875rem 1.25rem;
+  background: var(--agrow-ivory-50);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-600);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--slate-100);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: var(--agrow-leaf-50);
+}
+
+/* Stat Cards */
+.stat-card {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: white;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.stat-card .stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-500);
+}
+
+.stat-card .stat-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--agrow-forest-950);
+  line-height: 1.1;
+}
+
+/* Utility Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--slate-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--slate-400);
 }

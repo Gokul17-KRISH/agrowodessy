@@ -4,9 +4,12 @@ export interface IUserDocument extends mongoose.Document {
   id: string;
   name: string;
   email: string;
-  role: string;
+  role: 'FARMER' | 'BUYER' | 'GRADER' | 'ADMIN';
   avatar?: string;
   phone?: string;
+  district?: string;
+  farmSizeAcres?: number;
+  businessName?: string;
   isActive: boolean;
   isEmailVerified: boolean;
   createdAt: string;
@@ -22,9 +25,12 @@ const userSchema = new mongoose.Schema<IUserDocument>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   passwordHash: { type: String, required: false },
-  role: { type: String, enum: ['ADMIN', 'DISPATCHER', 'ANALYST', 'USER'], default: 'USER' },
+  role: { type: String, enum: ['FARMER', 'BUYER', 'GRADER', 'ADMIN'], default: 'FARMER' },
   avatar: { type: String },
   phone: { type: String },
+  district: { type: String },
+  farmSizeAcres: { type: Number },
+  businessName: { type: String },
   isActive: { type: Boolean, default: true },
   isEmailVerified: { type: Boolean, default: false },
   createdAt: { type: String, default: () => new Date().toISOString() },
@@ -38,4 +44,4 @@ const userSchema = new mongoose.Schema<IUserDocument>({
 
 userSchema.index({ email: 1 }, { unique: true });
 
-export const MongoUserModel = mongoose.models.User || mongoose.model<IUserDocument>('User', userSchema);
+export const MongoUserModel: mongoose.Model<IUserDocument> = (mongoose.models.User as mongoose.Model<IUserDocument>) || mongoose.model<IUserDocument>('User', userSchema);

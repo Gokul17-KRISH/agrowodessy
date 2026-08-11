@@ -1,407 +1,187 @@
-import React, { useState, useEffect } from 'react';
-import { Header } from './components/common/Header.js';
-import { Sidebar } from './components/common/Sidebar.js';
-import { ControlDashboard } from './components/dashboard/ControlDashboard.js';
-import { CityMap } from './components/map/CityMap.js';
-import { BinManagement } from './components/bins/BinManagement.js';
-import { TruckFleet } from './components/trucks/TruckFleet.js';
-import { RouteDispatch } from './components/routes/RouteDispatch.js';
-import { AgentObservability } from './components/agents/AgentObservability.js';
-import { AnalyticsDashboard } from './components/analytics/AnalyticsDashboard.js';
-import { CampaignManager } from './components/campaigns/CampaignManager.js';
-import { SimulatorPanel } from './components/simulation/SimulatorPanel.js';
-import { AlertsPanel } from './components/alerts/AlertsPanel.js';
-import { CitizenReporting } from './components/reports/CitizenReporting.js';
-import { LoginPage } from './components/auth/LoginPage.js';
-import { api } from './services/api.js';
-import {
-  Bin,
-  Truck,
-  Route,
-  AgentStatus,
-  AgentEvent,
-  SystemAlert,
-  Campaign,
-  UserRole,
-  User,
-  TrafficEvent,
-  RoadClosure,
-  CitizenReport,
-  CitizenReportStatus
-} from './types.js';
+import React, { useState, useEffect, useCallback } from 'react';
+import { User, DemandContract, CropCommitment, Delivery, Notification, SystemMetrics } from './types';
+import { api } from './services/api';
+import LoginPage from './components/auth/LoginPage';
+import Header from './components/common/Header';
+import Sidebar from './components/common/Sidebar';
+import LandingHero from './components/landing/LandingHero';
+import FarmerDashboard from './components/dashboard/FarmerDashboard';
+import BuyerDashboard from './components/dashboard/BuyerDashboard';
+import GraderDashboard from './components/dashboard/GraderDashboard';
+import DistrictSaturation from './components/dashboard/DistrictSaturation';
+import DeliveryTracker from './components/dashboard/DeliveryTracker';
+import DemandMarketplace from './components/dashboard/DemandMarketplace';
 
-export default function App() {
-  const [activeTab, setActiveTab] = useState<string>('dashboard');
-  const [currentRole, setRole] = useState<UserRole>('DISPATCHER');
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [showLoginPage, setShowLoginPage] = useState(true);
-  const [authChecking, setAuthChecking] = useState(true);
+type ViewTab = 'dashboard' | 'marketplace' | 'saturation' | 'deliveries' | 'notifications';
 
-  const [bins, setBins] = useState<Bin[]>([]);
-  const [trucks, setTrucks] = useState<Truck[]>([]);
-  const [routes, setRoutes] = useState<Route[]>([]);
-  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-  const [agentStatuses, setAgentStatuses] = useState<AgentStatus[]>([]);
-  const [agentEvents, setAgentEvents] = useState<AgentEvent[]>([]);
-  const [alerts, setAlerts] = useState<SystemAlert[]>([]);
-  const [trafficEvents, setTrafficEvents] = useState<TrafficEvent[]>([]);
-  const [roadClosures, setRoadClosures] = useState<RoadClosure[]>([]);
-  const [citizenReports, setCitizenReports] = useState<CitizenReport[]>([]);
+const App: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [activeTab, setActiveTab] = useState<ViewTab>('dashboard');
+  const [demands, setDemands] = useState<DemandContract[]>([]);
+  const [commitments, setCommitments] = useState<CropCommitment[]>([]);
+  const [deliveries, setDeliveries] = useState<Delivery[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [metrics, setMetrics] = useState<SystemMetrics | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [showLanding, setShowLanding] = useState(true);
 
-  const [demoActive, setDemoActive] = useState(false);
-  const [demoStepInfo, setDemoStepInfo] = useState<{ stepNumber: number; stepName: string; description: string } | null>(null);
-
-  // Authenticate session on startup
+  // Check auth on mount
   useEffect(() => {
-    async function initAuth() {
-      try {
-        const res = await api.getMe();
-        if (res.success && res.user) {
-          setCurrentUser(res.user);
-          setRole(res.user.role);
-          setShowLoginPage(false);
-        } else {
-          setCurrentUser(null);
-          setShowLoginPage(true);
-        }
-      } catch {
-        setCurrentUser(null);
-        setShowLoginPage(true);
-      } finally {
-        setAuthChecking(false);
-      }
+    const token = localStorage.getItem('agrilink_token');
+    if (token) {
+      api.auth.getMe()
+        .then(res => {
+          setUser(res.user);
+          setShowLanding(false);
+        })
+        .catch(() => {
+          localStorage.removeItem('agrilink_token');
+        })
+        .finally(() => setAuthChecked(true));
+    } else {
+      setAuthChecked(true);
     }
-    initAuth();
   }, []);
 
-  // Enforce role-appropriate tab access
-  useEffect(() => {
-    if (!currentUser) return;
-    const role = currentUser.role;
-    const allowedTabsMap: Record<UserRole, string[]> = {
-      ADMIN: ['dashboard', 'map', 'bins', 'trucks', 'routes', 'reports', 'agents', 'analytics', 'campaigns', 'alerts', 'simulation'],
-      DISPATCHER: ['dashboard', 'map', 'bins', 'trucks', 'routes', 'reports', 'alerts', 'simulation'],
-      ANALYST: ['dashboard', 'reports', 'analytics', 'campaigns', 'alerts'],
-      USER: ['dashboard', 'campaigns', 'reports', 'alerts']
-    };
-
-    const allowed = allowedTabsMap[role] || allowedTabsMap.ADMIN;
-    if (!allowed.includes(activeTab)) {
-      setActiveTab('dashboard');
-    }
-  }, [currentUser, currentRole, activeTab]);
-
-  // Fetch state from API
-  const refreshData = async () => {
+  const fetchData = useCallback(async () => {
+    if (!user) return;
     try {
-      const [binsRes, trucksRes, routesRes, campRes, agentsRes, eventsRes, alertsRes, trafficRes, closureRes, reportsRes] = await Promise.all([
-        api.getBins(),
-        api.getTrucks(),
-        api.getRoutes(),
-        api.getCampaigns(),
-        api.getAgentStatuses(),
-        api.getAgentEvents(),
-        api.getAlerts(),
-        api.getTraffic(),
-        api.getRoadClosures(),
-        api.getCitizenReports()
+      const [demandsRes, commitmentsRes, deliveriesRes, notifRes, metricsRes] = await Promise.allSettled([
+        api.demands.list(),
+        api.commitments.list(),
+        api.deliveries.list(),
+        api.notifications.list(),
+        api.metrics.get()
       ]);
 
-      if (binsRes.success) setBins(binsRes.data);
-      if (trucksRes.success) setTrucks(trucksRes.data);
-      if (routesRes.success) setRoutes(routesRes.data);
-      if (campRes.success) setCampaigns(campRes.data);
-      if (agentsRes.success) setAgentStatuses(agentsRes.data);
-      if (eventsRes.success) setAgentEvents(eventsRes.data);
-      if (alertsRes.success) setAlerts(alertsRes.data);
-      if (trafficRes.success) setTrafficEvents(trafficRes.data);
-      if (closureRes.success) setRoadClosures(closureRes.data);
-      if (reportsRes.success) setCitizenReports(reportsRes.data);
-    } catch (e) {
-      console.warn('[App] Error refreshing data from backend:', e);
+      if (demandsRes.status === 'fulfilled') setDemands(demandsRes.value.data);
+      if (commitmentsRes.status === 'fulfilled') setCommitments(commitmentsRes.value.data);
+      if (deliveriesRes.status === 'fulfilled') setDeliveries(deliveriesRes.value.data);
+      if (notifRes.status === 'fulfilled') setNotifications(notifRes.value.data);
+      if (metricsRes.status === 'fulfilled') setMetrics(metricsRes.value.data);
+    } catch (err) {
+      console.error('[App] Data fetch error:', err);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
-    refreshData();
-    const interval = setInterval(refreshData, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Demo Mode Handler
-  const handleStartDemo = async () => {
-    setDemoActive(true);
-    const res = await api.executeDemoStep();
-    if (res.success && res.data) {
-      setDemoStepInfo({
-        stepNumber: res.data.stepNumber,
-        stepName: res.data.stepName,
-        description: res.data.description
-      });
-
-      // Switch active tab depending on demo step
-      if (res.data.stepNumber === 1 || res.data.stepNumber === 2) {
-        setActiveTab('bins');
-      } else if (res.data.stepNumber === 3 || res.data.stepNumber === 4) {
-        setActiveTab('routes');
-      } else if (res.data.stepNumber === 5) {
-        setActiveTab('map');
-      } else if (res.data.stepNumber === 6) {
-        setActiveTab('campaigns');
-      }
+    if (user) {
+      fetchData();
+      const interval = setInterval(fetchData, 30000);
+      return () => clearInterval(interval);
     }
-    await refreshData();
+  }, [user, fetchData]);
+
+  const handleLogin = (loggedInUser: User) => {
+    setUser(loggedInUser);
+    setShowLanding(false);
+    setActiveTab('dashboard');
   };
 
-  // Actions
-  const handleSimulateFill = async (binId: string, delta: number) => {
-    await api.simulateBinFill(binId, delta);
-    await refreshData();
+  const handleLogout = () => {
+    api.auth.logout().catch(() => {});
+    setUser(null);
+    setShowLanding(true);
+    setDemands([]);
+    setCommitments([]);
+    setDeliveries([]);
+    setNotifications([]);
+    setMetrics(null);
   };
 
-  const handleScanImage = async (binId: string, imageDescription: string) => {
-    await api.scanBinImage(binId, imageDescription);
-    await refreshData();
+  const handleEnterApp = () => {
+    setShowLanding(false);
   };
 
-  const handleUpdateWasteType = async (binId: string, wasteType: string, isMixed?: boolean, contaminationDetails?: string) => {
-    await api.updateBinWasteType(binId, wasteType, isMixed, contaminationDetails);
-    await refreshData();
-  };
-
-  const handleApproveRoute = async (routeId: string) => {
-    await api.approveRoute(routeId);
-    await refreshData();
-  };
-
-  const handleRejectRoute = async (routeId: string) => {
-    await api.rejectRoute(routeId);
-    await refreshData();
-  };
-
-  const handleModifyRoute = async (routeId: string, newBinSequence: string[], newTruckId?: string) => {
-    await api.modifyRoute(routeId, newBinSequence, newTruckId);
-    await refreshData();
-  };
-
-  const handleReoptimizeRoute = async (routeId: string) => {
-    await api.reoptimizeRoute(routeId);
-    await refreshData();
-  };
-
-  const handleTriggerOptimization = async () => {
-    await api.optimizeRoutes();
-    await refreshData();
-  };
-
-  const handleGenerateCampaign = async (neighborhood: string, wasteIssue?: string) => {
-    await api.generateCampaign(neighborhood, wasteIssue);
-    await refreshData();
-  };
-
-  const handlePublishCampaign = async (campaignId: string) => {
-    await api.publishCampaign(campaignId);
-    await refreshData();
-  };
-
-  const handleTriggerOrchestration = async () => {
-    await api.triggerOrchestration('MANUAL_OPTIMIZE');
-    await refreshData();
-  };
-
-  const handleSimulateOverflow = async () => {
-    await api.simulateOverflow('BIN-005');
-    await refreshData();
-    setActiveTab('bins');
-  };
-
-  const handleSimulateTraffic = async () => {
-    await api.simulateTraffic('Gandhipuram');
-    await refreshData();
-    setActiveTab('map');
-  };
-
-  const handleCloseRoad = async () => {
-    await api.closeRoad('RS Puram', 'DB Road North Axis');
-    await refreshData();
-    setActiveTab('map');
-  };
-
-  const handleResetSimulation = async () => {
-    await api.resetSimulation();
-    setDemoStepInfo(null);
-    setDemoActive(false);
-    await refreshData();
-  };
-
-  // Citizen Report Handlers
-  const handleCreateCitizenReport = async (reportData: any) => {
-    await api.createCitizenReport(reportData);
-    await refreshData();
-  };
-
-  const handleVoteCitizenReport = async (id: string, direction: 'up' | 'down') => {
-    await api.voteCitizenReport(id, direction);
-    await refreshData();
-  };
-
-  const handleUpdateCitizenReportStatus = async (id: string, status: CitizenReportStatus) => {
-    await api.updateCitizenReportStatus(id, status);
-    await refreshData();
-  };
-
-  const criticalBinsCount = bins.filter(b => b.status === 'CRITICAL').length;
-  const pendingRoutesCount = routes.filter(r => r.approvalStatus === 'PENDING_APPROVAL').length;
-  const pendingReportsCount = citizenReports.filter(r => r.status === 'PENDING_VERIFICATION').length;
-
-  if (showLoginPage || !currentUser) {
-    return (
-      <LoginPage
-        onLoginSuccess={(user) => {
-          setCurrentUser(user);
-          setRole(user.role);
-          setShowLoginPage(false);
-        }}
-      />
-    );
+  // Landing page
+  if (showLanding && !user) {
+    return <LandingHero onEnter={handleEnterApp} />;
   }
 
+  // Login + Registration
+  if (!user) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
+  // Authenticated App Shell
+  const unreadCount = notifications.filter(n => !n.isRead).length;
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        if (user.role === 'BUYER') return <BuyerDashboard user={user} demands={demands} commitments={commitments} deliveries={deliveries} metrics={metrics} onRefresh={fetchData} />;
+        if (user.role === 'GRADER') return <GraderDashboard user={user} commitments={commitments} deliveries={deliveries} onRefresh={fetchData} />;
+        return <FarmerDashboard user={user} demands={demands} commitments={commitments} deliveries={deliveries} metrics={metrics} onRefresh={fetchData} />;
+      case 'marketplace':
+        return <DemandMarketplace user={user} demands={demands} onRefresh={fetchData} />;
+      case 'saturation':
+        return <DistrictSaturation />;
+      case 'deliveries':
+        return <DeliveryTracker user={user} deliveries={deliveries} onRefresh={fetchData} />;
+      case 'notifications':
+        return (
+          <div className="animate-fadeInUp" style={{ maxWidth: 700 }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', marginBottom: 'var(--space-lg)' }}>Notifications</h2>
+            {notifications.length === 0 ? (
+              <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl)', color: 'var(--slate-400)' }}>
+                <span style={{ fontSize: '2rem' }}>🔔</span>
+                <p style={{ marginTop: 'var(--space-sm)' }}>No notifications yet</p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
+                {notifications.map(n => (
+                  <div key={n.id} className="card" style={{
+                    padding: 'var(--space-md)',
+                    borderLeft: `3px solid ${n.isRead ? 'var(--slate-200)' : 'var(--green-500)'}`,
+                    opacity: n.isRead ? 0.7 : 1
+                  }} onClick={() => {
+                    if (!n.isRead) {
+                      api.notifications.markRead(n.id).then(fetchData);
+                    }
+                  }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <strong style={{ fontSize: '0.875rem' }}>{n.title}</strong>
+                      <span className={`badge badge-${n.type === 'DEMAND' ? 'green' : n.type === 'ESCROW' ? 'amber' : 'blue'}`}>{n.type}</span>
+                    </div>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginTop: 4 }}>{n.message}</p>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--slate-400)' }}>
+                      {new Date(n.createdAt).toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#FAF5EA] text-slate-800 flex flex-col font-sans antialiased selection:bg-amber-600 selection:text-white">
-      <Header
-        currentRole={currentRole}
-        setRole={(role) => {
-          setRole(role);
-          if (currentUser) {
-            setCurrentUser({ ...currentUser, role });
-          }
-        }}
-        currentUser={currentUser}
-        onLogout={async () => {
-          await api.logout();
-          setCurrentUser(null);
-          setShowLoginPage(true);
-        }}
-        onOpenLogin={() => setShowLoginPage(true)}
-        alerts={alerts}
-        onStartDemo={handleStartDemo}
-        demoActive={demoActive}
-        demoStepInfo={demoStepInfo}
+    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--slate-50)' }}>
+      <Sidebar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        onTabChange={(tab) => setActiveTab(tab as ViewTab)}
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        userRole={user.role}
       />
-
-      <div className="flex-1 flex overflow-hidden">
-        <Sidebar
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          criticalBinsCount={criticalBinsCount}
-          pendingRoutesCount={pendingRoutesCount}
-          pendingReportsCount={pendingReportsCount}
-          userRole={currentRole}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: sidebarOpen ? 260 : 64, transition: 'margin-left var(--transition-base)' }}>
+        <Header
+          user={user}
+          onLogout={handleLogout}
+          onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          unreadNotifications={unreadCount}
+          onNotificationsClick={() => setActiveTab('notifications')}
         />
-
-        <main className="flex-1 overflow-y-auto bg-[#FAF5EA]">
-          {activeTab === 'dashboard' && (
-            <ControlDashboard
-              bins={bins}
-              trucks={trucks}
-              routes={routes}
-              agentStatuses={agentStatuses}
-              agentEvents={agentEvents}
-              onQuickSimulateWaste={handleSimulateOverflow}
-              onQuickOptimizeRoute={handleTriggerOptimization}
-              onQuickGenerateCampaign={() => handleGenerateCampaign('RS Puram')}
-              setActiveTab={setActiveTab}
-            />
-          )}
-
-          {activeTab === 'map' && (
-            <div className="p-4">
-              <CityMap
-                bins={bins}
-                trucks={trucks}
-                routes={routes}
-                trafficEvents={trafficEvents}
-                roadClosures={roadClosures}
-                citizenReports={citizenReports}
-                onSelectBin={(b) => console.log('Selected bin', b.binId)}
-                onSelectTruck={(t) => console.log('Selected truck', t.truckId)}
-              />
-            </div>
-          )}
-
-          {activeTab === 'bins' && (
-            <BinManagement
-              bins={bins}
-              onSimulateFill={handleSimulateFill}
-              onScanImage={handleScanImage}
-              onUpdateWasteType={handleUpdateWasteType}
-            />
-          )}
-
-          {activeTab === 'trucks' && (
-            <TruckFleet trucks={trucks} />
-          )}
-
-          {activeTab === 'routes' && (
-            <RouteDispatch
-              routes={routes}
-              trucks={trucks}
-              currentRole={currentRole}
-              onApproveRoute={handleApproveRoute}
-              onRejectRoute={handleRejectRoute}
-              onModifyRoute={handleModifyRoute}
-              onReoptimizeRoute={handleReoptimizeRoute}
-              onTriggerOptimization={handleTriggerOptimization}
-            />
-          )}
-
-          {activeTab === 'reports' && (
-            <CitizenReporting
-              reports={citizenReports}
-              bins={bins}
-              onCreateReport={handleCreateCitizenReport}
-              onVoteReport={handleVoteCitizenReport}
-              onUpdateReportStatus={handleUpdateCitizenReportStatus}
-            />
-          )}
-
-          {activeTab === 'agents' && (
-            <AgentObservability
-              agentStatuses={agentStatuses}
-              agentEvents={agentEvents}
-              onTriggerOrchestration={handleTriggerOrchestration}
-            />
-          )}
-
-          {activeTab === 'analytics' && (
-            <AnalyticsDashboard />
-          )}
-
-          {activeTab === 'campaigns' && (
-            <CampaignManager
-              campaigns={campaigns}
-              onGenerateCampaign={handleGenerateCampaign}
-              onPublishCampaign={handlePublishCampaign}
-            />
-          )}
-
-          {activeTab === 'alerts' && (
-            <AlertsPanel alerts={alerts} />
-          )}
-
-          {activeTab === 'simulation' && (
-            <SimulatorPanel
-              onSimulateOverflow={handleSimulateOverflow}
-              onSimulateTraffic={handleSimulateTraffic}
-              onCloseRoad={handleCloseRoad}
-              onResetSimulation={handleResetSimulation}
-              onStartDemo={handleStartDemo}
-            />
-          )}
+        <main style={{ flex: 1, padding: 'var(--space-xl)', paddingTop: 'calc(64px + var(--space-xl))' }}>
+          {renderContent()}
         </main>
       </div>
     </div>
   );
-}
+};
+
+export default App;

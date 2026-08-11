@@ -1,164 +1,143 @@
 import React from 'react';
-import {
-  Truck,
-  Play,
-  CheckCircle2,
-  Bell,
-  Cpu,
-  User as UserIcon,
-  Activity,
-  Layers,
-  Sparkles,
-  LogOut,
-  LogIn
-} from 'lucide-react';
-import { UserRole, SystemAlert, User } from '../../types.js';
+import { User } from '../../types';
 
 interface HeaderProps {
-  currentRole: UserRole;
-  setRole: (role: UserRole) => void;
-  currentUser: User | null;
+  user: User;
   onLogout: () => void;
-  onOpenLogin: () => void;
-  alerts: SystemAlert[];
-  onStartDemo: () => void;
-  demoActive: boolean;
-  demoStepInfo?: { stepNumber: number; stepName: string; description: string } | null;
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+  onToggleSidebar: () => void;
+  unreadNotifications: number;
+  onNotificationsClick: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  currentRole,
-  setRole,
-  currentUser,
-  onLogout,
-  onOpenLogin,
-  alerts,
-  onStartDemo,
-  demoActive,
-  demoStepInfo,
-  activeTab,
-  setActiveTab
-}) => {
-  const criticalCount = alerts.filter(a => a.severity === 'CRITICAL').length;
+const Header: React.FC<HeaderProps> = ({ user, onLogout, onToggleSidebar, unreadNotifications, onNotificationsClick }) => {
+  const roleLabels: Record<string, { label: string; emoji: string; color: string }> = {
+    FARMER: { label: 'Farmer', emoji: '🌱', color: 'var(--green-600)' },
+    BUYER: { label: 'Buyer', emoji: '🏪', color: 'var(--blue-600)' },
+    GRADER: { label: 'Grader', emoji: '⚖️', color: 'var(--amber-600)' },
+    ADMIN: { label: 'Admin', emoji: '🛡️', color: '#6366f1' },
+  };
+
+  const roleInfo = roleLabels[user.role] || roleLabels.FARMER;
 
   return (
-    <header className="sticky top-0 z-30 bg-[#FFFDF7] border-b border-[#E5A83B]/40 text-amber-950 px-4 lg:px-6 py-3 flex flex-wrap items-center justify-between shadow-2xs">
-      {/* Brand & Subtitle */}
-      <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-600/20">
-          <Truck className="w-6 h-6" />
-        </div>
-        <div>
-          <div className="flex items-center space-x-2">
-            <h1 className="text-xl font-extrabold tracking-tight text-slate-900">
-              WASTEWISE
-            </h1>
-            <span className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-              SDG 11 & 12
-            </span>
+    <header style={{
+      position: 'fixed',
+      top: 0,
+      right: 0,
+      left: 0,
+      height: 64,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '0 var(--space-xl)',
+      background: 'rgba(255,255,255,0.85)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      borderBottom: '1px solid var(--color-border)',
+      zIndex: 'var(--z-sticky)' as any,
+    }}>
+      {/* Left */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+        <button
+          onClick={onToggleSidebar}
+          className="btn btn-ghost btn-icon"
+          style={{ fontSize: '1.25rem' }}
+          aria-label="Toggle sidebar"
+        >
+          ☰
+        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 32,
+            height: 32,
+            borderRadius: 6,
+            background: 'var(--agrow-forest-900)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--agrow-leaf-400)',
+            fontWeight: 800,
+            fontSize: '1.1rem'
+          }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 6-4.5 11-10 11Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
           </div>
-          <p className="text-xs text-slate-500 flex items-center gap-1.5">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Autonomous Municipal Engine • Coimbatore Smart City
-          </p>
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: '1.35rem',
+            fontWeight: 900,
+            letterSpacing: '-0.03em',
+            color: 'var(--agrow-forest-950)'
+          }}>
+            AGROW
+          </span>
         </div>
       </div>
 
-      {/* Demo Step Bar Banner if running */}
-      {demoStepInfo && (
-        <div className="hidden xl:flex items-center gap-3 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 animate-fade-in shadow-xs">
-          <Sparkles className="w-4 h-4 text-emerald-600 animate-spin" />
-          <div>
-            <span className="font-bold text-emerald-800">
-              DEMO STEP {demoStepInfo.stepNumber}/6: {demoStepInfo.stepName}
-            </span>
-            <p className="text-[11px] text-emerald-700">{demoStepInfo.description}</p>
-          </div>
-        </div>
-      )}
-
-      {/* Action Controls, Role Switcher, & User Profile */}
-      <div className="flex items-center space-x-3 mt-2 sm:mt-0">
-        {/* 1-Click START DEMO button */}
+      {/* Right */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+        {/* Notifications */}
         <button
-          onClick={onStartDemo}
-          id="btn-start-demo"
-          className="flex items-center space-x-2 px-3.5 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all transform hover:-translate-y-0.5 cursor-pointer active:translate-y-0"
+          onClick={onNotificationsClick}
+          className="btn btn-ghost btn-icon"
+          style={{ position: 'relative', fontSize: '1.125rem' }}
+          aria-label="Notifications"
         >
-          <Play className="w-3.5 h-3.5 fill-current" />
-          <span>{demoActive ? 'NEXT DEMO STEP ▶' : 'START DEMO MODE'}</span>
-        </button>
-
-        {/* Alerts Badge */}
-        <button
-          onClick={() => setActiveTab('alerts')}
-          className="relative p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer border border-slate-200"
-          title="System Alerts"
-        >
-          <Bell className="w-4 h-4" />
-          {criticalCount > 0 && (
-            <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-rose-600 text-white animate-bounce">
-              {criticalCount}
+          🔔
+          {unreadNotifications > 0 && (
+            <span style={{
+              position: 'absolute',
+              top: 2,
+              right: 2,
+              width: 18,
+              height: 18,
+              borderRadius: '50%',
+              background: 'var(--red-500)',
+              color: 'white',
+              fontSize: '0.625rem',
+              fontWeight: 700,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '2px solid white'
+            }}>
+              {unreadNotifications > 9 ? '9+' : unreadNotifications}
             </span>
           )}
         </button>
 
-        {/* Role Switcher */}
-        <div className="flex items-center bg-slate-100 rounded-lg p-1 border border-slate-200 text-xs">
-          <span className="text-[11px] text-slate-500 px-2 font-medium hidden sm:inline">Role:</span>
-          {(['ADMIN', 'DISPATCHER', 'ANALYST'] as UserRole[]).map(r => (
-            <button
-              key={r}
-              onClick={() => setRole(r)}
-              className={`px-2.5 py-1 rounded-md transition-all font-medium cursor-pointer ${
-                currentRole === r
-                  ? 'bg-white text-emerald-700 font-bold shadow-xs border border-slate-200'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              {r}
-            </button>
-          ))}
+        {/* User Profile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+            border: `2px solid ${roleInfo.color}`,
+            overflow: 'hidden'
+          }}>
+            <img
+              src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=16A34A&color=fff`}
+              alt={user.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+          <div style={{ lineHeight: 1.2 }}>
+            <div style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{user.name}</div>
+            <div style={{ fontSize: '0.6875rem', color: roleInfo.color, fontWeight: 600 }}>
+              {roleInfo.emoji} {roleInfo.label}
+              {user.district && <span style={{ color: 'var(--slate-400)', fontWeight: 400 }}> · {user.district}</span>}
+            </div>
+          </div>
         </div>
 
-        {/* Account / Login Badge */}
-        {currentUser ? (
-          <div className="flex items-center space-x-2 pl-2 border-l border-slate-200">
-            <img
-              src={currentUser.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'}
-              alt={currentUser.name}
-              className="w-8 h-8 rounded-full object-cover border border-slate-300"
-              referrerPolicy="no-referrer"
-            />
-            <div className="hidden md:block text-left">
-              <div className="text-xs font-bold text-slate-900 truncate max-w-[110px]">
-                {currentUser.name}
-              </div>
-              <div className="text-[10px] text-slate-500 font-mono">
-                {currentUser.role}
-              </div>
-            </div>
-            <button
-              onClick={onLogout}
-              className="p-2 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-600 transition-colors cursor-pointer border border-slate-200"
-              title="Sign Out / Switch Account"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={onOpenLogin}
-            className="flex items-center gap-1.5 px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition-all cursor-pointer shadow-xs"
-          >
-            <LogIn className="w-3.5 h-3.5" />
-            <span>Sign In</span>
-          </button>
-        )}
+        <button onClick={onLogout} className="btn btn-ghost btn-sm" style={{ color: 'var(--slate-400)' }}>
+          Logout
+        </button>
       </div>
     </header>
   );
 };
 
+export default Header;
